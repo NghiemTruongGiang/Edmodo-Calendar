@@ -1,0 +1,39 @@
+{% if bookmarks %}
+<ul class = "bookmark">
+	{% for bookmark in bookmarks %}
+		<li>
+			<a href="{{ bookmark.link.url|escape }}" class = "title">
+				{{ bookmark.title|escape }}</a>
+			{% if show_edit %}
+        		<a href="/save/?url={{ bookmark.link.url|urlencode }}"
+		          class="edit">[edit]</a>
+        	{% endif %} 
+			<br/>
+			{% if show_tags %}
+				Tag: 
+				{% if bookmark.tag_set.all %}
+					<ul class = "tags">
+						{% for tag in bookmark.tag_set.all %}
+							<li>
+								<a href= "/tag/{{ tag.name|urlencode }}/">
+									{{ tag.name|escape }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				{% else %}
+					None.
+				{% endif %}
+				<br/>
+			{% endif %}
+			{% if show_user %}
+				Posted by: 
+				<a href="/user/{{ bookmark.user.username }}/"
+					class = "username">{{ bookmark.user.username }}</a>
+			{% endif %}
+		</li>
+	{% endfor %}
+</ul>
+{% else %}
+	<p>No bookmarks found.</p>
+{% endif %}
+
