@@ -1,0 +1,54 @@
+#nav{
+	float: right;
+	text-align:right;
+	width=100%;
+}
+#tag-cloud{
+	text-align = center;
+}
+#tag-cloud a{
+	margin: 0 0.2em;
+}
+.tag-cloud-0 { font-size: 100%}
+.tag-cloud-1 { font-size: 120%}
+.tag-cloud-2 { font-size: 140%}
+.tag-cloud-3 { font-size: 160%}
+.tag-cloud-4 { font-size: 180%}
+.tag-cloud-5 { font-size: 200%}
+
+input{
+	display: block;
+}
+ul.tags, ul.tags li{
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+ul.bookmark .edit{
+	font-size: 70%;
+}
+
+textarea {
+	display: block;
+}
+
+.comment {
+	margin: 1em;
+	padding: 5px;
+	border: 1px solid #000;
+}
+
+ul.messages{
+	border: 1px dashed #000;
+	margin: 1em 4em;
+	padding: 1em;
+}
+
+#footer {
+	margin-top: 2em;
+	text-align: center;
+}
+#footer input {
+	display: inline;
+}
