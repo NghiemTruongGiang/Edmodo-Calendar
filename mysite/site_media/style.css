@@ -38,3 +38,17 @@ textarea {
 	padding: 5px;
 	border: 1px solid #000;
 }
+
+ul.messages{
+	border: 1px dashed #000;
+	margin: 1em 4em;
+	padding: 1em;
+}
+
+#footer {
+	margin-top: 2em;
+	text-align: center;
+}
+#footer input {
+	display: inline;
+}

@@ -1,3 +1,5 @@
+{% load i18n %}
+{% load bookmarks_filters %}
 <!DOCTYPE html PUBLIC "-W3C//DTDXHTML 1.0 Transitional//En"
 "http://w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -23,6 +25,24 @@
 			{% endif %}
 		</div>
 		<h1>{% block head %}{% endblock %}</h1>
+		{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}
+					<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
 		{% block content %}{% endblock %}	
+		
+		<div id="footer">
+			<form action="/i18n/setlang/" method="post">
+				<select name="language">
+					{% for lang in LANGUAGES %}		
+						<option value="{{ lang.0 }}"> {{ lang.1 }}</option>
+					{% endfor %}
+				</select>
+				<input type="submit" value="GO" />
+			</form>
+		</div>
 	</body>
 </html>

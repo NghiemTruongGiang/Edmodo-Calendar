@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Welcome to Django Bookmarks{% endblock %}
 {% block head %}Welcome to Django Bookmarks{% endblock %}
+{% block external %} 
+	<link rel="alternate" type="application/rss+xml"
+		title = "Django Bookmarks | Recent Bookmarks" href="/feeds/recent/"  />
+{% endblock %}
 {% block content %}
 	{% if user.username %}
 		<p>Welcome {{ user.username }}!

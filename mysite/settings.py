@@ -40,6 +40,10 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
+LANGUAGES = (
+	('en', 'English'),
+	('de', 'German'),
+)
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
 USE_L10N = True
@@ -95,12 +99,15 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+	#'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-	'django.contrib.csrf.middleware.CsrfMiddleware'
+	'django.contrib.csrf.middleware.CsrfMiddleware',
+	#'django.middleware.locale.LocaleMiddleware',
+	#'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'mysite.urls'
@@ -144,3 +151,17 @@ LOGGING = {
         },
     }
 }
+
+SITE_HOST = '127.0.0.1:8000'
+DEFAULT_FROM_EMAIL = 'Django Bookmarks <k55ca.uet@gmail.com>'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'k55ca.uet@gmail.com'
+EMAIL_HOST_PASSWORD = 'ca123456'
+EMAIL_USE_TLS = True 
+#CACHE_BACKEND = 'locmem:///'
+#CACHE_BACKEND = 'db://cache_table'
+#CACHE_BACKEND = 'file:///tmp/django_cache'
+#CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+#CACHE_BACKEND = 'path.to.backend://'
+#CACHE_MIDDLEWARE_SECONDS = 60 * 0.25

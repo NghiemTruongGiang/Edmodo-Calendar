@@ -1,0 +1,115 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-04 11:03+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: .\bookmarks\forms.py:70
+msgid "Friend's Name"
+msgstr "Ten nguoi ban:"
+
+#: .\bookmarks\forms.py:71
+msgid "Friend's Email"
+msgstr "Email cua nguoi ban:"
+
+#: .\bookmarks\views.py:370
+#, python-format
+msgid "An invitation was sent to %s."
+msgstr "Loi moi da duoc gui cho %s"
+
+#: .\bookmarks\views.py:374
+msgid "An error happend whensending the invitation."
+msgstr "Loi khi gui loi moi."
+
+#: .\templates\friend_invite.html.py:3 .\templates\friend_invite.html.py:4
+msgid "Invite a Friend"
+msgstr "Moi ban be tham gia"
+
+#: .\templates\friend_invite.html.py:10
+msgid "send invite"
+msgstr "Gui loi moi"
+
+#: .\templates\admin\base_site.html.py:4
+msgid "Bookmarks site admin"
+msgstr ""
+
+#: .\templates\admin\base_site.html.py:7
+msgid "Bookmarks administration"
+msgstr ""
+
+#: .\templates\admin\change_form.html.py:19
+#: .\templates\admin\change_list.html.py:42
+#: .\templates\admin\delete_confirmation.html.py:6
+msgid "Home"
+msgstr ""
+
+#: .\templates\admin\change_form.html.py:22
+msgid "Add"
+msgstr ""
+
+#: .\templates\admin\change_form.html.py:31
+msgid "History"
+msgstr ""
+
+#: .\templates\admin\change_form.html.py:32
+msgid "View on site"
+msgstr ""
+
+#: .\templates\admin\change_form.html.py:43
+#: .\templates\admin\change_list.html.py:73
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\admin\change_list.html.py:64
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: .\templates\admin\change_list.html.py:84
+msgid "Filter"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html.py:10
+msgid "Delete"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html.py:17
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html.py:25
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html.py:33
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html.py:38
+msgid "Yes, I'm sure"
+msgstr ""

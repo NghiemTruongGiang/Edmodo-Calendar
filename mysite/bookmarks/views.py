@@ -1,4 +1,6 @@
 # Create your views here.
+import smtplib
+from django.utils.translation import ugettext as _
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import Context
 from django.template.loader import get_template
@@ -8,9 +10,14 @@ from django.contrib.auth import logout
 from django.template import RequestContext
 from bookmarks.forms import *
 from bookmarks.models import *
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.paginator import Paginator, InvalidPage
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime, timedelta
+#from django.views.decorators.cache import cache_page
+
+ITEMS_PER_PAGE = 5
 
 def popular_page(request):
 	today = datetime.today()
@@ -34,15 +41,43 @@ def main_page(request):
 	return  render_to_response('main_page.html', variables)
 
 @login_required(login_url = '/login/')
+#@cache_page( 60*0.5 )
 def user_page(request, username):
 	user = get_object_or_404(User, username = username)
-	bookmarks = user.bookmark_set.order_by('-id')
+	query_set = user.bookmark_set.order_by('-id')
+	paginator = Paginator(query_set, ITEMS_PER_PAGE)
 	
+	if request.user.is_authenticated():
+		is_friend = Friendship.objects.filter(
+			from_friend = request.user,
+			to_friend = user
+		)
+	else:
+		is_friend = False 
+	try:
+		page_number = int(request.GET['page'])
+	except (KeyError, ValueError):
+		page_number = 1
+		
+	try:
+		page = paginator.page(page_number)
+	except InvalidPage:
+		raise Http404
+		
+	bookmarks = page.object_list
 	variables = RequestContext(request,{
 		'username': username,
 		'bookmarks': bookmarks,
 		'show_tags': True,
 		'show_edit': username == request.user.username,
+		'show_paginator': paginator.num_pages > 1,
+		'has_prev': page.has_previous(),
+		'has_next': page.has_next(),
+		'page': page_number,
+		'pages': paginator.num_pages,
+		'next_page': page_number + 1,
+		'prev_page': page_number -1,
+		'is_friend': is_friend,
 	})
 	return render_to_response('user_page.html', variables)
 	
@@ -57,8 +92,29 @@ def register_page(request):
 			user = User.objects.create_user(
 				username = form.cleaned_data['username'],
 				password = form.cleaned_data['password1'],
-				email = form.cleaned_data['email']
+				email = form.cleaned_data['email'],
 			)
+			
+			if 'inivitation' in request.session:
+				#Retrieve the invitation object.
+				invitation = Invitation.objects.get(
+					id = request.session['invitation']
+				)
+				#Create friendship from user to sender
+				friendship = Friendship(
+					from_friend = user,
+					to_friend = invitation.sender
+				)
+				friendship.save()
+				#Create friendship form sender to user
+				friendship = Friendship(
+					from_friend = invitation.sender,
+					to_friend = user
+				)
+				friendship.save()
+				#Delete the invitation from the database and sesson
+				invitation.delete()
+				del request.sesson['invitation']
 			return HttpResponseRedirect('/register/success/')
 	
 	else:
@@ -170,6 +226,7 @@ def tag_page(request, tag_name):
 	})
 	return render_to_response('tag_page.html', variables)
 	
+#@cache_page(60 * 15)
 def tag_cloud_page(request):
 	MAX_WEIGHT = 5
 	tags = Tag.objects.order_by('name')
@@ -192,28 +249,31 @@ def tag_cloud_page(request):
 	return render_to_response('tag_cloud_page.html', variables)
 	
 def search_page(request):
-  form = SearchForm()
-  bookmarks = []
-  show_results = False
-  if 'query' in request.GET:
-    show_results = True
-    query = request.GET['query'].strip()
-    if query:
-      form = SearchForm({'query' : query}) 
-      bookmarks = Bookmark.objects.filter(
-        title__icontains=query
-      )[:10]
-  variables = RequestContext(request, {
-    'form': form,
-    'bookmarks': bookmarks,
-    'show_results': show_results,
-    'show_tags': True,
-    'show_user': True
-  })
-  if request.GET.has_key('ajax'):
-    return render_to_response('bookmark_list.html', variables)
-  else:
-    return render_to_response('search.html', variables)
+	form = SearchForm()
+	bookmarks = []
+	show_results = False
+	if 'query' in request.GET:
+		show_results = True
+		query = request.GET['query'].strip()
+		if query:
+			keywords = query.split()
+			q = Q()
+			for keyword in keywords:
+				q = q & Q(title__icontains = keyword)		
+			form = SearchForm({'query' : query}) 
+			bookmarks = Bookmark.objects.filter(q)[:10]
+	  
+	variables = RequestContext(request, {
+		'form': form,
+		'bookmarks': bookmarks,
+		'show_results': show_results,
+		'show_tags': True,
+		'show_user': True
+	})
+	if request.GET.has_key('ajax'):
+		return render_to_response('bookmark_list.html', variables)
+	else:
+		return render_to_response('search.html', variables)
 	
 def ajax_tag_autocomplete(request):
   if 'q' in request.GET:
@@ -252,3 +312,81 @@ def bookmark_page(request, bookmark_id):
 	})
 	
 	return render_to_response('bookmark_page.html', variables)
+	
+def friends_page(request, username):
+	user = get_object_or_404(User, username = username)
+	friends = [friendship.to_friend for friendship in user.friend_set.all()]
+	friend_bookmarks = Bookmark.objects.filter(
+		user__in = friends		
+	).order_by('-id')
+	
+	variables = RequestContext(request, {
+		'username': username,
+		'friends': friends,
+		'bookmarks': friend_bookmarks[:10],
+		'show_tags': True,
+		'show_user': True
+	})
+	
+	return render_to_response('friends_page.html', variables)
+	
+@login_required(login_url = '/login/')
+def friend_add(request):
+	if 'username' in request.GET:
+		friend = get_object_or_404(
+			User, username = request.GET['username']
+		)
+		friendship = Friendship(	
+			from_friend = request.user,
+			to_friend = friend
+		)
+		try:
+			friendship.save()
+			request.user.message_set.create(
+				message = u'%s was added to your friend list.' % friend.username
+			)
+		except:
+			request.user.message_set.create(
+				message = u'%s is already a friend of yours' % friend.username
+			)
+		return HttpResponseRedirect(
+			'/friends/%s/' % request.user.username
+		)
+	else:
+		raise Http404
+	
+@login_required(login_url = '/login/')	
+def friend_invite(request):
+	if request.method == 'POST':
+		form = FriendInviteForm(request.POST)
+		if form.is_valid():
+			invitation = Invitation(
+				name = form.cleaned_data['name'],
+				email = form.cleaned_data['email'],
+				code = User.objects.make_random_password(20),
+				sender = request.user,
+			)
+			invitation.save()
+			try:
+				invitation.send()
+				request.user.message_set.create(
+					message = _(u'An invitation was sent to %s.') % invitation.email
+				)
+			except smtplib.SMTPException:
+				request.user.message_set.create(
+					message =_(u'An error happend when'
+						u'sending the invitation.')
+				)
+			invitation.send()
+			return HttpResponseRedirect('/friend/invite/')
+	else:
+		form = FriendInviteForm()
+		
+	variables = RequestContext(request, { 'form': form })
+	
+	return render_to_response('friend_invite.html', variables)
+	
+def friend_accept(request, code):
+	invitation = get_object_or_404(Invitation, code__exact = code)
+	request.session['invitation'] = invitation.id
+	return HttpResponseRedirect('/register/')
