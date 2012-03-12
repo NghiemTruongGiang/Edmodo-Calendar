@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+<!-- ... -->
+{% block content %}
+	<div class="head">
+		<a href="{% url Calendar.views.main year|add:'-3' %}">&lt;&lt; Prev</a>
+		<a href="{% url Calendar.views.main year|add:'3' %}">Next &gt;&gt;</a>
+	</div>
+	<div class="head2">
+		<div class="column2">
+		{% for year, months in years %}
+		<table cellspacing="10" cellpadding="0">
+			<tr class="algcent">
+				<td colspan="4">{{ year }}</td>
+			</tr>
+			<tr>
+			{% for month in months %}
+				<td class=
+				{% if month.current %}"current"{% endif %}
+				{% if not month.current %}"month"{% endif %}>
+					{% if month.entry %}<b>{% endif %}
+					<a href="{% url Calendar.views.month year month.n %}">{{ month.name }}</a>
+					{% if month.entry %}</b>{% endif %}
+				</td>
+				
+				{% if month.n == 4 or month.n == 8 %}</tr>{% endif %}
+			{% endfor %}
+		</table>
+		{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
+

@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>Register form</title>
+    <link rel="stylesheet" type="text/css" href="/site_media/register.css">
+</head>
+<body>
+<div id="register">
+
+    <form id="form" method="post" action=".">{% csrf_token %}
+        <p align="center" style="font-size: 40px;">User Registration</p>
+        <div id="username" align="right">
+            <p><label for="id_username">Username:</label>
+                {{form.username}}</p>
+        </div>
+        <div id="email" align="right">
+            <p><label for="id_email">Email:</label>
+                {{form.email}}</p>
+        </div>
+        <div id="password1" align="right">
+            <p><label for="id_password1">Password:</label>
+                {{form.password1}}</p>
+        </div>
+        <div id="password2" align="right">
+            <p><label for="id_password2">Again password:</label>
+                {{form.password2}}</p>
+        </div>
+        <div id="firstName" align="right">
+            <p><label for="id_first_name">First name:</label>
+                {{form.first_name}}</p>
+        </div>
+        <div id="lastName" align="right">
+            <p><label for="id_last_name">Last name:</label>
+                {{form.last_name}}</p>
+        </div>
+        <div id="submit" align="right">
+            <input type="submit" value="register" style="width: 160px; height: 27px;">
+        </div>
+    </form>
+</div>
+</body>
+</html>

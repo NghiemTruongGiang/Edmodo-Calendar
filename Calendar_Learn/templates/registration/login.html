@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Django Bookmarks - User Login</title>
+        <link rel="stylesheet" type="text/css" href="/site_media/login.css">
+
+    </head>
+    <body >
+        <div id="login" align="center">
+            {% if form.errors %}
+            <p style="color:#3b54c2">Your username and password didn't match.
+                Please try again.</p>
+            {% endif %}
+            <form id="form-login" method="post" action=".">{% csrf_token %}
+                <div id="username">
+                    <span class="login-lbl">
+	                Username or Email	        </span>
+                    <p><label for="id_username"></label>
+                        {{form.username}}</p>
+                </div>
+                <div id="password">
+                    <span class="login-lbl">
+            	    Password            </span>
+                    <p><label for="id_password"></label>
+                        {{form.password}}</p> </br>
+                </div>
+                <input type="hidden" name="next" value="/" />
+                <input type="submit" value="login" style="width: 160px; height: 30px" /> </br></br>
+            </form>
+            <div id="signup">
+                <p>Sign up now. It's free</p>
+                <a href="/register/">Sign up</a>
+            </div>
+
+
+        </div>
+        <img id="logo" src="/site_media/edmodo-logo.png">
+
+    </body>
+</html>
