@@ -104,16 +104,17 @@ def month(request, year, month, change=None):
         if len(lst[week]) == 7:
             lst.append([])
             week += 1
-			
+	#del lst[len(lst)]
+	#lst.remove([])
     return render_to_response("month.html", dict(
 		year=year, 
 		month=month, 
 		user=request.user,
-        month_days=lst, 
+        month_days=lst[:week], 
 		mname=mnames[month-1], 
 		#reminders=reminders(request)
 	))
-	
+
 @login_required(login_url = '/login/')
 def day(request, year, month, day):
 	"""Entries for day"""
@@ -123,7 +124,7 @@ def day(request, year, month, day):
 		exclude = ('creator', 'date'),
 		can_delete = True
 	)
-	
+
 	if request.method == 'POST':
 		formset = EntriesFormset(request.POST)
 		if formset.is_valid:
