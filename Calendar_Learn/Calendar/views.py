@@ -120,7 +120,7 @@ def month(request, year, month, change=None):
 		year=year, 
 		month=month, 
 		user=request.user,
-        month_days=lst, 
+        month_days=lst[:week], 
 		mname=mnames[month-1], 
 		#reminders=reminders(request)
 	))
