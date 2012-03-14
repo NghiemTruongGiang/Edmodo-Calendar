@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     #(r"^settings/$", "settings"),
     (r"^(\d+)/$", main),
     (r"^$", main),
+    (r'^register/$', register_page),
 	(r'^admin/', include(admin.site.urls)),
 	
 	#Session management

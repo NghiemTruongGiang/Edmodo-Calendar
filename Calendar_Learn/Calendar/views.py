@@ -6,8 +6,19 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.forms.models import modelformset_factory
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404, render_to_response
+#from django.http import HttpResponseRedirect, HttpResponse
+#from django.shortcuts import get_object_or_404, render_to_response
+
+#from django.http import Http404
+#from django.contrib.auth.models import User
+from django.shortcuts import render_to_response
+#from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
+from django.template import RequestContext
+from Calendar.form import *
+#from django.views.decorators.csrf import csrf_exempt
+#from Calendar.models import *
+
 
 from Calendar_Learn.Calendar.models import *
 
@@ -104,17 +115,16 @@ def month(request, year, month, change=None):
         if len(lst[week]) == 7:
             lst.append([])
             week += 1
-	#del lst[len(lst)]
-	#lst.remove([])
+			
     return render_to_response("month.html", dict(
 		year=year, 
 		month=month, 
 		user=request.user,
-        month_days=lst[:week], 
+        month_days=lst, 
 		mname=mnames[month-1], 
 		#reminders=reminders(request)
 	))
-
+	
 @login_required(login_url = '/login/')
 def day(request, year, month, day):
 	"""Entries for day"""
@@ -124,7 +134,7 @@ def day(request, year, month, day):
 		exclude = ('creator', 'date'),
 		can_delete = True
 	)
-
+	
 	if request.method == 'POST':
 		formset = EntriesFormset(request.POST)
 		if formset.is_valid:
@@ -161,3 +171,25 @@ def add_csrf(request, **kwargs):
 	d = dict(user = request.user, **kwargs)
 	d.update(csrf(request))
 	return d
+
+def register_page(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password2'],
+                email=form.cleaned_data['email']
+            )
+            user.first_name=form.cleaned_data['first_name']
+            user.last_name=form.cleaned_data['last_name']
+            return HttpResponseRedirect('/')
+    else:
+        form = RegistrationForm()
+    variables = RequestContext(request, {
+        'form': form
+    })
+    return render_to_response(
+        'registration/register.html',
+        variables
+    )

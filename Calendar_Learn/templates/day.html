@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="head2">
 	<h4>My Entries</h4>
 	<form action="{% url Calendar.views.day year month day %}" method="post"> {% csrf_token %}
 		{{ entries.management_form }}
@@ -19,6 +18,6 @@
 		{% endfor %}
 		<input type="submit" value="Save" />
 	</form>
-</div>
+
 
 {% endblock %}

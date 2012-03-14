@@ -1,24 +1,14 @@
 {% extends "base.html" %}
 <!-- ... -->
 {% block content %}
-<div class="head">
-	<table width="48%">
-		<tr>
-			<td class="head_banner">
-				<a href="{% url Calendar.views.main year|add:'-3' %}">&lt;&lt; Prev</a>
-			</td>
-			<td class="head_banner">
-				<a href="{% url Calendar.views.main year|add:'3' %}">Next &gt;&gt;</a>
-			</td>
-			<td id="center_month">
-			</td>
-		</tr>
-	</table> 
-</div>
-<div class="head2">
-	<div class="column2">
+	<div class="head">
+		<a href="{% url Calendar.views.main year|add:'-3' %}">&lt;&lt; Prev</a>
+		<a href="{% url Calendar.views.main year|add:'3' %}">Next &gt;&gt;</a>
+	</div>
+	<div class="head2">
+		<div class="column2">
 		{% for year, months in years %}
-		<table cellspacing="10" cellpadding="0" class="test">
+		<table cellspacing="10" cellpadding="0">
 			<tr class="algcent">
 				<td colspan="4">{{ year }}</td>
 			</tr>
@@ -36,8 +26,8 @@
 			{% endfor %}
 		</table>
 		{% endfor %}
+		</div>
 	</div>
-</div>
 {% endblock %}
 
 
