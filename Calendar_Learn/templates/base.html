@@ -16,6 +16,18 @@
 		</div>
 		<div class="column3">
 			<canvas class="CoolClock:Chrome:75::7.00" id="clock"></canvas>
+			<div class="c3-reminders">
+				<div id="c3-reminders-title">
+					<b>Next meeting</b>
+				</div>
+				{% if reminders %}
+					{% for reminder in reminders %}
+						<div class="c3-r-reminder">
+							{{ reminder.short|safe }}
+						</div>
+					{% endfor %}
+				{% endif %}
+			</div>
 		</div>
 	{% block content %} {% endblock %}
 	</body>

@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+	{% for entry in other_entries %}
+		<div class="entry">
+			{{ entry.creator }} |
+			{{ entry.short|safe }} </br>
+			{{ entry.body }} <br/>
+		</div></br>
+	{% endfor %}
 	<h4>My Entries</h4>
 	<form action="{% url Calendar.views.day year month day %}" method="post"> {% csrf_token %}
 		{{ entries.management_form }}

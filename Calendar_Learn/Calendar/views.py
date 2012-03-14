@@ -72,8 +72,8 @@ def main(request, year=None):
     return render_to_response("main.html", dict(
 		years=lst, 
 		user=request.user, 
-		year=year
-        #reminders=reminders(request)
+		year=year,
+        reminders=reminders(request)
 	))
 
 @login_required(login_url='/login/')
@@ -122,7 +122,7 @@ def month(request, year, month, change=None):
 		user=request.user,
         month_days=lst[:week], 
 		mname=mnames[month-1], 
-		#reminders=reminders(request)
+		reminders=reminders(request)
 	))
 	
 @login_required(login_url = '/login/')
@@ -158,6 +158,13 @@ def day(request, year, month, day):
 				creator = request.user
 			)
 		)
+	other_entries = []
+	if _show_users(request) :
+		other_entries = Entry.objects.filter(
+			date__year = year,
+			date__month = month,
+			date__day = day,
+		).exclude(creator = request.user)
 	return render_to_response('day.html', add_csrf(
 		request,
 		entries = formset, 
@@ -193,3 +200,37 @@ def register_page(request):
         'registration/register.html',
         variables
     )
+
+def reminders(request):
+	"""Return the list of reminders for today and tomorrow."""
+	year, month, day = time.localtime()[:3]
+	reminders = Entry.objects.filter(
+		date__year = year,
+		date__month = month,
+		date__day = day,
+		creator = request.user,
+		remind = True
+	)
+	tomorrow = datetime.now() + timedelta(days = 1)
+	year, month, day = tomorrow.timetuple()[:3]
+	
+	return list(reminders) + list(Entry.objects.filter(
+		date__year = year,
+		date__month = month,
+		date__day = day,
+		creator = request.user,
+		remind = True
+	))
+	
+@login_required(login_url= '/login/')
+def setting(request):
+	"""Setting screen"""
+	s = request.season
+	_show_users(request)
+	if request.method == 'POST':
+		s['show_users'] = (True if 'show_users' in request.POST else False)
+		
+	return render_to_response(
+		'settings.html', 
+		add_csrf(request, show_users = s['show_users']) 
+	)

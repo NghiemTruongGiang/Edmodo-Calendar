@@ -181,7 +181,7 @@
 	text-align:right;
 	text-shadow:#CCCCCC;
 	height:16%;
-	border:1px solid #00FF00;
+	border-bottom:1px solid #00FF00;
 }
 .m-f-s-table {
 	width:100%;
@@ -194,4 +194,23 @@
 	position:relative;
 	width:100%;
 	height:100%;
+}
+
+.c3-reminders {
+	position:relative;
+	width:100%;
+}
+
+#c3-reminders-title {
+	text-align:left;
+	font-family:Verdana;
+	font-size:14px;
+}
+
+.c3-r-reminder {
+	text-align:left;
+	font-family:Arial;
+	font-size:13px;
+	margin:5px;
+	border:1px solid #333333;
 }
