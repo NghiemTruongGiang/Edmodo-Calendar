@@ -2,6 +2,7 @@
 	<head>
 		<title>Calendar</title>
 		<link rel="stylesheet" type="text/css" href="/site_media/style.css">
+		<link rel="stylesheet" type="text/css" href="/site_media/button.css">
 		<script type="text/javascript" src="/site_media/jquery.js"></script>
 		<!-- <script type="text/javascript" src="/site_media/excanvas.js"></script> -->
 		<script type="text/javascript" src="/site_media/coolclock.js"></script>
@@ -9,7 +10,13 @@
 	 </head>
 	<body>
 		<div class="bighead">
-			<p style="color:#FFFFFF">Home | Profile | Logout</p>
+			<div class="l1-bighead">
+				<button class="btn btn-inverse" onClick="parent.location='/main/';">
+					Home
+				</button> 
+				<button class="btn btn-inverse" href="/">Profile</button> 
+				<button class="btn btn-inverse" href="/">Logout</button> 
+			</div>
 		</div>
 		<div class="column1">
 			<p>I have some thing</p></br>
@@ -29,6 +36,8 @@
 				{% endif %}
 			</div>
 		</div>
+		<div class="smallhead">
 	{% block content %} {% endblock %}
+		</div>
 	</body>
 </html>
