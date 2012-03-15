@@ -223,9 +223,9 @@ def reminders(request):
 	))
 	
 @login_required(login_url= '/login/')
-def setting(request):
+def settings(request):
 	"""Setting screen"""
-	s = request.season
+	s = request.session
 	_show_users(request)
 	if request.method == 'POST':
 		s['show_users'] = (True if 'show_users' in request.POST else False)

@@ -6,6 +6,7 @@
 	text-align:right;
 	font-family:Verdana;
 	font-size:12px;
+	height:6%;
 }
 
 .smallhead {
@@ -22,9 +23,10 @@
 }
 
 .head {
-	position:absolute;
+	position:relative;
 	width:69%;
 	font-family:Arial;
+	height:4%;
 	left:15%;
 	padding:3px;
 	border:2px solid;
@@ -34,7 +36,7 @@
 
 .head2 {
 	position:relative;
-	top:6%;
+	top:10%;
 	left:15%;
 	right:15%;
 	width:70%;
