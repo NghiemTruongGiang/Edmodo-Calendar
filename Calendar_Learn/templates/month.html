@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="head">
-	<table width="48%">
+	<table width="48%" style="top:0; vertical-align:middle">
 		<tr>
 			<td class="head_banner">
-				<a href= "{% url Calendar.views.month year month "prev" %}">&lt;&lt; Prev</a>
+			<button class="btn-h" onClick="parent.location='{% url Calendar.views.month year month "prev" %}';">
+				&lt;&lt; Prev
+			</button>
 			</td>
-			<td class="head_banner">
-				<a href= "{% url Calendar.views.month year month "next" %}">Next &gt;&gt;</a>
+			<td class="head_banner" >
+			<button class="btn-h" onclick="parent.location='{% url Calendar.views.month year month "next" %}';">
+				Next &gt;&gt;
+			</button>
 			</td>
 			<td id="center_month">
 				<a>{{ mname }} {{ year }}</a>
