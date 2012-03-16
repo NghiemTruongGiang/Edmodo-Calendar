@@ -3,9 +3,8 @@
 	background-color:#000066;
 	font-family:Verdana;
 	font-size:12px;
-	height:4.75%;
+	height:5%;
 	width:100%;
-	margin:0;
 	top:0%;
 }
 
@@ -14,6 +13,7 @@
 	 text-align:right;
 	 color:#FFFFFF;
 	 right:0%;
+	 height:100%;
 	 width:30%;
 	 top:1%;
 	 margin:0%;
@@ -37,7 +37,7 @@
 	position:relative;
 	width:99%;
 	font-family:Arial;
-	height:4.5%;
+	height:3%;
 	padding:3px;
 	border:1px solid;
 	border-radius:15px;
@@ -140,14 +140,14 @@
 }
 
 #center_month{
-	width:56%;
+	width:60%;
 	height:75%;
 	text-align:center;
 }
 
 .head_banner {
 	height:75%;
-	width:22%;
+	width:20%;
 	top: 0%;
 }
 

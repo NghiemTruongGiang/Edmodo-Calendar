@@ -9,7 +9,7 @@ from django.forms.models import modelformset_factory
 #from django.http import HttpResponseRedirect, HttpResponse
 #from django.shortcuts import get_object_or_404, render_to_response
 
-#from django.http import Http404
+from django.http import Http404
 #from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 #from django.contrib.auth import logout
@@ -75,6 +75,18 @@ def main(request, year=None):
 		year=year,
         reminders=reminders(request)
 	))
+
+def user_page(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        raise Http404('User request not found')
+
+    variables = RequestContext(request, {
+        'username': username,
+    })
+
+    return render_to_response('user_page.html', variables)
 
 @login_required(login_url='/login/')
 def month(request, year, month, change=None):
@@ -183,14 +195,14 @@ def register_page(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = User.objects.create(
+            user = User.objects.create_user(
                 username=form.cleaned_data['username'],
                 password=form.cleaned_data['password2'],
                 email=form.cleaned_data['email']
             )
             user.first_name=form.cleaned_data['first_name']
             user.last_name=form.cleaned_data['last_name']
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/register/success/')
     else:
         form = RegistrationForm()
     variables = RequestContext(request, {
