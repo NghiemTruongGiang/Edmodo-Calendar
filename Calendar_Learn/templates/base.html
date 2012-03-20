@@ -14,8 +14,10 @@
 				<button class="btn btn-inverse" onClick="parent.location='/main/';">
 					Home
 				</button> 
-				<button class="btn btn-inverse" href="/">Profile</button> 
-				<button class="btn btn-inverse" onClick="parent.location='/login/';">Logout</button>
+				<button class="btn btn-inverse" onClick="parent.location='/user/{{ user.username }}/';">
+					{{ user.username }}
+				</button> 
+				<button class="btn btn-inverse" onClick="parent.location='/logout/';">Logout</button>
 			</div>
 		</div>
 		<div class="column1">
@@ -36,8 +38,7 @@
 				{% endif %}
 			</div>
 		</div>
-		<div class="smallhead">
 	{% block content %} {% endblock %}
-		</div>
+
 	</body>
 </html>

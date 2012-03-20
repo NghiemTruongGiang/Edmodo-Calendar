@@ -26,9 +26,11 @@ urlpatterns = patterns('',
     (r'^register/$', register_page),
 	(r'^admin/', include(admin.site.urls)),
     (r'^register/success/$', direct_to_template, {'template': 'registration/register_success.html'}),
-	
+	#Group management
+	(r'^create_group/$', create_group),
 	#Session management
 	(r'^login/$', 'django.contrib.auth.views.login'),
+	(r'^logout/$', logout_page),
 	(r'^site_media/(?P<path>.*)$', 'django.views.static.serve', 
 		{'document_root': site_media}),
 )

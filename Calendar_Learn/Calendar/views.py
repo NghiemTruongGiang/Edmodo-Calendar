@@ -9,15 +9,13 @@ from django.forms.models import modelformset_factory
 #from django.http import HttpResponseRedirect, HttpResponse
 #from django.shortcuts import get_object_or_404, render_to_response
 
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 #from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
-#from django.contrib.auth import logout
-from django.http import HttpResponseRedirect
+from django.contrib.auth import logout
 from django.template import RequestContext
 from Calendar.form import *
 #from django.views.decorators.csrf import csrf_exempt
-#from Calendar.models import *
 
 
 from Calendar_Learn.Calendar.models import *
@@ -32,6 +30,10 @@ def _show_users(request):
         s["show_users"] = True
     return s["show_users"]
 
+def logout_page(request):
+	logout(request)
+	return HttpResponseRedirect('/')
+	
 @login_required(login_url = '/login/')
 def main(request, year=None):
     """Main listing, years and months; three years per page."""
@@ -117,7 +119,8 @@ def month(request, year, month, change=None):
             entries = Entry.objects.filter(
 				date__year=day.year, 
 				date__month=day.month, 
-				date__day=day.day
+				date__day=day.day,
+				creator=request.user
 			)
             if not _show_users(request):
                 entries = entries.filter(creator=request.user)
@@ -182,7 +185,8 @@ def day(request, year, month, day):
 		entries = formset, 
 		year = year,
 		month = month,
-		day = day
+		day = day,
+		reminders=reminders(request)
 	))
 
 def add_csrf(request, **kwargs):
@@ -246,3 +250,24 @@ def settings(request):
 		'settings.html', 
 		add_csrf(request, show_users = s['show_users']) 
 	)
+	
+@login_required(login_url='/login/')
+def create_group(request):
+	if request.method == 'POST':
+		form=CreateGroupForm(request.POST)
+		if form.is_valid():
+			groupcalendar=GroupCalendar.objects.create(
+				name=form.cleaned_data['name'],
+				creator_group=request.user,
+				describe=form.cleaned_data['describe'],
+				group_email=form.cleaned_data['group_email'],
+				is_public=form.cleaned_data['is_public'],
+			)
+			groupcalendar.save()
+			
+			return HttpResponseRedirect('/Group/')
+	else:
+		form=CreateGroupForm()
+	variables=RequestContext(request, { 'form':form})
+	
+	return render_to_response('Group/create_group.html', variables)

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 <!-- ... -->
 {% block content %}
+<div class="smallhead">
 	<div class="head">
 		<a href="{% url Calendar.views.main year|add:'-3' %}">&lt;&lt; Prev</a>
 		<a href="{% url Calendar.views.main year|add:'3' %}">Next &gt;&gt;</a>
@@ -28,6 +29,7 @@
 		{% endfor %}
 		</div>
 	</div>
+</div>
 {% endblock %}
 
 
