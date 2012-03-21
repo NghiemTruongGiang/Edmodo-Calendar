@@ -6,7 +6,7 @@ class GroupCalendarAdmin(admin.ModelAdmin):
 	list_display=["name", "creator_group", "group_email", "datecreated", "is_public"]
 	ordering=["name"]
 	search_fields=["name"]
-	list_filter=["creator_group"]
+	list_filter=["name"]
 admin.site.register(GroupCalendar, GroupCalendarAdmin)
 
 #Group Entry calendar

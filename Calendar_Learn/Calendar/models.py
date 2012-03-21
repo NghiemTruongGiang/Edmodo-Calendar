@@ -57,10 +57,13 @@ class GroupMem(models.Model):
 	is_accept=models.BooleanField(default=False)#become to a member
 	
 	def __unicode__(self):
-		return unicode(self.group_name)
+		if self.group_name:
+			return unicode(self.group_name)
+		else:
+			return unicode(self.user_mem)
 			
 	def short(self):
-		return "<i>%s</i> - %s" % (self.group_name, self.user_mem)
+		return "<i>%s</i>" % (self.user_mem)
 					
 	short.allow_tags = True 
 	class Meta:
@@ -73,7 +76,7 @@ class GroupEntry(models.Model):
 	created=models.DateTimeField(auto_now_add=True)# created time
 	date_start=models.DateTimeField(blank=True)#start of event
 	date_end=models.DateTimeField(blank=True)#the end of event
-	creator=models.ForeignKey(GroupMem, blank = True, null = True)#who created
+	creator=models.ForeignKey(User, blank = True, null = True)#who created
 	group_name=models.ForeignKey(GroupCalendar, blank=True, null=True)#where store this event
 	remind=models.BooleanField(default=False)#warning user
 	def __unicode__(self):
