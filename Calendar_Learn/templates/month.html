@@ -1,18 +1,30 @@
 {% extends "base.html" %}
+
+{% block title %}Calendar{% endblock %}
+
 {% block content %}
+<div class="column1">
+	<p>I have some thing</p></br>
+</div>
+
 <div class="smallhead">
 	<div class="head">
-	<table width="48%">
+	<table width="48%" cellspacing="2">
 		<tr>
-			<td class="head_banner">
-				<a href= "{% url Calendar.views.month year month "prev" %}">&lt;&lt; Prev</a>
-			</td>
-			<td class="head_banner">
-				<a href= "{% url Calendar.views.month year month "next" %}">Next &gt;&gt;</a>
-			</td>
-			<td id="center_month">
-				<a>{{ mname }} {{ year }}</a>
-			</td>
+		<td id="head_banner_left" 
+			onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
+			<a href= "{% url Calendar.views.month year month "prev" %}" style="text-decoration:none">
+				&lt;&lt; Prev
+			</a>
+		</td>
+		<td class="head_banner_right" onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
+			<a href= "{% url Calendar.views.month year month "next" %}" style="text-decoration:none">
+				Next &gt;&gt;
+			</a>
+		</td>
+		<td id="center_month">
+			<a>{{ mname }} {{ year }}</a>
+		</td>
 		</tr>
 	</table> 
 	</div>
@@ -75,5 +87,4 @@
 	</div>
 	</div>
 </div>
-
 {% endblock %}

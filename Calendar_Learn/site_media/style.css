@@ -39,9 +39,6 @@
 	font-family:Arial;
 	height:3%;
 	padding:3px;
-	border:1px solid;
-	border-radius:15px;
-	-moz-border-radius:15px;
 }
 
 .head2 {
@@ -53,7 +50,7 @@
 	position:absolute;
 	text-align:center;
 	left:0;
-	top:15%;
+	top:8%;
 	width:15%;
 	margin:0px;
 	border-left:0px;
@@ -145,8 +142,16 @@
 	text-align:center;
 }
 
-.head_banner {
-	height:75%;
+#head_banner_left {
+	text-align:right;
+	height:80%;
+	width:20%;
+	top: 0%;
+}
+
+#head_banner_right {
+	text-align:left;
+	height:80%;
 	width:20%;
 	top: 0%;
 }

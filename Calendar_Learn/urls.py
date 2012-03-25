@@ -4,6 +4,10 @@ from Calendar.views import *
 from django.views.generic.simple import direct_to_template
 import os
 
+media = os.path.join(
+    os.path.dirname(__file__), 'media'
+)
+
 site_media = os.path.join(
 	os.path.dirname(__file__), 'site_media'
 )
@@ -20,6 +24,10 @@ urlpatterns = patterns('',
     (r"^day/(\d+)/(\d+)/(\d+)/$", day),
     (r"^settings/$", settings),
 	(r"^main/$", main),
+	(r'^friend/add/$', friend_add),
+	(r'^user/(\w+)/friend/$', user_friend),
+	(r'^user/(\w+)/group/$', user_group),
+	(r'^user/(\w+)/photo/$', image_profile),
     (r'^user/(\w+)/$', user_page),
     (r"^(\d+)/$", main),
     (r"^$", main),
@@ -33,4 +41,6 @@ urlpatterns = patterns('',
 	(r'^logout/$', logout_page),
 	(r'^site_media/(?P<path>.*)$', 'django.views.static.serve', 
 		{'document_root': site_media}),
+	(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': ''}),
 )

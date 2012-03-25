@@ -136,7 +136,7 @@ class FriendShip(models.Model):
 class Image(models.Model):
 	user=models.ForeignKey(User)
 	title=models.CharField('Title', max_length = 40)
-	photo=models.ImageField(upload_to = 'media')
+	photo=models.ImageField(upload_to = 'file/photo')
 	created=models.DateTimeField(auto_now_add=True)# created time
 	is_use=models.BooleanField(default=True)
 	def __unicode__(self):

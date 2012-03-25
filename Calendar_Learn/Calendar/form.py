@@ -61,7 +61,11 @@ class RegistrationForm(forms.Form):
 
 class CreateGroupForm(forms.Form):
 	name=forms.CharField(label='Group name', max_length=40)
-	describe=forms.CharField(label='Group description', max_length=10000)
+	describe=forms.CharField(
+		label='Group description', 
+		max_length=10000,
+		widget=forms.Textarea()
+	)
 	group_email=forms.EmailField(label='Group email address')
 	is_public=forms.BooleanField(label='Public', required=False)
 	

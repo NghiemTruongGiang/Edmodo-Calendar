@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Calendar|User: {{ username }}{% endblock %}
+
+{% block external %}
+	<link rel="stylesheet" type="text/css" href="/site_media/userpage.css/" />
+{% endblock %}
+
+{% block content %}
+<div class="column1">
+	<div class="image_profile">
+		{% if not image.photo.url %}
+			<img src="/media/file/photo/icon_exclaim.gif" alt="{{ username }}" height="100%" width="100%" />
+		{% else %}
+			<img src="{{ image.photo.url }}" alt="{{ username }}" height="100%" width="100%" />
+		{% endif %}
+	</div>
+	
+	<div class="usp_content">
+		<div id="info">
+			<a href="{% url Calendar.views.user_page username %}" style="text-decoration:none">Infomation</a>
+		</div>
+		
+		<div id="info">
+			<a href="{% url Calendar.views.image_profile username %}" style="text-decoration:none">
+				Picture Profile
+			</a>
+		</div>
+		
+		<div id="info">
+			<a href="{% url Calendar.views.user_group username %}" style="text-decoration:none">Group</a>
+		</div>
+		
+		<div id="info">
+			<a href="{% url Calendar.views.user_friend username %}" style="text-decoration:none">Friends</a>
+		</div>
+		
+		<div id="info">
+			<a href="" style="text-decoration:none">Calendar</a>
+		</div>
+	</div>
+		
+</div>
+<div class="smallhead">
+	<div class="head">
+		<div id="usp_head_left">
+			<b>{{ username }}  Friends</b>
+		</div>
+		
+		<div id="usp_head_right">
+			<b>
+			{% if is_friend %}
+				Friend
+			{% else %}
+				<a href="/friend/add/?username={{ username }}" style="text-decoration:none">Add Friend </a>
+			{% endif %}
+			</b>
+		</div>
+	</div>
+	
+	<div class="head2">
+		<!-- show friends -->
+		<table width="100%" cellspacing="0">
+		{% for fri in friend %}
+		<tr>
+			<td>
+				<div id="usf_namefr">
+					{{ fri.user.username }}
+				</div>
+				<div id="usf_pic">
+					<img src="{{ fri.photo.url }}" alt="{{ username }}" height="20%" width="20%" />
+				</div>
+				<div id="usf_titlepic">
+					{{ fri.title }}
+				</div>
+			</td>
+		</tr>
+		{% endfor %}
+		</table>
+	</div>
+</div>	
+{% endblock %}

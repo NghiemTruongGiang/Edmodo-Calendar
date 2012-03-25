@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.forms.models import modelformset_factory
 #from django.http import HttpResponseRedirect, HttpResponse
-#from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, render_to_response
 
 from django.http import Http404, HttpResponseRedirect
 #from django.contrib.auth.models import User
@@ -78,18 +78,178 @@ def main(request, year=None):
         reminders=reminders(request)
 	))
 
+@login_required(login_url='/login/')
 def user_page(request, username):
+    user = get_object_or_404(User, username=username)
+    #username1=username
     try:
-        user = User.objects.get(username=username)
-    except User.DoesNotExist:
-        raise Http404('User request not found')
-
+        info=UserProfile.objects.get(username=user)
+    except:
+        info=None
+    
+    try:
+        image=Image.objects.get(user=user, is_use=True)
+    except:
+        image=None
+		
+    #image=get_object_or_404(Image, user=request.user, is_use=True)
+    if request.user.is_authenticated():
+        is_friend = FriendShip.objects.filter(
+            from_friend = request.user,
+            to_friend = user,
+        )
+    else:
+        is_friend = False 
+		
     variables = RequestContext(request, {
+		'user2': user,
         'username': username,
+		'is_friend': is_friend,
+		'info': info,
+		'image': image,
     })
 
-    return render_to_response('user_page.html', variables)
+    return render_to_response('user/user_page.html', variables)
 
+@login_required(login_url='/login/')
+def image_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    try:
+        info=UserProfile.objects.get(username=user)
+    except:
+        info=None
+    try:
+        imageprofile=info.image_profile.order_by('-id')
+    except:
+        imageprofile=None
+	
+    try:
+        image=Image.objects.get(user=user, is_use=True)
+    except:
+        image=None
+		
+    if request.user.is_authenticated():
+        is_friend = FriendShip.objects.filter(
+                from_friend = request.user,
+                to_friend = user,
+        )
+    else:
+        is_friend = False 
+
+    variables = RequestContext(request, {
+        'user2': user,
+        'username': username,
+        'is_friend': is_friend,
+        'imageprofile': imageprofile,
+		'image': image,
+    })
+	
+    return render_to_response('user/image_profile.html', variables)
+
+@login_required(login_url='/login/')
+def user_group(request, username):
+    user=get_object_or_404(User, username=username)
+    try:
+		has_group=GroupCalendar.objects.filter(creator_group=user)
+    except:
+        has_group=None
+    try:
+        accept_join=GroupMem.objects.filter(user_mem=user).filter(is_accept=True)
+    except:
+        accept_join=None
+	
+    try:
+        not_accept_join=GroupMem.objects.filter(user_mem=user).filter(is_accept=False)
+    except:
+        not_accept_join=None
+		
+    try:
+        image=Image.objects.get(user=user, is_use=True)
+    except:
+        image=None
+	
+    if request.user.is_authenticated():
+        is_friend = FriendShip.objects.filter(
+                from_friend = request.user,
+                to_friend = user,
+        )
+    else:
+        is_friend = False 
+	
+    variables=RequestContext(request, {
+	'username': username,
+	'is_friend': is_friend,
+	'has_group': has_group,
+	'user2': user,
+	'image': image,
+	'accept_join': accept_join,
+	'not_accept_join': not_accept_join,
+    })
+
+    return render_to_response('user/user_group.html', variables)
+
+@login_required(login_url='/login/')
+def user_friend(request, username):	
+    user=get_object_or_404(User, username=username)
+    friends = [friendship.to_friend for friendship in user.friend_set.all()]
+    try:
+        image=Image.objects.get(user=user, is_use=True)
+    except:
+        image=None
+	
+    if request.user.is_authenticated():
+        is_friend = FriendShip.objects.filter(
+                from_friend = request.user,
+                to_friend = user,
+        )
+    else:
+        is_friend = False 
+    friend_pic_profile = Image.objects.filter(
+        user__in = friends, 
+        is_use=True,
+    ).order_by('-id')
+	
+    variables=RequestContext(request, {
+        'username': username,
+        'is_friend': is_friend,
+        'user2': user,
+        'image': image,
+        'friend': friend_pic_profile,
+    })
+
+    return render_to_response('user/user_friend.html', variables)
+
+@login_required(login_url = '/login/')
+def friend_add(request):
+	if 'username' in request.GET:
+		friend = get_object_or_404(
+			User, username = request.GET['username']
+		)
+		friendship = FriendShip(	
+			from_friend = request.user,
+			to_friend = friend,
+			is_accept=True,
+		)
+		friendship1 = FriendShip(	
+			from_friend = friend,
+			to_friend = request.user,
+		)
+		try:
+			friendship.save()
+			friendship1.save()
+			request.user.message_set.create(
+				message = u'%s was added to your friend list.' % friend.username
+			)
+		except:
+			request.user.message_set.create(
+				message = u'%s is already a friend of yours' % friend.username
+			)
+		return HttpResponseRedirect(
+			'/user/%s/friend' % request.user.username
+		)
+	else:
+		raise Http404
+	
 @login_required(login_url='/login/')
 def month(request, year, month, change=None):
     """Listing of days in `month`."""
@@ -196,16 +356,22 @@ def add_csrf(request, **kwargs):
 	return d
 
 def register_page(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+    if request.method=='POST':
+        form=RegistrationForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(
+            user=User.objects.create_user(
                 username=form.cleaned_data['username'],
                 password=form.cleaned_data['password2'],
                 email=form.cleaned_data['email']
             )
-            user.first_name=form.cleaned_data['first_name']
-            user.last_name=form.cleaned_data['last_name']
+			#user_profile=UserProfile.objects.create(
+			#	username=form.cleaned_data['username'],
+			#	first_name=form.cleaned_data['first_name'],
+			#	last_name=form.cleaned_data['last_name'],
+			#	birthday=form.cleaned_data['birthday']
+			#	
+			#)
+			#user_profile.save()"""
             return HttpResponseRedirect('/register/success/')
     else:
         form = RegistrationForm()

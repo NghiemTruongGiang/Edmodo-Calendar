@@ -1,12 +1,13 @@
 <html>
 	<head>
-		<title>Calendar</title>
+		<title>{% block title %}{% endblock %}</title>
 		<link rel="stylesheet" type="text/css" href="/site_media/style.css">
 		<link rel="stylesheet" type="text/css" href="/site_media/button.css">
 		<script type="text/javascript" src="/site_media/jquery.js"></script>
 		<!-- <script type="text/javascript" src="/site_media/excanvas.js"></script> -->
 		<script type="text/javascript" src="/site_media/coolclock.js"></script>
 		<script type="text/javascript" src="/site_media/moreskins.js"></script>
+	{% block external %}{% endblock %}
 	 </head>
 	<body>
 		<div class="bighead">
@@ -19,9 +20,6 @@
 				</button> 
 				<button class="btn btn-inverse" onClick="parent.location='/logout/';">Logout</button>
 			</div>
-		</div>
-		<div class="column1">
-			<p>I have some thing</p></br>
 		</div>
 		<div class="column3">
 			<canvas class="CoolClock:Chrome:75::7.00" id="clock"></canvas>
