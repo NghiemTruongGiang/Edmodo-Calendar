@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Calendar|User: {{ username }}{% endblock %}
+
+{% block external %}
+	<link rel="stylesheet" type="text/css" href="/site_media/userpage.css/" />
+{% endblock %}
+
+{% block content %}
+<div class="column1">
+	<div class="image_profile">
+		{% if not image.photo.url %}
+			<img src="/media/file/photo/icon_exclaim.gif" alt="{{ username }}" height="100%" width="100%" />
+		{% else %}
+			<img src="{{ image.photo.url }}" alt="{{ username }}" height="100%" width="100%" />
+		{% endif %}
+	</div>
+	
+	<div class="usp_content">
+		<div id="info">
+			<a href="{% url Calendar.views.user_page username %}" style="text-decoration:none">Infomation</a>
+		</div>
+		
+		<div id="info">
+			<a href="{% url Calendar.views.image_profile username %}" style="text-decoration:none">
+				Picture Profile
+			</a>
+		</div>
+		
+		<div id="info">
+			<a href="{% url Calendar.views.user_group username %}" style="text-decoration:none">Group</a>
+		</div>
+		
+		<div id="info">
+			<a href="{% url Calendar.views.user_friend username %}" style="text-decoration:none">Friends</a>
+		</div>
+		
+		<div id="info">
+			<a href="" style="text-decoration:none">Calendar</a>
+		</div>
+	</div>
+		
+</div>
+
+<div class="smallhead">
+	<div class="head">
+		<div id="usp_head_left">
+			<b>{{ username }}  Group</b>
+		</div>
+		
+		<div id="usp_head_right">
+			<b>
+			{% if is_friend %}
+				Friend
+			{% else %}
+				<a href="/friend/add/?username={{ username }}" style="text-decoration:none">Add Friend </a>
+			{% endif %}
+			</b>
+		</div>
+	</div>
+	<div class="head2">
+		<!-- show group, this user created -->
+		<div id="has_group">
+			<b>My groups</b></br>
+			{% if has_group %}
+			<div id="usg_h_group">
+				<table width="100%" cellspacing="0">
+				{% for hg in has_group %}
+					<tr>
+					<td>
+						<div id="usg_h_group_name">
+							{{ hg.name }}
+						</div>
+						<div id="usg_h_group_describe">
+							{{ hg.describe }}
+						</div>
+					</td>
+					<td>
+						<div id="usg_h_g_latestentry"
+						
+						</div>
+					</td>
+					</tr>
+				{% endfor %}
+				{% for aj in accept_join %}
+					<tr>
+						<td>
+							<div id="usg_h_group_name">
+								{{ aj.group_name.name }} | {{ aj.group_name.creator }}
+							</div>
+							<div id="usg_h_group_describe">
+								{{ aj.group_name.describe }}
+							</div>
+						</td>
+						<td>
+							<div id="usg_h_g_latestentry"
+						
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+				{% for naj in not_accept_join %}
+					<tr>
+						<td>
+							<div id="usg_h_group_name">
+								<p>{{ aj.group_name.name }} | {{ aj.group_name.creator }}(Not accept)</p>
+							</div>
+							<div id="usg_h_group_describe">
+								{{ aj.group_name.describe }}
+							</div>
+						</td>
+						<td>
+							<div id="usg_h_g_latestentry"
+						
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+				</table>
+			</div>
+			{% else %}
+			<div id="usg_h_n_group">
+				No group!
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Calendar | Home{% endblock %}
+
+<!-- ... -->
+{% block content %}
+<div class="column1">
+	<p>I have some thing</p></br>
+</div>
+
+<div class="smallhead">
+	<div class="head">
+		<table width="48%" cellspacing="2">
+		<tr>
+		<td id="head_banner_left" 
+			onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
+			<a href= "{% url Calendar.views.main year|add:'-1' %}" style="text-decoration:none;color: #0000cd">
+				&lt;&lt; Prev
+			</a>
+		</td>
+        <td style="color: red;"> | </td>
+		<td class="head_banner_right" onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
+			<a href= "{% url Calendar.views.main year|add:'1' %}" style="text-decoration:none;color: #0000cd">
+				Next &gt;&gt;
+			</a>
+		</td>
+		<td id="center_month">
+		</td>
+		</tr>
+		</table>
+	</div>
+	<div class="head2">
+		<div class="column2">
+		{% for year, months in years %}
+		<table cellspacing="10" cellpadding="0" border="1">
+			<tr class="algcent">
+				<td colspan="4">{{ year }}</td>
+			</tr>
+			<tr>
+			{% for month in months %}
+				<td class=
+				    {% if month.current %}"current"{% endif %}
+				    {% if not month.current %}"month"{% endif %}>
+                <a href="{% url Calendar.views.month year month.n %}" style="text-decoration:none">
+					{% if month.current %}<b style="color: #000000;">{{ month.name }}</b>
+                    {% else %} <font color="#0000cd">{{ month.name }}</font>
+                    {% endif %}
+				</td>
+				
+				{% if month.n == 4 or month.n == 8 %}</tr>{% endif %}
+			{% endfor %}
+		</table>
+		{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+

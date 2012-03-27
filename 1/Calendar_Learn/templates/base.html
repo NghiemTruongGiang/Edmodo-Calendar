@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="/site_media/style.css">
+		<link rel="stylesheet" type="text/css" href="/site_media/button.css">
+		<script type="text/javascript" src="/site_media/jquery.js"></script>
+		<!-- <script type="text/javascript" src="/site_media/excanvas.js"></script> -->
+		<script type="text/javascript" src="/site_media/coolclock.js"></script>
+		<script type="text/javascript" src="/site_media/moreskins.js"></script>
+	{% block external %}{% endblock %}
+	 </head>
+	<body>
+		<div class="bighead">
+			<div class="l1-bighead">
+				<button class="btn btn-inverse" onClick="parent.location='/main/';">
+					Home
+				</button> 
+				<button class="btn btn-inverse" onClick="parent.location='/user/{{ user.username }}/';">
+					{{ user.username }}
+				</button> 
+				<button class="btn btn-inverse" onClick="parent.location='/logout/';">Logout</button>
+			</div>
+		</div>
+		<div class="column3">
+			<canvas class="CoolClock:Chrome:75::7.00" id="clock"></canvas>
+			<div class="c3-reminders">
+				<div id="c3-reminders-title">
+					<b>Next meeting</b>
+				</div>
+				{% if reminders %}
+					{% for reminder in reminders %}
+						<div class="c3-r-reminder">
+							{{ reminder.short|safe }}
+						</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	{% block content %} {% endblock %}
+
+	</body>
+</html>

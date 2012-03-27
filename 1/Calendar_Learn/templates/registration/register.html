@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+
+    <title>Register Forms</title>
+
+    <link rel='stylesheet' type='text/css' href='/site_media/registration.css' />
+
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+    <script type='text/javascript' src='/site_media/example.js'></script>
+</head>
+
+<body>
+<p style="padding-left: 10px; font-family:Arial; font-size: 40px; color: white;">SE_TEAM3</p>
+<div id="page-wrap" align="center">
+    <div class="login-block">
+        <h3>User registration</h3>
+        <form action="." method="post"> {% csrf_token %}
+            <p><label for="id_username">Username: </label><input type="text" name="username" id="id_username" /></p>
+            <p><label for="id_password1">Password: </label><input type="password" name="password1" id="id_password1" /></p>
+            <p><label for="id_password2">Password again: </label><input type="password" name="password2" id="id_password2" /></p>
+            <p><label for="id_email">Email: </label><input type="text" name="email" id="id_email" /></p>
+            <p><label for="id_first_name">First name: </label><input type="text" name="first_name" id="id_first_name" /></p>
+            <p><label for="id_last_name">Last name: </label><input type="text" name="last_name" id="id_last_name" /></p>
+            <p align="center"><input type="submit" value="Sign up" style="width: 100px; height: 30px;" /></p>
+        </form>
+    </div>
+</div>
+<img id="logo" src="/site_media/edmodo-logo.png">
+
+</body>
+
+</html>

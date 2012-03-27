@@ -1,0 +1,61 @@
+.image_profile{
+	position:relative;
+	top:0%;
+	width:95%;
+	height:20%;
+	left:5%;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("http://twitter.github.com/bootstrap/assets/img/glyphicons-halflings.png"); /*url("Calendar-learn/file/photo/glyphicons-halflings.png");*/
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  *margin-right: .3em;
+}
+[class^="icon-"]:last-child,
+[class*=" icon-"]:last-child {
+  *margin-left: 0;
+}
+
+.icon-play {
+  background-position: -264px -72px;
+}
+
+#usp_head_right{
+	position:absolute;
+	text-align:center;
+	right:0;
+	border:1px solid #000000;
+	width:15%;
+	height:70%;
+}
+#usp_head_left{
+	position:absolute;
+	left:0;
+	width:50%;
+	height:100%;
+}
+
+.usp_content{
+	margin-top:10px;
+	margin-left:5%;
+}
+
+.usp_table{
+	position:relative;
+	left:8%;
+	width:80%;
+}
+#info{
+	text-align:left;
+}
+
+.usp_picture{	
+	position:relative;
+}

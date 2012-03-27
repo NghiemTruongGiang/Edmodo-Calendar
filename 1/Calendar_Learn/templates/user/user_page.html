@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Calendar|User: {{ username }}{% endblock %}
+
+{% block external %}
+	<link rel="stylesheet" type="text/css" href="/site_media/userpage.css/" />
+{% endblock %}
+
+{% block content %}
+<div class="column1">
+	<div class="image_profile">
+		{% if not image.photo.url %}
+			<img src="/media/file/photo/icon_exclaim.gif" alt="{{ username }}" height="100%" width="100%" />
+		{% else %}
+			<img src="{{ image.photo.url }}" alt="{{ username }}" height="100%" width="100%" />
+		{% endif %}
+	</div>
+	
+	<div class="usp_content">
+		<div id="info">
+			<a href="{% url Calendar.views.user_page username %}" style="text-decoration:none">Infomation</a>
+		</div>
+		
+		<div id="info">
+			<a href="{% url Calendar.views.image_profile username %}" style="text-decoration:none">
+				Picture Profile
+			</a>
+		</div>
+		
+		<div id="info">
+			<a href="{% url Calendar.views.user_group username %}" style="text-decoration:none">Group</a>
+		</div>
+		
+		<div id="info">
+			<a href="{% url Calendar.views.user_friend username %}" style="text-decoration:none">Friends</a>
+		</div>
+		
+		<div id="info">
+			<a href="" style="text-decoration:none">Calendar</a>
+		</div>
+	</div>
+		
+</div>
+<div class="smallhead">
+	<div class="head">
+		<div id="usp_head_left">
+			<b>{{ username }}  Information</b>
+		</div>
+		
+		<div id="usp_head_right">
+			<b>
+			{% if is_friend %}
+				Friend
+			{% else %}
+				<a href="/friend/add/?username={{ username }}" style="text-decoration:none">Add Friend </a>
+			{% endif %}
+			</b>
+		</div>
+	</div>
+	
+	<div class="head2">
+	<!--- Information --->
+		<div class="usp_table">
+		<table width="100%">
+			<tr>
+				<td colspan="2"><b>Basic Information</b></td>
+			</tr>
+			
+			<tr>
+				<td>User Name: </td>
+				<td>{{ user2.username }}</td>
+			</tr>
+
+			<tr>
+				<td>First Name: </td>
+				<td>{{ info.first_name }}</td>
+			</tr>
+			<tr>
+				<td>Last Name: </td>
+				<td>{{ info.last_name }}</td>
+			</tr>
+			<tr>
+				<td>Birthday: </td>
+				<td>{{ info.birthday }}</td>
+			</tr>			
+			<tr>
+				<td colspan="2"><b>Contact Information</b></td>
+			</tr>
+			<tr>
+				<td>Email: </td>
+				<td>{{ user2.email }}</td>
+			</tr>
+
+		</table>
+		</div>
+	</div>
+</div>	
+{% endblock %}

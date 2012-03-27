@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+
+    <title>Login Forms</title>
+
+    <link rel='stylesheet' type='text/css' href='/site_media/registration.css' />
+
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+    <script type='text/javascript' src='/site_media/example.js'></script>
+</head>
+
+<body>
+    <p style="padding-left: 10px; font-size: 40px; color: white;">SE_TEAM3</p>
+    <div id="page-wrap" align="center">
+        <div class="login-block">
+            {% if form.errors %}
+                </br>z
+                <p style="color:#3b54c2">Username and password didn't match.
+                    Try again.</p>
+            {% endif %}
+            <h3>User login</h3>
+            <form action="." method="post"> {% csrf_token %}
+                <p><label for="id_username">User Name: </label><input type="text" name="username" id="id_username" /></p>
+                <p><label for="id_password">Password: </label><input type="password" name="password" id="id_password" /></p>
+                <input type="hidden" name="next" value="/" />
+                <p align="center"><input type="submit" value="login" style="width: 100px; height: 30px;" /></p>
+            </form>
+        </div>
+        <div id="signup">
+            <p>Sign up now. It's free</p>
+            <a href="/register/">Sign up</a>
+        </div>
+
+    </div>
+    <img id="logo" src="/site_media/edmodo-logo.png">
+
+</body>
+
+</html>
