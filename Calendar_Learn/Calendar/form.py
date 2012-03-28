@@ -86,3 +86,8 @@ class CreateGroupForm(forms.Form):
 			return name
 		
 		raise forms.ValidationError('This name group is already taken')
+
+class AddPhotoForm(forms.Form):
+	title=forms.CharField(label="Title", max_length=40)
+	is_use=forms.BooleanField(required=False)
+	photo=forms.ImageField(label="Add photo")

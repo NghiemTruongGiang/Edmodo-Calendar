@@ -119,7 +119,7 @@ def image_profile(request, username):
     except:
         info=None
     try:
-        imageprofile=info.image_profile.order_by('-id')
+        imageprofile=Image.objects.filter(user=user)
     except:
         imageprofile=None
 	
@@ -249,6 +249,27 @@ def friend_add(request):
 		)
 	else:
 		raise Http404
+
+@login_required(login_url='/login/')		
+def add_photo(request):
+	if request.method == 'POST':
+		form=AddPhotoForm(request.POST, request.FILES)
+		if form.is_valid():
+			image=Image.objects.create(
+				user=request.user,
+				title=form.cleaned_data['title'],
+				is_use=form.cleaned_data['is_use'],
+				photo=form.cleaned_data['photo'],
+			)
+			image.save()
+		return HttpResponseRedirect('/user/%s/photo' % request.user.username)
+	else:
+		form = AddPhotoForm()
+
+	variables = RequestContext(request,{
+		'form':form,
+	})
+	return render_to_response('add_photo.html',variables)
 	
 @login_required(login_url='/login/')
 def month(request, year, month, change=None):

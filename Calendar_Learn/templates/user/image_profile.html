@@ -66,7 +66,7 @@
 					<img src="{{ photo.photo.url }}" alt="{{ username }}" height="10%" width="10%" />
 				{% endfor %}
 			{% else %}
-			
+				<a href="{% url Calendar.views.add_photo %}">Add photo</a>
 			{% endif %}
 		</div>
 	</div>

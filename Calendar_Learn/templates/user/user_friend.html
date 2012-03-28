@@ -60,6 +60,7 @@
 	
 	<div class="head2">
 		<!-- show friends -->
+	{% if friend %}
 		<table width="100%" cellspacing="0">
 		{% for fri in friend %}
 		<tr>
@@ -77,6 +78,9 @@
 		</tr>
 		{% endfor %}
 		</table>
+	{% else %}
+		No friend found...
+	{% endif %}
 	</div>
 </div>	
 {% endblock %}
