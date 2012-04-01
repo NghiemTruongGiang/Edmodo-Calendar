@@ -36,7 +36,13 @@ urlpatterns = patterns('',
 	(r'^admin/', include(admin.site.urls)),
     (r'^register/success/$', direct_to_template, {'template': 'registration/register_success.html'}),
 	#Group management
+	(r'^group/join/$', join_group),
 	(r'^create_group/$', create_group),
+	(r'^group/(\w+)/$', group_view),
+	(r"^(\w+)/month/(\d+)/(\d+)/(prev|next)/$", group_month),
+    (r"^(\w+)/month/(\d+)/(\d+)/$", group_month),
+    (r"^(\w+)/month/$", group_month),
+	(r"^(\w+)/day/(\d+)/(\d+)/(\d+)/$", group_day),
 	#Session management
 	(r'^login/$', 'django.contrib.auth.views.login'),
 	(r'^logout/$', logout_page),

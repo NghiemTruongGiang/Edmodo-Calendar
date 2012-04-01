@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Calendar|User: {{ username }}{% endblock %}
+{% block title %}User: {{ username }}{% endblock %}
 
 {% block external %}
 	<link rel="stylesheet" type="text/css" href="/site_media/userpage.css/" />
@@ -64,12 +64,12 @@
 			<b>My groups</b></br>
 			{% if has_group %}
 			<div id="usg_h_group">
-				<table width="100%" cellspacing="0">
+				<table width="100%" cellspacing="0", border="1px">
 				{% for hg in has_group %}
 					<tr>
 					<td>
 						<div id="usg_h_group_name">
-							{{ hg.name }}
+							<a href="{% url Calendar.views.group_view hg.name %}">{{ hg.name }}</a>
 						</div>
 						<div id="usg_h_group_describe">
 							{{ hg.describe }}
@@ -82,11 +82,22 @@
 					</td>
 					</tr>
 				{% endfor %}
+				</table>
+			{% else %}
+				<div id="usg_h_n_group">
+					No group!
+					<br/>
+					<a href="{% url Calendar.views.create_group %}">Create Group</a>
+				</div>
+			{% endif %}
+				<table width="100%" cellspacing="0" border="1px">
 				{% for aj in accept_join %}
 					<tr>
 						<td>
 							<div id="usg_h_group_name">
-								{{ aj.group_name.name }} | {{ aj.group_name.creator }}
+								<a href="{% url Calendar.views.group_view aj.group_name.name %}">
+									{{ aj.group_name.name }} | {{ aj.group_name.creator }}
+								</a>
 							</div>
 							<div id="usg_h_group_describe">
 								{{ aj.group_name.describe }}
@@ -103,10 +114,11 @@
 					<tr>
 						<td>
 							<div id="usg_h_group_name">
-								<p>{{ aj.group_name.name }} | {{ aj.group_name.creator }}(Not accept)</p>
+								<a href="{% url Calendar.views.group_view naj.group_name.name %}">														       								{{ naj.group_name.name }} | {{ naj.group_name.creator }}(Not accept)
+								</a>
 							</div>
 							<div id="usg_h_group_describe">
-								{{ aj.group_name.describe }}
+								{{ naj.group_name.describe }}
 							</div>
 						</td>
 						<td>
@@ -118,13 +130,6 @@
 				{% endfor %}
 				</table>
 			</div>
-			{% else %}
-			<div id="usg_h_n_group">
-				No group!
-				<br/>
-				<a href="{% url Calendar.views.create_group %}">Create Group</a>
-			</div>
-			{% endif %}
 		</div>
 	</div>
 

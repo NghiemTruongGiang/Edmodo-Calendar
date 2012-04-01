@@ -204,6 +204,7 @@ def user_friend(request, username):
         )
     else:
         is_friend = False 
+		
     friend_pic_profile = Image.objects.filter(
         user__in = friends, 
         is_use=True,
@@ -458,3 +459,169 @@ def create_group(request):
 	variables=RequestContext(request, { 'form':form})
 	
 	return render_to_response('Group/create_group.html', variables)
+
+def group_view(request, groupname):
+    group=get_object_or_404(GroupCalendar, name=groupname)
+    
+    if request.user.is_authenticated():
+        is_mem = GroupMem.objects.filter(
+            user_mem = request.user,
+            group_name = group,
+        )
+    else:
+        is_mem = False 
+	
+    try:
+        mems=GroupMem.objects.filter(group_name=group)
+    except:
+        mems=None
+		
+    listmem=[]
+    n = 0
+    for mem in mems:
+        try:
+            pic_profile_mem=Image.objects.get(user=mem.user_mem, is_use=True)
+        except:
+            pic_profile_mem=None
+        listmem.append((n, mem, pic_profile_mem))
+        n=n+1
+
+    variables=RequestContext(request, {
+        'group': group,
+        'listmem': listmem,
+        'is_mem': is_mem,
+		'down': n,
+    })
+	
+    return render_to_response('Group/group.html', variables)
+	
+@login_required(login_url = '/login/')
+def join_group(request):
+	if 'group_name' in request.GET:
+		group = get_object_or_404(
+			GroupCalendar, name = request.GET['group_name']
+		)
+		joinmem = GroupMem(	
+			user_mem = request.user,
+			group_name = group
+		)
+		try:
+			joinmem.save()
+			request.user.message_set.create(
+				message = u'You was added to group %s.' % group.name 
+			)
+		except:
+			request.user.message_set.create(
+				message = u'You is already a member of group: %s' % group.name 
+			)
+		return HttpResponseRedirect(
+			'/group/%s/' % group.name
+		)
+	else:
+		raise Http404
+
+@login_required(login_url='/login/')
+def group_month(request, groupname, year, month, change=None):
+    """Listing of days in `month`."""
+    group=get_object_or_404(GroupCalendar, name=groupname)
+    year, month = int(year), int(month)
+
+    # apply next / previous change
+    if change in ("next", "prev"):
+        now, mdelta = date(year, month, 15), timedelta(days=31)
+        if change == "next":   
+			mod = mdelta
+        elif change == "prev": 
+			mod = -mdelta
+
+        year, month = (now+mod).timetuple()[:2]
+
+    # init variables
+    cal = calendar.Calendar()
+    month_day = cal.itermonthdates(year, month)
+    nyear, nmonth, nday = time.localtime()[:3]
+    lst = [[]]
+    week = 0
+    # make month lists containing list of days for each week
+    # each day tuple will contain list of entries and 'current' indicator
+    for day in month_day:
+        entries = current = False   # are there entries for this day; current day?
+        if day.day:
+            entries = GroupEntry.objects.filter(
+				date_start__year=day.year, 
+				date_start__month=day.month, 
+				date_start__day=day.day,
+				group_name=group,
+			)
+            if not _show_users(request):
+                entries = entries.filter(creator=request.user)
+            if day.day == nday and day.year == nyear and day.month == nmonth:
+                current = True
+        lst[week].append((day.day, day.month, entries, current))
+        if len(lst[week]) == 7:
+            lst.append([])
+            week += 1
+			
+    return render_to_response("Group/group_month.html", dict(
+		year=year, 
+		month=month, 
+		user=request.user,
+		group_name=groupname,
+        month_days=lst[:week], 
+		mname=mnames[month-1], 
+		reminders=reminders(request)
+	))
+	
+@login_required(login_url = '/login/')
+def group_day(request, groupname, year, month, day):
+	"""Entries for day"""
+	group=get_object_or_404(GroupCalendar, name=groupname)
+	EntriesFormset = modelformset_factory(
+		GroupEntry,
+		extra = 1,
+		exclude = ('group_name', 'creator', 'date_start', 'date_end'),
+		can_delete = True
+	)
+	hour=12
+	minute=50
+	if request.method == 'POST':
+		formset = EntriesFormset(request.POST)
+		if formset.is_valid:
+			#add current user and date to each entry and save
+			entries = formset.save(commit = False)
+			for entry in entries:
+				entry.group_name=group
+				entry.creator = request.user
+				entry.date_start=datetime(int(year), int(month), int(day), int(hour), int(minute))
+				entry.date_end=datetime(int(year), int(month), int(day), int(hour), int(minute))
+				entry.save()
+			return HttpResponseRedirect(reverse(
+				'Calendar_Learn.Calendar.views.group_month',
+				args = (groupname, year, month)
+			))
+	else:
+		#display formset for existing entries and one extra form
+		formset = EntriesFormset(
+			queryset = GroupEntry.objects.filter(
+				date_start__year = year,
+				date_start__month = month,
+				date_start__day = day,
+				group_name=group,
+			)
+		)
+	other_entries = []
+	#if _show_users(request) :
+	#	other_entries = Entry.objects.filter(
+	#		date__year = year,
+	#		date__month = month,
+	#		date__day = day,
+	#	).exclude(creator = request.user)
+	return render_to_response('Group/group_day.html', add_csrf(
+		request,
+		group_name=groupname,
+		entries = formset, 
+		year = year,
+		month = month,
+		day = day,
+		reminders=reminders(request)
+	))

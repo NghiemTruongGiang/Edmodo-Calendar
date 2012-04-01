@@ -13,12 +13,12 @@
 		<tr>
 		<td id="head_banner_left" 
 			onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
-			<a href= "{% url Calendar.views.month year month "prev" %}" style="text-decoration:none">
+			<a href= "{% url Calendar.views.group_month group_name year month "prev" %}" style="text-decoration:none">
 				&lt;&lt; Prev
 			</a>
 		</td>
 		<td class="head_banner_right" onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
-			<a href= "{% url Calendar.views.month year month "next" %}" style="text-decoration:none">
+			<a href= "{% url Calendar.views.group_month group_name year month "next" %}" style="text-decoration:none">
 				Next &gt;&gt;
 			</a>
 		</td>
@@ -55,7 +55,7 @@
             	{% if day != 0 and not current %}"day"{% endif %}
 	            {% if day != 0 and current %}"current_day"{% endif %}
     	        {% if day != 0 %}
-        	        onClick="parent.location='{% url Calendar.views.day year month day %}';"
+        	        onClick="parent.location='{% url Calendar.views.group_day group_name year month day %}';"
             	    onMouseOver="this.bgColor='#eeeeee';"
                 	onMouseOut="this.bgColor='white';"
 	            {% endif %} >
