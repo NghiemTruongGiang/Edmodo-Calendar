@@ -4,32 +4,63 @@
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 
-    <title>Register Forms</title>
+    <title>Registration</title>
 
-    <link rel='stylesheet' type='text/css' href='/site_media/registration.css' />
+    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/bootstrap.min.css">
 
-    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
-    <script type='text/javascript' src='/site_media/example.js'></script>
+    <style type="text/css">
+        body {
+            padding-top: 120px;
+            background-color: #0000ff;
+        }
+        #login-main {
+            padding-bottom: 50px;
+            background-color: white;
+        }
+    </style>
+
 </head>
 
 <body>
-<p style="padding-left: 10px; font-family:Arial; font-size: 40px; color: white;">SE_TEAM3</p>
-<div id="page-wrap" align="center">
-    <div class="login-block">
-        <h3>User registration</h3>
-        <form action="." method="post"> {% csrf_token %}
-            <p><label for="id_username">Username: </label><input type="text" name="username" id="id_username" /></p>
-            <p><label for="id_password1">Password: </label><input type="password" name="password1" id="id_password1" /></p>
-            <p><label for="id_password2">Password again: </label><input type="password" name="password2" id="id_password2" /></p>
-            <p><label for="id_email">Email: </label><input type="text" name="email" id="id_email" /></p>
-            <p><label for="id_first_name">First name: </label><input type="text" name="first_name" id="id_first_name" /></p>
-            <p><label for="id_last_name">Last name: </label><input type="text" name="last_name" id="id_last_name" /></p>
-            <p align="center"><input type="submit" value="Sign up" style="width: 100px; height: 30px;" /></p>
+    <div id="login-main" style="background-color: white; padding-bottom: 2px;" align="center">
+        <div id="logo">
+            <img src="/site_media/bootstrap/img/logo.gif" style="margin-top: -100px;" />
+        </div>
+        <form class="well form-actions" action="." method="post" style="text-align: right; width: 320px;"> {% csrf_token %}
+            <p>
+                Username:
+                <input class="input-large" type="text" name="username" id="id_username" />
+            </p>
+            <p>
+                Password:
+                <input class="input-large" type="password" name="password1" id="id_password1" />
+            </p>
+            <p>
+                Password again:
+                <input class="input-large" type="password" name="password2" id="id_password2" />
+            </p>
+            <p>
+                Email:
+                <input class="input-large" type="text" name="email" id="id_email" />
+            </p>
+            <p>
+                First name:
+                <input class="input-large" type="text" name="first_name" id="id_first_name" />
+            </p>
+            <p>
+                Last name:
+                <input class="input-large" type="text" name="last_name" id="id_last_name" />
+            </p>
+            <input class="btn" type="submit" value="Sign up" />
         </form>
     </div>
-</div>
-<img id="logo" src="/site_media/edmodo-logo.png">
-
 </body>
 
 </html>
+
+
+
+

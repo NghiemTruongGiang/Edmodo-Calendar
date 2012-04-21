@@ -4,39 +4,46 @@
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 
-    <title>Login Forms</title>
+    <title>Login</title>
 
-    <link rel='stylesheet' type='text/css' href='/site_media/registration.css' />
+    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/bootstrap.min.css">
 
-    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
-    <script type='text/javascript' src='/site_media/example.js'></script>
+    <style type="text/css">
+        body {
+            padding-top: 120px;
+            background-color: #0000ff;
+        }
+        #login-main {
+            padding-bottom: 50px;
+            background-color: white;
+        }
+
+    </style>
+
 </head>
 
 <body>
-    <p style="padding-left: 10px; font-size: 40px; color: white;">SE_TEAM3</p>
-    <div id="page-wrap" align="center">
-        <div class="login-block">
+    <div id="login-main" align="center">
+        <div id="logo">
+            <img src="/site_media/bootstrap/img/logo.gif" style="margin-top: -100px;" />
+        </div>
+        <form class="well form-horizontal" action="." method="post" style="background-color: white;padding: 80px; text-align: center;"> {% csrf_token %}
+            <input class="input-large" type="text" name="username" placeholder="Username" id="id_username" />
+            <input class="input-medium" type="password" name="password" placeholder="Password" id="id_password" />
+            <input type="hidden" name="next" value="/" />
+            <input class="btn" type="submit" value="Login" style="height: 28px;" />
             {% if form.errors %}
-                </br>z
-                <p style="color:#3b54c2">Username and password didn't match.
-                    Try again.</p>
+                <p>Username and password didn't match. Try again.</p>
             {% endif %}
-            <h3>User login</h3>
-            <form action="." method="post"> {% csrf_token %}
-                <p><label for="id_username">User Name: </label><input type="text" name="username" id="id_username" /></p>
-                <p><label for="id_password">Password: </label><input type="password" name="password" id="id_password" /></p>
-                <input type="hidden" name="next" value="/" />
-                <p align="center"><input type="submit" value="login" style="width: 100px; height: 30px;" /></p>
-            </form>
+        </form>
+        <div style="text-align: center; background-color:rgb(238, 238, 238); width: 300px;padding: 20px;" align="center">
+            <h2 style="color: rgba(0,0,0,0.55);">Sign up now. It's Free!</h2>
+            <a class="btn btn-large" href="/register/">Sign up</a>
         </div>
-        <div id="signup">
-            <p>Sign up now. It's free</p>
-            <a href="/register/">Sign up</a>
-        </div>
-
     </div>
-    <img id="logo" src="/site_media/edmodo-logo.png">
-
 </body>
 
 </html>
