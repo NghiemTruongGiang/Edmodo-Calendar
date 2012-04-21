@@ -53,23 +53,25 @@
     	        <!-- TD style: empty | day | current; onClick handler and highlight  -->
         	    <td class= {% if day == 0 or day_month != month %}"empty_day"{% endif %}
             	{% if day != 0 and not current %}"day"{% endif %}
-	            {% if day != 0 and current %}"current_day"{% endif %}
-    	        {% if day != 0 %}
+	            {% if day != 0 and current %}"current_day"{% endif %}>
+
+    	        <!-- Day number and entry snippets <b>{{ entry.creator }}</b>:  -->
+				{% if day != 0 %}
+				<div class="format-day" 
+				{% if day != 0 %}
         	        onClick="parent.location='{% url Calendar.views.group_day group_name year month day %}';"
             	    onMouseOver="this.bgColor='#eeeeee';"
                 	onMouseOut="this.bgColor='white';"
 	            {% endif %} >
-
-    	        <!-- Day number and entry snippets <b>{{ entry.creator }}</b>:  -->
-				{% if day != 0 %}
-				<div class="format-day">
             	    {{ day }}
 				</div>
 				<div class="m-f-s-table">
 				<table cellpadding="0" cellspacing="0" width="100%">
                 	{% for entry in entries %}
                     	<tr>
-							<td class="cell-format">
+							<td class="cell-format"
+							onClick="parent.location='{% url Calendar.views.g_event_edit group_name year month entry.pk %}';">
+							
 		                   	{{ entry.short|safe }}
 							</td>
 						</tr>

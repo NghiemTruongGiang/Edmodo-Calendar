@@ -7,9 +7,11 @@ class Entry(models.Model):
 	snippet = models.CharField(max_length = 150, blank = True)
 	body = models.TextField(max_length = 10000, blank = True)# content's event
 	created = models.DateTimeField(auto_now_add = True)# Time that event was created(auto)
-	date = models.DateField(blank = True)
+	date_start=models.DateTimeField(blank=True)#start of event
+	date_end=models.DateTimeField(blank=True)#the end of event
 	creator = models.ForeignKey(User, blank = True, null = True)# user create
 	remind = models.BooleanField(default = False)# remind for user
+	is_days=models.BooleanField(default=False)
 	
 	def __unicode__(self):
 		if self.title:
@@ -50,7 +52,7 @@ class GroupCalendar(models.Model):		#Group of calendar
 	
 class GroupMem(models.Model):
 	group_name=models.ForeignKey(GroupCalendar, blank=True, null=True, related_name="group_set")#group
-	user_mem=models.ForeignKey(User, blank=True, null=True)#user join
+	user_mem=models.ForeignKey(User, blank=True, null=True, related_name="mem_set")#user join
 	created=models.DateTimeField(auto_now_add=True)#attended time of this user
 	can_modify=models.BooleanField(default=False)#can modify the exested event
 	can_create=models.BooleanField(default=False)#can create new event
@@ -79,6 +81,8 @@ class GroupEntry(models.Model):
 	creator=models.ForeignKey(User, blank = True, null = True)#who created
 	group_name=models.ForeignKey(GroupCalendar, blank=True, null=True)#where store this event
 	remind=models.BooleanField(default=False)#warning user
+	is_days=models.BooleanField(default=False)
+	
 	def __unicode__(self):
 		if self.title:
 			return unicode(self.group_name) + u" - " + self.title
@@ -160,3 +164,9 @@ class UserProfile(models.Model):
 	
 	class Meta:
 		verbose_name_plural = "User Profile"
+
+class NotificationModel(models.Model):
+	user=models.ForeignKey(User, blank=True, null=True)
+	content=models.CharField('Content', max_length=100)
+	link=models.CharField('Link', max_length=200)
+	remind=models.BooleanField(default=True)

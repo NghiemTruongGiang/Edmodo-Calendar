@@ -91,3 +91,16 @@ class AddPhotoForm(forms.Form):
 	title=forms.CharField(label="Title", max_length=40)
 	is_use=forms.BooleanField(required=False)
 	photo=forms.ImageField(label="Add photo")
+	
+class AddEntryGroupForm(forms.Form):
+	title=forms.CharField(label="Title", max_length=40)
+	snippet=forms.CharField(label="Where", max_length=150)#brief
+	body=forms.CharField(
+		label='Description', 
+		max_length=10000,
+		widget=forms.Textarea(),
+	)
+	date_start=forms.DateTimeField(label="Start")#start of event
+	date_end=forms.DateTimeField(label="to")#the end of event
+	remind=forms.BooleanField(required=False)#warning user
+	dele=forms.BooleanField(required=False)
