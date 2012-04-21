@@ -7,8 +7,8 @@
 	<p>I have some thing</p></br>
 	{{ week }}<br/>{{ usercal1 }}
 	<ul>
-	{% for even, delt, str in els1 %}
-		<li><p>{{ even }} {{ delt }} {{ str }}	</p></li>
+	{% for even, delt, str, g in els1 %}
+		<li><p>{{ even }} {{ delt }} {{ str }}	{{ g }}</p></li>
 	{% endfor %}
 		</ul>
 	<br/>

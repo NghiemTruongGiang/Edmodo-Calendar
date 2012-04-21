@@ -297,6 +297,7 @@ def add_photo(request):
 def caltime(timedel):
 	s_time = str(timedel)
 	s_time = s_time.split(' ')
+	sum = 0
 	if s_time[0][0] == '0':
 		sum = 0
 	else:
@@ -384,22 +385,22 @@ def month(request, year, month, change=None):
                     continue
                 #su kien bat dau truoc nmonth va ket thuc sau nmonth
                 elif (delta_s_ss < timedelta(0)) and (delta_s_ee > timedelta(0)):
-                    els.append([oneday, total, month_lst[0]])
+                    els.append([oneday, total, month_lst[0], 2])
                     continue
                 #su kien bat dau truoc nmonth va ket thuc o giua nmonth
                 elif (delta_s_ss < timedelta(0)) and (delta_s_ee <= timedelta(0)) and (delta_s_ee >= -total_s):
-                    delta_es=int(str(delta_s_es)[0])
-                    els.append([oneday, delta_es + 1, month_lst[0]])
+                    delta_es=caltime(delta_s_es)
+                    els.append([oneday, delta_es, month_lst[0], delta_es])
                     continue
                 #su kien bat dau o giua nmonth va ket thuc sau nmonth
                 elif (delta_s_ss >= timedelta(0)) and (delta_s_ss <= total_s) and (delta_s_ee > timedelta(0)):
                     delta_es=caltime(delta_s_es)
-                    els.append([oneday, delta_es+1, datest])
+                    els.append([oneday, delta_es+1, datest, 4])
                     continue
                 #su kien bat dau va ket thuc trong nmonth
                 else:
                     delta=caltime(oneday.date_end-oneday.date_start)
-                    els.append([oneday, delta, datest])
+                    els.append([oneday, delta, datest, 5])
                     continue
             #Nap su kien de in ra du lieu						
             for day in month_day:
@@ -415,7 +416,7 @@ def month(request, year, month, change=None):
                     j = 0#dem so long events da duoc them vao
                     #add entry into week row
                     for i in range(len(els)):
-                        if els[i][2] == day and els[i][1] != 0:
+                        if els[i][2] == day and els[i][1] > 0:
                             j+=1
                             if k == 0 or k <= j:#neu so hang entry it hon so entry
                                 k+=1
