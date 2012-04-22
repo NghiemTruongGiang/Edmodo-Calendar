@@ -4,14 +4,33 @@
 
 {% block content %}
 <div class="column1">
-	<p>I have some thing</p></br>
-	{{ week }}<br/>{{ usercal1 }}
+	<a href="">Every thing</a><br/>
+	Group Calendar:
 	<ul>
-	{% for even, delt, str, g in els1 %}
-		<li><p>{{ even }} {{ delt }} {{ str }}	{{ g }}</p></li>
-	{% endfor %}
-		</ul>
-	<br/>
+	{% if not listgroup %}
+		No group found!
+	{% else %}
+		{% for lg in listgroup %}
+		<li>
+			<a href="/month/{{ year }}/{{ month }}/?groupname = {{ lg.name }}">{{ lg.name }}</a>
+		</li>
+		{% endfor %}
+	{% endif %}
+	</ul>
+	Friend Calendar:
+	<ul>
+	{% if not listfriend %}
+		No friend found
+	{% else %}
+		{% for lf in listfriend %}
+		<li>
+			<a href="/month/{{ year }}/{{ month }}/?username = {{ lf.to_friend.username }}">
+				{{ lf.to_friend.username }}
+			</a>
+		</li>
+		{% endfor %}
+	{% endif %}
+	</ul>
 </div>
 
 <div class="smallhead">

@@ -103,7 +103,7 @@ def user_page(request, username):
 		
     variables = RequestContext(request, {
 		'user2': user,
-        'username': username,
+        'username': user.username,
 		'is_friend': is_friend,
 		'info': info,
 		'image': image,
@@ -199,8 +199,8 @@ def user_friend(request, username):
 	
     if request.user.is_authenticated():
         is_friend = FriendShip.objects.filter(
-                from_friend = request.user,
-                to_friend = user,
+			from_friend = request.user,
+			to_friend = user,
         )
     else:
         is_friend = False 
@@ -234,7 +234,7 @@ def friend_add(request):
 		except:
 			checkfriend=False
 		
-		if not checkfriend:
+		if checkfriend:
 			return HttpResponseRedirect(
 			'/user/%s/friend' % request.user.username
 			)
@@ -362,168 +362,169 @@ def month(request, year, month, change=None):
     manyday2 = []
     # make month lists containing list of days for each week
     # each day tuple will contain list of entries and 'current' indicator
-    if not 'username' in request.GET:
+    if 'username' in request.GET:
         try:
             usercal=User.objects.get(username = request.GET['username'])
         except:
             usercal=user
-        if usercal != None:
-            #lay cac su kien dien ra trong khoang thoi gian dai
-            manydays=Entry.objects.filter(
-                creator=usercal,
-                is_days=True,
-            )
-            for oneday in manydays:
-                datest=date(oneday.date_start.year, oneday.date_start.month, oneday.date_start.day)
-                dateen=date(oneday.date_end.year, oneday.date_end.month, oneday.date_end.day)
-                delta_s_ss=datest-month_lst[0]
-                delta_s_se=datest-month_lst[-1]
-                delta_s_es=dateen-month_lst[0]
-                delta_s_ee=dateen-month_lst[-1]
-                # su kien bat dau sau nmonth hoac ket thuc truoc nmonth
-                if (delta_s_es < timedelta(0)) or (delta_s_se > timedelta(0)): 
-                    continue
-                #su kien bat dau truoc nmonth va ket thuc sau nmonth
-                elif (delta_s_ss < timedelta(0)) and (delta_s_ee > timedelta(0)):
-                    els.append([oneday, total, month_lst[0], 2])
-                    continue
-                #su kien bat dau truoc nmonth va ket thuc o giua nmonth
-                elif (delta_s_ss < timedelta(0)) and (delta_s_ee <= timedelta(0)) and (delta_s_ee >= -total_s):
-                    delta_es=caltime(delta_s_es)
-                    els.append([oneday, delta_es, month_lst[0], delta_es])
-                    continue
-                #su kien bat dau o giua nmonth va ket thuc sau nmonth
-                elif (delta_s_ss >= timedelta(0)) and (delta_s_ss <= total_s) and (delta_s_ee > timedelta(0)):
-                    delta_es=caltime(delta_s_es)
-                    els.append([oneday, delta_es+1, datest, 4])
-                    continue
-                #su kien bat dau va ket thuc trong nmonth
-                else:
-                    delta=caltime(oneday.date_end-oneday.date_start)
-                    els.append([oneday, delta, datest, 5])
-                    continue
-            #Nap su kien de in ra du lieu						
-            for day in month_day:
-                entries = current = False   # are there entries for this day; current day?
-                if day.day:
-                    entries = Entry.objects.filter(
-                        date_start__year=day.year, 
-                        date_start__month=day.month, 
-                        date_start__day=day.day,
-                        creator=usercal,
-                        is_days=False
-                    )
-                    j = 0#dem so long events da duoc them vao
-                    #add entry into week row
-                    for i in range(len(els)):
-                        if els[i][2] == day and els[i][1] > 0:
-                            j+=1
-                            if k == 0 or k <= j:#neu so hang entry it hon so entry
-                                k+=1
-                                lst[week][1].append([])#tao hang moi rong
-                                linenum[week].append(0)#them mot bien quan li so event trong 1 tuan
-                            check = False
-                            #duyet qua tat cac cac dong event trong tuan
-                            for iter in range(k):
-                                if linenum[week][iter] > len(lst[week][0]):
-                                    continue
-                                elif (linenum[week][iter]+1) == len(lst[week][0]):
-                                    m = 0
-                                    if (7-linenum[week][iter]) >= els[i][1]:
-                                        m = els[i][1]
-                                    else:
-                                        m = 7-linenum[week][iter]
-                                    lst[week][1][iter].append((els[i][0], m))
-                                    #giam so ngay con lai cua event
-                                    els[i][1] -= m
-                                    #tang them thoi gian dien ra event
-                                    els[i][2] += timedelta(m)
-                                    linenum[week][iter] += (m)
-                                    check=True
-                                    break
-                                else:
-                                    for i2 in range(len(lst[week][0]) - linenum[week][iter]):
-                                        lst[week][1][iter].append([])
-                                        linenum[week][iter] += 1
-                                    m = 0
-                                    if (7-linenum[week][iter]) >= els[i][1]:
-                                        m = els[i][1]
-                                    else:
-                                        m = 7-linenum[week][iter]
-                                    lst[week][1][iter].append((els[i][0], m))
-                                    #giam so ngay con lai cua event
-                                    els[i][1] -= m
-                                    #tang them thoi gian dien ra event
-                                    els[i][2] += timedelta(m)
-                                    linenum[week][iter] += m
-                                    check=True
-                                    break
-                            if not check:
-                                k+= 1
-                                lst[week][1].append([])
-                                linenum[week].append(0)
-                                for i2 in range(len(lst[week][0]) - linenum[week][k-1]):
-                                    lst[week][1][k-1].append([])
-                                    linenum[week][k-1] += 1
+    else:
+        usercal=user
+    if usercal != None:
+        #lay cac su kien dien ra trong khoang thoi gian dai
+        manydays=Entry.objects.filter(
+            creator=usercal,
+            is_days=True,
+        )
+        for oneday in manydays:
+            datest=date(oneday.date_start.year, oneday.date_start.month, oneday.date_start.day)
+            dateen=date(oneday.date_end.year, oneday.date_end.month, oneday.date_end.day)
+            delta_s_ss=datest-month_lst[0]
+            delta_s_se=datest-month_lst[-1]
+            delta_s_es=dateen-month_lst[0]
+            delta_s_ee=dateen-month_lst[-1]
+            # su kien bat dau sau nmonth hoac ket thuc truoc nmonth
+            if (delta_s_es < timedelta(0)) or (delta_s_se > timedelta(0)): 
+                continue
+            #su kien bat dau truoc nmonth va ket thuc sau nmonth
+            elif (delta_s_ss < timedelta(0)) and (delta_s_ee > timedelta(0)):
+                els.append([oneday, total, month_lst[0], 2])
+                continue
+            #su kien bat dau truoc nmonth va ket thuc o giua nmonth
+            elif (delta_s_ss < timedelta(0)) and (delta_s_ee <= timedelta(0)) and (delta_s_ee >= -total_s):
+                delta_es=caltime(delta_s_es)
+                els.append([oneday, delta_es, month_lst[0], delta_es])
+                continue
+            #su kien bat dau o giua nmonth va ket thuc sau nmonth
+            elif (delta_s_ss >= timedelta(0)) and (delta_s_ss <= total_s) and (delta_s_ee > timedelta(0)):
+                delta_es=caltime(delta_s_es)
+                els.append([oneday, delta_es+1, datest, 4])
+                continue
+            #su kien bat dau va ket thuc trong nmonth
+            else:
+                delta=caltime(oneday.date_end-oneday.date_start)
+                els.append([oneday, delta, datest, 5])
+                continue
+        #Nap su kien de in ra du lieu						
+        for day in month_day:
+            entries = current = False   # are there entries for this day; current day?
+            if day.day:
+                entries = Entry.objects.filter(
+                    date_start__year=day.year, 
+                    date_start__month=day.month, 
+                    date_start__day=day.day,
+                    creator=usercal,
+                    is_days=False
+                )
+                j = 0#dem so long events da duoc them vao
+                #add entry into week row
+                for i in range(len(els)):
+                    if els[i][2] == day and els[i][1] > 0:
+                        j+=1
+                        if k == 0 or k <= j:#neu so hang entry it hon so entry
+                            k+=1
+                            lst[week][1].append([])#tao hang moi rong
+                            linenum[week].append(0)#them mot bien quan li so event trong 1 tuan
+                        check = False
+                        #duyet qua tat cac cac dong event trong tuan
+                        for iter in range(k):
+                            if linenum[week][iter] > len(lst[week][0]):
+                                continue
+                            elif (linenum[week][iter]+1) == len(lst[week][0]):
                                 m = 0
-                                if (7-linenum[week][k-1]) >= els[i][1]:
+                                if (7-linenum[week][iter]) >= els[i][1]:
                                     m = els[i][1]
                                 else:
-                                    m = 7-linenum[week][k-1]
-                                lst[week][1][k-1].append((els[i][0], m))
+                                    m = 7-linenum[week][iter]
+                                lst[week][1][iter].append((els[i][0], m))
                                 #giam so ngay con lai cua event
                                 els[i][1] -= m
                                 #tang them thoi gian dien ra event
                                 els[i][2] += timedelta(m)
-                                linenum[week][k-1] += m
-
-                    for entry in entries:
-                        j+= 1
-                        if k <= j or k == 0:#neu so hang entry it hon so entry thi them hang entry
-                            k+=1
-                            lst[week][1].append([])#tao hang moi rong
-                            linenum[week].append([0])
-                        check=False
-                        for iter in range(k):
-                            if linenum[week][iter] > len(lst[week][0]):
-                                continue
-                            elif linenum[week][iter] == len(lst[week][0]):
-                                lst[week][1][iter].append((entry, 0))
-                                linenum[week][iter] += 1
-                                check = True
+                                linenum[week][iter] += (m)
+                                check=True
                                 break
                             else:
                                 for i2 in range(len(lst[week][0]) - linenum[week][iter]):
                                     lst[week][1][iter].append([])
                                     linenum[week][iter] += 1
-                                lst[week][1][iter].append((entry, 0))
-                                linenum[week][iter] += 1
+                                m = 0
+                                if (7-linenum[week][iter]) >= els[i][1]:
+                                    m = els[i][1]
+                                else:
+                                    m = 7-linenum[week][iter]
+                                lst[week][1][iter].append((els[i][0], m))
+                                #giam so ngay con lai cua event
+                                els[i][1] -= m
+                                #tang them thoi gian dien ra event
+                                els[i][2] += timedelta(m)
+                                linenum[week][iter] += m
                                 check=True
                                 break
                         if not check:
-                            k+=1
+                            k+= 1
                             lst[week][1].append([])
                             linenum[week].append(0)
-                            for i2 in range(len(lst[week][0])-linenum[week][k-1]):
+                            for i2 in range(len(lst[week][0]) - linenum[week][k-1]):
                                 lst[week][1][k-1].append([])
-                                linenum[week][k-1]+=1
-                            lst[week][1][k-1].append((entry, 0))
-                            linenum[week][k-1] += 1
-							
-                    if not _show_users(request):
-                        entries = entries.filter(creator=request.user)
-                    if day.day == nday and day.year == nyear and day.month == nmonth:
-                        current = True
-                    lst[week][0].append((day.day, day.month, current))
-                if len(lst[week][0]) == 7:
-                    for i in range(len(lst[week][1])):
-                        if linenum[week][i] < 7:
-                            for j in range(7-linenum[week][i]):
-                                lst[week][1][i].append([])
-                    lst.append([[], []])
-                    linenum.append([])
-                    week += 1
-                    k = 0
+                                linenum[week][k-1] += 1
+                            m = 0
+                            if (7-linenum[week][k-1]) >= els[i][1]:
+                                m = els[i][1]
+                            else:
+                                m = 7-linenum[week][k-1]
+                            lst[week][1][k-1].append((els[i][0], m))
+                            #giam so ngay con lai cua event
+                            els[i][1] -= m
+                            #tang them thoi gian dien ra event
+                            els[i][2] += timedelta(m)
+                            linenum[week][k-1] += m
+                for entry in entries:
+                    j+= 1
+                    if k <= j or k == 0:#neu so hang entry it hon so entry thi them hang entry
+                        k+=1
+                        lst[week][1].append([])#tao hang moi rong
+                        linenum[week].append([0])
+                    check=False
+                    for iter in range(k):
+                        if linenum[week][iter] > len(lst[week][0]):
+                            continue
+                        elif linenum[week][iter] == len(lst[week][0]):
+                            lst[week][1][iter].append((entry, 0))
+                            linenum[week][iter] += 1
+                            check = True
+                            break
+                        else:
+                            for i2 in range(len(lst[week][0]) - linenum[week][iter]):
+                                lst[week][1][iter].append([])
+                                linenum[week][iter] += 1
+                            lst[week][1][iter].append((entry, 0))
+                            linenum[week][iter] += 1
+                            check=True
+                            break
+                    if not check:
+                        k+=1
+                        lst[week][1].append([])
+                        linenum[week].append(0)
+                        for i2 in range(len(lst[week][0])-linenum[week][k-1]):
+                            lst[week][1][k-1].append([])
+                            linenum[week][k-1]+=1
+                        lst[week][1][k-1].append((entry, 0))
+                        linenum[week][k-1] += 1
+			
+                if not _show_users(request):
+                    entries = entries.filter(creator=request.user)
+                if day.day == nday and day.year == nyear and day.month == nmonth:
+                    current = True
+                lst[week][0].append((day.day, day.month, current))
+            if len(lst[week][0]) == 7:
+                for i in range(len(lst[week][1])):
+                    if linenum[week][i] < 7:
+                        for j in range(7-linenum[week][i]):
+                            lst[week][1][i].append([])
+                lst.append([[], []])
+                linenum.append([])
+                week += 1
+                k = 0
 					
     return render_to_response("month.html", dict(
         year=year, 
@@ -536,7 +537,9 @@ def month(request, year, month, change=None):
         listgroup=listGroupCal,
         reminders=reminders(request)
     ))
-	
+
+def week(request, year, month, day):	
+	pass
 @login_required(login_url = '/login/')
 def day(request, year, month, day):
 	"""Entries for day"""
