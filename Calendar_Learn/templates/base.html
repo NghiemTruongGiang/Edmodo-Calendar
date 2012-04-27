@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>Calendar| {% block title %}{% endblock %}</title>
-{#		<link rel="shortcut icon" href="/media/file/photo/favicon.ico" type="image/x-icon">#}
+		<link rel="shortcut icon" href="/media/file/photo/favicon.ico" type="image/x-icon">
         <link rel="shortcut icon" href="/media/file/photo/SE.ICO" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="/site_media/style.css">
 		<link rel="stylesheet" type="text/css" href="/site_media/button.css">
@@ -11,11 +11,10 @@
 		<script type="text/javascript" src="/site_media/moreskins.js"></script>
         <script type="text/javascript" src="/site_media/gui.js"></script>
         <script type="text/javascript" src=/site_media/amlich-aa98.js></script>
-{#        <script type="text/javascript" src="/site_media/VietCalendar.js"></script>#}
+        <script type="text/javascript" src="/site_media/VietCalendar.js"></script>
 	{% block external %}{% endblock %}
 	 </head>
 	<body>
-{#    #}
 		<div class="bighead">
             <div class="bigHead_img">
                 <img src="/media/file/photo/edmodo_calendar.jpg" width="15%" height="150%">
@@ -24,7 +23,7 @@
                 <form>
                     <a href="/" class="bighead_font">Home</a>
                     <a href="/user/{{ user.username }}"class="bighead_font">Profile</a>
-                    <select onchange="userEvent(this.value)" class="bighead_select">
+                    <select onChange="userEvent(this.value)" class="bighead_select">
                         <option value="username" class="bighead_select_sub">Welcome {{ user.username }}</option>
                         <option value="setting" class="bighead_select_sub">Setting</option>
                         <option value="logout" class="bighead_select_sub">Logout</option>
@@ -58,11 +57,11 @@
                 <input type="text" name="month"class="VC-month_input"></br>
             <br><div class="vc-year">Năm:</div>
                 <input type="text" name="year"class="VC-year_input"></br>
-                <input type="radio" name="typeConvert" value="duongAm" checked="checked" class="VC_radio_da" onclick="da(this.form)">
+                <input type="radio" name="typeConvert" value="duongAm" checked="checked" class="VC_radio_da" onClick="da(this.form)">
                     <font class="VC_radio_da_text">Duong->Am</font>
-                <input type="radio" name="typeConvert" value="amDuong" class="VC_radio_ad" onclick="ad(this.form)">
+                <input type="radio" name="typeConvert" value="amDuong" class="VC_radio_ad" onClick="ad(this.form)">
                     <font class="VC_radio_ad_text">Am->Duong</font>
-            <input type="button" value="Chuyển đổi" onclick="vietNamCalendar(this.form)" class="convertAL">
+            <input type="button" value="Chuyển đổi" onClick="vietNamCalendar(this.form)" class="convertAL">
             <textarea name="result" class="result" disabled>Kết quả tìm ngày âm lịch</textarea>
             </form>
         </div>
