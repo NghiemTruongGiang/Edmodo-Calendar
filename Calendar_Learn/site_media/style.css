@@ -1,22 +1,54 @@
 .bighead{
-	position:relative;
-	background-color:#000066;
-	font-family:Verdana;
-	font-size:12px;
-	height:5%;
-	width:100%;
-	top:0%;
+    background-color:#0000ff;
+    position:relative;
+    left:0%;
+    top:0%;
+    width:100%;
+    font-size: 12px;
+    height: 30px;
+    font-family:Verdana;
+    position:relative;
+    margin:auto;
+    background-position:0 -36px;
 }
 
 .l1-bighead {
 	 position:absolute;
 	 text-align:right;
 	 color:#FFFFFF;
-	 right:0%;
+	 right:10%;
 	 height:100%;
-	 width:30%;
-	 top:1%;
+	 width:20%;
+	 top:3px;
 	 margin:0%;
+}
+.bighead_font:hover,.bighead_select:hover,.bighead_font_account:hover{
+    text-decoration: underline;
+}
+.bighead_font,.bighead_select,.bighead_font_account{
+    text-decoration: none;
+    background-position:0 -36px;
+    color: white;
+    margin:0;
+    padding:0;
+    background:none;
+    margin-right: 15px;
+}
+.bighead_select{
+    background-color: #0000ff;
+    border: 0;
+    width: 17px;
+    left: 16px;
+    margin-left: 5px;
+}
+.bighead_font_account{
+    margin-left: -13px;
+}
+.bighead_select_sub{
+    background-color: white;
+    color: #000000;
+    border-color: red;
+    text-align: center;
 }
 .smallhead {
 	position:absolute;
@@ -50,7 +82,7 @@
 	position:absolute;
 	text-align:center;
 	left:0;
-	top:8%;
+	top:10%;
 	width:15%;
 	margin:0px;
 	border-left:0px;
@@ -61,17 +93,8 @@
 	top:0;
 	left:15%;
 	width:70%;
-	right:15%
-	text-align:center;
-}
-
-.column3 {
-	position:absolute;
-	right:0;
-	width:15%;
-	top:15%;
-	text-align:center;
-	border-right:0px;
+	right:15%;
+	/*text-align:center;*/
 }
 .month{
 	padding:5px;
@@ -226,4 +249,171 @@
 	font-size:13px;
 	margin:5px;
 	border:1px solid #333333;
+}
+.column3 {
+    position:absolute;
+    right:0;
+    width:15%;
+    height: 95%;
+    top:8%;
+    text-align:center;
+    border-right:0px;
+}
+
+/* ?????????????????????????????????? */
+.bigHead_img{
+    position: absolute;
+    left: 0%;
+    width: 80%;
+}
+.VietC{
+    position: relative;
+    right: 0;
+    top: 5%;
+    background: orange;
+    height: 50%;
+    width: 100%;
+}
+.title_VC{
+    position: absolute;
+    color: red;
+    top:4%;
+    right: 12%;
+}
+.VC-day{
+    position: absolute;
+    top:13%;
+    left: 17%;
+}
+.VC-day_input{
+    position: absolute;
+    width: 30px;
+    top:12%;
+    left: 38%;
+}
+.VC-month{
+    position: absolute;
+    top:21%;
+    left: 17%;
+}
+.VC-month_input{
+    position: absolute;
+    width: 30px;
+    top:20%;
+    left: 38%;
+}
+.VC-year{
+    position: absolute;
+    top:29%;
+    left: 17%;
+}
+.VC-year_input{
+    position: absolute;
+    width: 40px;
+    top:28%;
+    left: 38%;
+}
+.VC_radio_da{
+    position: absolute;
+    top:37%;
+    left: 13%;
+}
+.VC_radio_da_text{
+    position: absolute;
+    top:37%;
+    left: 25%;
+}
+.VC_radio_ad{
+    position: absolute;
+    top:44%;
+    left: 13%;
+}
+.VC_radio_ad_text{
+    position: absolute;
+    top:44%;
+    left: 25%;
+}
+.convertAL{
+    position:absolute;
+    top:53%;
+    left: 20%;
+}
+.result{
+    position: absolute;
+    bottom: 1%;
+    width: 90%;
+    height: 37%;
+    left: 5%;
+}
+.view{
+    position:relative;
+    width:50%;
+    font-family:Arial;
+    height:3%;
+    padding:5px;
+    left: 9%;
+}
+.view-pn:hover{
+    text-decoration: underline;
+}
+.view-pn,.view-y{
+    text-decoration: none;
+    background-position:0 -36px;
+    color: #000000;
+    margin:0;
+    padding:0;
+    background:none;
+    margin-right: 2px;
+}
+.TODAY{
+    position: relative;
+    left: 18%;
+    color: green;
+    text-decoration-color:red;
+}
+.TODAY:active{
+    color: red;
+}
+.divSmallCaledar{
+    position: relative;
+    top:12%;
+    left: 1%;
+    width: 18%;
+}
+.CalendarTable{
+    border-color: orange;
+}
+.cellC_norm,.cellC_notM,.cellC_sun,.cellC_sun_cur,.cellC_cur{
+    width: 30px;
+}
+.cellC_notM{
+}
+.cellC_sun{
+    color: white;
+    background-color: red;
+}
+.cellC_sun_cur{
+    background-color: #CCCCCC;
+}
+.cellC_cur{
+    background-color: #CCCCCC;
+}
+
+.cellC_norm_text,.cellC_notM_text,.cellC_sun_text,.cellC_sun_cur_text,.cellC_cur_text{
+    width: 30px;
+    text-decoration: none;
+    color: #000000;
+}
+.cellC_notM_text{
+    color: #B3B3B3;
+}
+.cellC_sun_text{
+    color: white;
+}
+.cellC_sun_cur_text{
+    color: #000000;
+}
+.cellC_cur_text{
+    background-color: #CCCCCC;
+    color: #000000;
 }

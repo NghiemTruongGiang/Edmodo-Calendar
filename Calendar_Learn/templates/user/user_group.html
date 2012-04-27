@@ -1,138 +1,44 @@
-{% extends "base.html" %}
+{% extends "base_user.html" %}
+{% block user %}
+    <div class="smallhead">
+        <div class="head">
+            <div id="usp_head_left">
+                <b><font size="+3">{{ username }}'s  Group</font> </b>
+            </div>
 
-{% block title %}User: {{ username }}{% endblock %}
-
-{% block external %}
-	<link rel="stylesheet" type="text/css" href="/site_media/userpage.css/" />
-{% endblock %}
-
-{% block content %}
-<div class="column1">
-	<div class="image_profile">
-		{% if not image.photo.url %}
-			<img src="/media/file/photo/icon_exclaim.gif" alt="{{ username }}" height="100%" width="100%" />
-		{% else %}
-			<img src="{{ image.photo.url }}" alt="{{ username }}" height="100%" width="100%" />
-		{% endif %}
-	</div>
-	
-	<div class="usp_content">
-		<div id="info">
-			<a href="{% url Calendar.views.user_page username %}" style="text-decoration:none">Infomation</a>
-		</div>
-		
-		<div id="info">
-			<a href="{% url Calendar.views.image_profile username %}" style="text-decoration:none">
-				Picture Profile
-			</a>
-		</div>
-		
-		<div id="info">
-			<a href="{% url Calendar.views.user_group username %}" style="text-decoration:none">Group</a>
-		</div>
-		
-		<div id="info">
-			<a href="{% url Calendar.views.user_friend username %}" style="text-decoration:none">Friends</a>
-		</div>
-		
-		<div id="info">
-			<a href="" style="text-decoration:none">Calendar</a>
-		</div>
-	</div>
-		
-</div>
-
-<div class="smallhead">
-	<div class="head">
-		<div id="usp_head_left">
-			<b>{{ username }}  Group</b>
-		</div>
-		
-		<div id="usp_head_right">
-			<b>
-			{% if is_friend %}
-				Friend
-			{% else %}
-				<a href="/friend/add/?username={{ username }}" style="text-decoration:none">Add Friend </a>
-			{% endif %}
-			</b>
-		</div>
-	</div>
-	<div class="head2">
-		<!-- show group, this user created -->
-		<div id="has_group">
-			<b>My groups</b></br>
-			{% if has_group %}
-			<div id="usg_h_group">
-				<table width="100%" cellspacing="0", border="1px">
-				{% for hg in has_group %}
-					<tr>
-					<td>
-						<div id="usg_h_group_name">
-							<a href="{% url Calendar.views.group_view hg.name %}">{{ hg.name }}</a>
-						</div>
-						<div id="usg_h_group_describe">
-							{{ hg.describe }}
-						</div>
-					</td>
-					<td>
-						<div id="usg_h_g_latestentry"
-						
-						</div>
-					</td>
-					</tr>
-				{% endfor %}
-				</table>
-			{% else %}
-				<div id="usg_h_n_group">
-					No group!
-					<br/>
-					<a href="{% url Calendar.views.create_group %}">Create Group</a>
-				</div>
-			{% endif %}
-				<table width="100%" cellspacing="0" border="1px">
-				{% for aj in accept_join %}
-					<tr>
-						<td>
-							<div id="usg_h_group_name">
-								<a href="{% url Calendar.views.group_view aj.group_name.name %}">
-									{{ aj.group_name.name }} | {{ aj.group_name.creator }}
-								</a>
-							</div>
-							<div id="usg_h_group_describe">
-								{{ aj.group_name.describe }}
-							</div>
-						</td>
-						<td>
-							<div id="usg_h_g_latestentry"
-						
-							</div>
-						</td>
-					</tr>
-				{% endfor %}
-				{% for naj in not_accept_join %}
-					<tr>
-						<td>
-							<div id="usg_h_group_name">
-								<a href="{% url Calendar.views.group_view naj.group_name.name %}">														       								{{ naj.group_name.name }} | {{ naj.group_name.creator }}(Not accept)
-								</a>
-							</div>
-							<div id="usg_h_group_describe">
-								{{ naj.group_name.describe }}
-							</div>
-						</td>
-						<td>
-							<div id="usg_h_g_latestentry"
-						
-							</div>
-						</td>
-					</tr>
-				{% endfor %}
-				</table>
-			</div>
-		</div>
-	</div>
+            <div id="usp_head_right">
+                <b>
+                    {% if is_friend %}Friend
+                    {% else %}
+                        <a href="/friend/add/?username={{ username }}" style="text-decoration:none">Add Friend </a>
+                    {% endif %}
+                </b>
+            </div>
+        </div>
+        <div class="head2">
+            <div id="has_group">
+                {% if has_group %}
+                    <div id="usg_h_group">
+                    <ol>
+                        {% for hg in has_group %}
+                            <li class="listGruop"title="group {{ hg.name }}">
+                                <a href="{% url Calendar.views.group_view hg.name %}" style="text-decoration: none;color: #0000ff;" >
+                                    {{ hg.name }}
+                                </a></li>
+                        {% endfor %}
+                    </ol>
+                    <button onclick="parent.location='{% url Calendar.views.create_group %}'">Create Group</button>
+                {% else %}
+                    <div id="usg_h_n_group">
+                        <br/>
+                        No Group!
+                        <button onclick="parent.location='{% url Calendar.views.create_group %}'">Create Group</button>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
 
 
-</div>
+    </div>
 {% endblock %}
