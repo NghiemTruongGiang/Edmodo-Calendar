@@ -1,33 +1,38 @@
 {% extends "base.html" %}
-
 {% block title %}Month{% endblock %}
-
 {% block content %}
-<div class="column1">
-	<p>I have some thing</p></br>
-</div>
-
 <div class="smallhead">
-	<div class="head">
-	<table width="48%" cellspacing="2">
-		<tr>
-		<td id="head_banner_left" 
-			onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
-			<a href= "{% url Calendar.views.group_month group_name year month "prev" %}" style="text-decoration:none">
-				&lt;&lt; Prev
-			</a>
-		</td>
-		<td class="head_banner_right" onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
-			<a href= "{% url Calendar.views.group_month group_name year month "next" %}" style="text-decoration:none">
-				Next &gt;&gt;
-			</a>
-		</td>
-		<td id="center_month">
-			<a>{{ mname }} {{ year }}</a>
-		</td>
-		</tr>
-	</table> 
-	</div>
+    <div class="view">
+        <form>
+            <a href= "{% url Calendar.views.group_month group_name year month "prev" %}" class="view-pn" title="Prev month">
+                &lt;&lt;</a>
+            <input type="hidden" name="group_name" value="{{ group_name}}">
+            <select onchange="changeMonthGroup(this.form)" class="view-y" name="month">
+                {% for num, nameM in listMonth %}
+                    {% if num == month %}
+                        <option value="{{ num }}" selected="selected">{{ nameM }}</option>
+                    {% else %}
+                        <option value="{{ num }}">{{ nameM }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <select onchange="changeMonthGroup(this.form)" class="view-y" name="year">
+                {% for y in listYear %}
+                    {% if y == year %}
+                        <option value="{{ y }}" selected="selected">{{ y }}</option>
+                    {% else %}
+                        <option value="{{ y }}">{{ y }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <a href= "{% url Calendar.views.group_month group_name year month "next" %}" class="view-pn" title="Next month">
+                &gt;&gt;</a>
+            {% for nday,numberM,nameM,nyear in currentDate %}
+                <a href="/{{ group_name }}/month/{{ nyear}}/{{ numberM }}" class="TODAY">Today:
+                {{ nameM }} / {{ nday }} / {{ nyear }}{% endfor %}
+            </a>
+        </form>
+    </div>
 	<div class="head2">
 	<div class="column2_2">
 	<div class="d0-table">
@@ -53,25 +58,24 @@
     	        <!-- TD style: empty | day | current; onClick handler and highlight  -->
         	    <td class= {% if day == 0 or day_month != month %}"empty_day"{% endif %}
             	{% if day != 0 and not current %}"day"{% endif %}
-	            {% if day != 0 and current %}"current_day"{% endif %}>
-
-    	        <!-- Day number and entry snippets <b>{{ entry.creator }}</b>:  -->
-				{% if day != 0 %}
-				<div class="format-day" 
-				{% if day != 0 %}
+	            {% if day != 0 and current %}"current_day"{% endif %}
+    	        {% if day != 0 and day_month == month%}
         	        onClick="parent.location='{% url Calendar.views.group_day group_name year month day %}';"
             	    onMouseOver="this.bgColor='#eeeeee';"
                 	onMouseOut="this.bgColor='white';"
+                 {% else %} onclick=notMonth();
 	            {% endif %} >
+
+    	        <!-- Day number and entry snippets <b>{{ entry.creator }}</b>:  -->
+				{% if day != 0 %}
+				<div class="format-day">
             	    {{ day }}
 				</div>
 				<div class="m-f-s-table">
 				<table cellpadding="0" cellspacing="0" width="100%">
                 	{% for entry in entries %}
                     	<tr>
-							<td class="cell-format"
-							onClick="parent.location='{% url Calendar.views.g_event_edit group_name year month entry.pk %}';">
-							
+							<td class="cell-format">
 		                   	{{ entry.short|safe }}
 							</td>
 						</tr>

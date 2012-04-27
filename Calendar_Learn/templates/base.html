@@ -1,25 +1,36 @@
 <html>
 	<head>
 		<title>Calendar| {% block title %}{% endblock %}</title>
-		<link rel="shortcut icon" href="/media/file/photo/favicon.ico" type="image/x-icon">
+{#		<link rel="shortcut icon" href="/media/file/photo/favicon.ico" type="image/x-icon">#}
+        <link rel="shortcut icon" href="/media/file/photo/SE.ICO" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="/site_media/style.css">
 		<link rel="stylesheet" type="text/css" href="/site_media/button.css">
 		<script type="text/javascript" src="/site_media/jquery.js"></script>
 		<!-- <script type="text/javascript" src="/site_media/excanvas.js"></script> -->
 		<script type="text/javascript" src="/site_media/coolclock.js"></script>
 		<script type="text/javascript" src="/site_media/moreskins.js"></script>
+        <script type="text/javascript" src="/site_media/gui.js"></script>
+        <script type="text/javascript" src=/site_media/amlich-aa98.js></script>
+{#        <script type="text/javascript" src="/site_media/VietCalendar.js"></script>#}
 	{% block external %}{% endblock %}
 	 </head>
 	<body>
+{#    #}
 		<div class="bighead">
+            <div class="bigHead_img">
+                <img src="/media/file/photo/edmodo_calendar.jpg" width="15%" height="150%">
+            </div>
 			<div class="l1-bighead">
-				<button class="btn btn-inverse" onClick="parent.location='/main/';">
-					Home
-				</button> 
-				<button class="btn btn-inverse" onClick="parent.location='/user/{{ user.username }}/';">
-					{{ user.username }}
-				</button> 
-				<button class="btn btn-inverse" onClick="parent.location='/logout/';">Logout</button>
+                <form>
+                    <a href="/" class="bighead_font">Home</a>
+                    <a href="/user/{{ user.username }}"class="bighead_font">Profile</a>
+                    <select onchange="userEvent(this.value)" class="bighead_select">
+                        <option value="username" class="bighead_select_sub">Welcome {{ user.username }}</option>
+                        <option value="setting" class="bighead_select_sub">Setting</option>
+                        <option value="logout" class="bighead_select_sub">Logout</option>
+                    </select>
+                    <a href="" class="bighead_font_account">Account</a>
+                </form>
 			</div>
 		</div>
 		<div class="column3">
@@ -36,7 +47,26 @@
 					{% endfor %}
 				{% endif %}
 			</div>
-		</div>
+
+        <div class="VietC">
+
+            <form name="VietnamCalendar">
+            <div class="title_VC">LỊCH VIỆT NAM</div>
+            <br><div class="VC-day">Ngày:</div>
+                <input type="text" name="day"class="VC-day_input"></br>
+            <br><div class="VC-month">Tháng:</div>
+                <input type="text" name="month"class="VC-month_input"></br>
+            <br><div class="vc-year">Năm:</div>
+                <input type="text" name="year"class="VC-year_input"></br>
+                <input type="radio" name="typeConvert" value="duongAm" checked="checked" class="VC_radio_da" onclick="da(this.form)">
+                    <font class="VC_radio_da_text">Duong->Am</font>
+                <input type="radio" name="typeConvert" value="amDuong" class="VC_radio_ad" onclick="ad(this.form)">
+                    <font class="VC_radio_ad_text">Am->Duong</font>
+            <input type="button" value="Chuyển đổi" onclick="vietNamCalendar(this.form)" class="convertAL">
+            <textarea name="result" class="result" disabled>Kết quả tìm ngày âm lịch</textarea>
+            </form>
+        </div>
+        </div>
 	{% block content %} {% endblock %}
 
 	</body>

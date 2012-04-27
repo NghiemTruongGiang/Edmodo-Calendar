@@ -54,7 +54,7 @@ admin.site.register(UserProfile, UserProfileAdmin)
 
 ###Admin
 class EntryAdmin(admin.ModelAdmin):
-    list_display = ["creator", "date_start", "date_end", "title", "snippet"]
+    list_display = ["creator", "date", "title", "snippet"]
     search_fields = ["title", "snippet"]
     list_filter = ["creator"]
 	

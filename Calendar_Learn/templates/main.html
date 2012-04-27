@@ -1,58 +1,98 @@
 {% extends "base.html" %}
-
 {% block title %}Home{% endblock %}
-
-<!-- ... -->
 {% block content %}
-<div class="column1">
-	<p>I have some thing</p></br>
-</div>
-
 <div class="smallhead">
-	<div class="head">
-		<table width="48%" cellspacing="2">
-		<tr>
-		<td id="head_banner_left" 
-			onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
-			<a href= "{% url Calendar.views.main year|add:'-3' %}" style="text-decoration:none">
-				&lt;&lt; Prev
-			</a>
-		</td>
-		<td class="head_banner_right" onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
-			<a href= "{% url Calendar.views.main year|add:'3' %}" style="text-decoration:none">
-				Next &gt;&gt;
-			</a>
-		</td>
-		<td id="center_month">
-		</td>
-		</tr>
-		</table>
-	</div>
+    <div class="view">
+        <form>
+            <a href= "{% url Calendar.views.main year|add:'-3' %}" class="view-pn" title="Prev year">
+                &lt;&lt;</a>
+            <select onchange="changeYear(this.value)" class="view-y">
+                {% for y in listYear %}
+                    {% if y == year %}
+                        <option value="{{ y }}" selected="selected">{{ y }}</option>
+                    {% else %}
+                        <option value="{{ y }}">{{ y }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <a href= "{% url Calendar.views.main year|add:'3' %}" class="view-pn" title="Next year">
+                &gt;&gt;</a>
+            <a href="/" class="TODAY">Today:
+                {% for nowd, nowm ,nowmN,  nowy in currnentDate %}
+                    {{ nowmN }} / {{ nowd }} / {{ nowy }}{% endfor %}
+            </a>
+
+        </form>
+    </div>
 	<div class="head2">
 		<div class="column2">
 		{% for year, months in years %}
-		<table cellspacing="10" cellpadding="0">
+		<table cellspacing="10" cellpadding="0" border="1">
 			<tr class="algcent">
-				<td colspan="4">{{ year }}</td>
+				<td colspan="4" bgcolor="#a9a9a9">{{ year }}</td>
 			</tr>
 			<tr>
-			{% for month in months %}
-				<td class=
-				{% if month.current %}"current"{% endif %}
-				{% if not month.current %}"month"{% endif %}>
-					{% if month.entry %}<b>{% endif %}
-					<a href="{% url Calendar.views.month year month.n %}" style="text-decoration:none">
-						{{ month.name }}
-					</a>
-					{% if month.entry %}</b>{% endif %}
-				</td>
-				
-				{% if month.n == 4 or month.n == 8 %}</tr>{% endif %}
-			{% endfor %}
+                {% for month in months %}
+                    <td class=
+                        {% if month.current %}"current"
+                        {% else %}"month"{% endif %}
+                    >
+                    <a href="{% url Calendar.views.month year month.n %}" style="text-decoration:none">
+                        {% if month.entry %}<b style="color: #000000;">{%  endif %}
+                        {% if month.current %}<b style="color: red;">{% endif %}
+                        {% if not month.entry and not month.current %}<p style="color: #000066;">{% endif %}
+                        {{ month.name }}
+                        {% if not month.entry and not month.current %}</p>{% endif %}
+                        {% if month.entry %}</b>{%  endif %}
+                        {% if month.current %}</b>{% endif %}
+                    </a>
+                    </td>
+
+                    {% if month.n == 4 or month.n == 8 %}</tr>{% endif %}
+                {% endfor %}
 		</table>
 		{% endfor %}
+
 		</div>
 	</div>
+</div>
+<div class="divSmallCaledar">
+    {% for nowd, nowm ,nowmN,  nowy in currnentDate %}
+    <table border="1" cellpadding="0" cellspacing="0" class="CalendarTable">
+        <tr align="middle" bgcolor="#add8e6">
+            <td colspan="7">{{ nowmN }} - {{ nowy }}</td>
+        </tr>
+        <tr align="middle" bgcolor="#9acd32">
+            <td class="cellC_norm">Mon</td><td class="cellC_norm">Tue</td>
+            <td class="cellC_norm">Wed</td><td class="cellC_norm">Thu</td>
+            <td class="cellC_norm">Fri</td><td class="cellC_norm">Sat</td>
+            <td class="cellC_sun">Sun</td>
+        </tr>
+        <tr align="middle">
+            {% for day in listDate %}
+                <td align="middle" class=
+                    {% if day.month != nowm %}"cellC_notM"
+                    {% else %}
+					    {% if day.day != nowd and day.weekday == 6 %}"cellC_sun"{% endif %}
+                        {% if day.day == nowd and day.weekday == 6 %}"cellC_sun_cur"{% endif %}
+                        {% if day.day == nowd and day.weekday != 6 %}"cellC_cur"{% endif %}
+                    {% endif %}
+                >
+                <a href="/day/{{ day.year }}/{{ day.month }}/{{ day.day }}" class=
+                    {% if day.month != nowm %}"cellC_notM_text"
+                    {% else %}
+                        {% if day.day != nowd and day.weekday == 6 %}"cellC_sun_text"{% endif %}
+                        {% if day.day == nowd and day.weekday == 6 %}"cellC_sun_cur_text"{% endif %}
+                        {% if day.day == nowd and day.weekday != 6 %}"cellC_cur_text"{% endif %}
+                        {% if day.day != nowd and day.weekday != 6 %}"cellC_norm_text"{% endif %}
+                    {% endif %}>
+                    {{ day.day }}
+                </a>
+                </td>
+                {% if day.weekday == 6 %}</tr>{% endif %}
+            {% endfor %}
+    </table>
+    {% endfor %}
 </div>
 {% endblock %}
 

@@ -20,7 +20,7 @@ class RegistrationForm(forms.Form):
             if password1 == password2:
                 return password2
 
-        return forms.ValidationError('Password do not match!')
+        raise forms.ValidationError('Password do not match!')
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -48,16 +48,14 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError(
                 'Last name can only contain alphanumeric characters and underscore.'
             )
-
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        try:
-            User.objects.get(email = email)
-        except ObjectDoesNotExist:
-            return email
-
-        raise forms.ValidationError('Email is already taken')
+#    def clean_email(self):
+#        email = self.cleaned_data['email']
+#        try:
+#            User.objects.get(email = email)
+#        except ObjectDoesNotExist:
+#            return email
+#
+#        raise forms.ValidationError('Email is already taken')
 
 class CreateGroupForm(forms.Form):
 	name=forms.CharField(label='Group name', max_length=40)
@@ -91,16 +89,3 @@ class AddPhotoForm(forms.Form):
 	title=forms.CharField(label="Title", max_length=40)
 	is_use=forms.BooleanField(required=False)
 	photo=forms.ImageField(label="Add photo")
-	
-class AddEntryGroupForm(forms.Form):
-	title=forms.CharField(label="Title", max_length=40)
-	snippet=forms.CharField(label="Where", max_length=150)#brief
-	body=forms.CharField(
-		label='Description', 
-		max_length=10000,
-		widget=forms.Textarea(),
-	)
-	date_start=forms.DateTimeField(label="Start")#start of event
-	date_end=forms.DateTimeField(label="to")#the end of event
-	remind=forms.BooleanField(required=False)#warning user
-	dele=forms.BooleanField(required=False)

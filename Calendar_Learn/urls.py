@@ -37,7 +37,6 @@ urlpatterns = patterns('',
     (r'^register/success/$', direct_to_template, {'template': 'registration/register_success.html'}),
 	#Group management
 	(r'^group/join/$', join_group),
-	(r'^group/(\w+)/(\d+)/(\d+)/(\d+)/$', g_event_edit),
 	(r'^create_group/$', create_group),
 	(r'^group/(\w+)/$', group_view),
 	(r"^(\w+)/month/(\d+)/(\d+)/(prev|next)/$", group_month),

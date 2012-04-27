@@ -3,118 +3,93 @@
 {% block title %}Month{% endblock %}
 
 {% block content %}
-<div class="column1">
-	<a href="">Every thing</a><br/>
-	Group Calendar:
-	<ul>
-	{% if not listgroup %}
-		No group found!
-	{% else %}
-		{% for lg in listgroup %}
-		<li>
-			<a href="/month/{{ year }}/{{ month }}/?groupname = {{ lg.name }}">{{ lg.name }}</a>
-		</li>
-		{% endfor %}
-	{% endif %}
-	</ul>
-	Friend Calendar:
-	<ul>
-	{% if not listfriend %}
-		No friend found
-	{% else %}
-		{% for lf in listfriend %}
-		<li>
-			<a href="/month/{{ year }}/{{ month }}/?username = {{ lf.to_friend.username }}">
-				{{ lf.to_friend.username }}
-			</a>
-		</li>
-		{% endfor %}
-	{% endif %}
-	</ul>
-</div>
-
 <div class="smallhead">
-	<div class="head">
-	<table width="48%" cellspacing="2">
-		<tr>
-		<td id="head_banner_left" 
-			onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
-			<a href= "{% url Calendar.views.month year month "prev" %}" style="text-decoration:none">
-				&lt;&lt; Prev
-			</a>
-		</td>
-		<td class="head_banner_right" onMouseOver="this.bgColor='#eeeeee';" onMouseOut="this.bgColor='white';">
-			<a href= "{% url Calendar.views.month year month "next" %}" style="text-decoration:none">
-				Next &gt;&gt;
-			</a>
-		</td>
-		<td id="center_month">
-			<a>{{ mname }} {{ year }}</a>
-		</td>
-		</tr>
-	</table> 
+	<div class="view">
+        <form>
+            <a href= "{% url Calendar.views.month year month "prev" %}" class="view-pn" title="Prev month">
+                &lt;&lt;</a>
+            <select onchange="changeMonth(this.form)" class="view-y" name="month">
+                {% for num, nameM in listMonth %}
+                    {% if num == month %}
+                        <option value="{{ num }}" selected="selected">{{ nameM }}</option>
+                    {% else %}
+                        <option value="{{ num }}">{{ nameM }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <select onchange="changeMonth(this.form)" class="view-y" name="year">
+                {% for y in listYear %}
+                    {% if y == year %}
+                        <option value="{{ y }}" selected="selected">{{ y }}</option>
+                    {% else %}
+                        <option value="{{ y }}">{{ y }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <a href= "{% url Calendar.views.month year month "next" %}" class="view-pn" title="Next month">
+                &gt;&gt;</a>
+            {% for nday,numberM,nameM,nyear in currentDate %}
+                <a href="/month/{{ nyear}}/{{ numberM }}" class="TODAY">Today:
+                {{ nameM }} / {{ nday }} / {{ nyear }}{% endfor %}
+            </a>
+        </form>
 	</div>
 	<div class="head2">
-		<div class="column2_2">
-			<div class="d0-table">
-		    	<table cellpadding="0" cellspacing="0" width="100%" border="1">
-    				<tr>
-	        		<td class="empty">Mon</td>
-		        	<td class="empty">Tue</td>
-	    		    <td class="empty">Wed</td>
-    	    		<td class="empty">Thu</td>
-	    	    	<td class="empty">Fri</td>
-	    	    	<td class="empty">Sat</td>
-		        	<td class="empty">Sun</td>
-			    </tr>
+	<div class="column2_2">
+	<div class="d0-table">
+	    <table cellpadding="0" cellspacing="0" width="100%" border="1">
+    		<tr>
+        		<td class="empty">Mon</td>
+	        	<td class="empty">Tue</td>
+	    	    <td class="empty">Wed</td>
+    	    	<td class="empty">Thu</td>
+	    	    <td class="empty">Fri</td>
+    	    	<td class="empty">Sat</td>
+	        	<td class="empty">Sun</td>
+		    </tr>
 		</table>
 	</div>
 	<div class="d1-table">
-		{% for week_days, week_events in month_days %}
-			<div class="d-table">
-			<table cellpadding="0" cellspacing="0" class="l-f-table" border="1">
-    	    	<tr>
-	        	{% for day, day_month, current in week_days %}
-		
-    		        <!-- TD style: empty | day | current; onClick handler and highlight  -->
-        		    <td class= {% if day == 0 or day_month != month %}"empty_day"{% endif %}
-            		{% if day != 0 and not current %}"day"{% endif %}
-		            {% if day != 0 and current %}"current_day"{% endif %}
-    		        {% if day != 0 %}
-        		        onClick="parent.location='{% url Calendar.views.day year month day %}';"
-            		    onMouseOver="this.bgColor='#eeeeee';"
-                		onMouseOut="this.bgColor='white';"
-		            {% endif %} >
+	    {% for week in month_days %}
+		<div class="d-table">
+		<table cellpadding="0" cellspacing="0" class="l-f-table" border="1">
+    	    <tr>
+        	{% for day, day_month, entries, current in week %}
 	
-    		        <!-- Day number and entry snippets <b>{{ entry.creator }}</b>:  -->
-					{% if day != 0 %}
-					<div class="format-day">
-            		    {{ day }}
-					</div>
-					{% endif %}
-					</td>
-		        {% endfor %}
-    		    </tr>
-			</table>
-			</div>
-			<div class="d-table">
-			<table cellpadding="0" cellspacing="0" border="1" width="100%">
-				{% for week_event in week_events %}
-				<tr>
-					{% for event, cs in week_event %}
-					<td {% if cs > 1 %} colspan="{{ cs }}" {% else %} class = "day"{% endif %}>
-						{% if event %}
-							{{ event.short|safe }}
-						{% else %}
-							No thing
-						{% endif %}
-					</td>					
-					{% endfor %}
-				</tr>
-				{% endfor %}
-			</table>
-			</div>
-		{% endfor %}
+    	        <!-- TD style: empty | day | current; onClick handler and highlight  -->
+        	    <td class= {% if day == 0 or day_month != month %}"empty_day"{% endif %}
+            	{% if day != 0 and not current %}"day"{% endif %}
+	            {% if day != 0 and current %}"current_day"{% endif %}
+    	        {% if day != 0 and day_month == month %}
+        	        onClick="parent.location='{% url Calendar.views.day year month day %}';"
+            	    onMouseOver="this.bgColor='#eeeeee';"
+                	onMouseOut="this.bgColor='white';"
+                {% else %} onClick = notMonth();
+                {% endif %}>
+
+    	        <!-- Day number and entry snippets <b>{{ entry.creator }}</b>:  -->
+				{% if day != 0 %}
+				<div class="format-day">
+            	    {{ day }}
+				</div>
+				<div class="m-f-s-table">
+				<table cellpadding="0" cellspacing="0" width="100%">
+                	{% for entry in entries %}
+                    	<tr>
+							<td class="cell-format">
+		                   	{{ entry.short|safe }}
+							</td>
+						</tr>
+    	            {% endfor %}
+				</table>
+        	    {% endif %}
+				</div>
+            	</td>
+	        {% endfor %}
+    	    </tr>
+		</table>
+		</div>
+    	{% endfor %}
 	</div>
 	</div>
 	</div>

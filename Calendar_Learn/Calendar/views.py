@@ -1,24 +1,23 @@
 import time
 import calendar
-#import datetime
 from datetime import date, datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.forms.models import modelformset_factory
-#from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
-
 from django.http import Http404, HttpResponseRedirect
-#from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 from django.contrib.auth import logout
 from django.template import RequestContext
 from Calendar.form import *
-#from django.views.decorators.csrf import csrf_exempt
-
-
 from Calendar_Learn.Calendar.models import *
+
+#from django.core.files.base import File
+#from django.views.decorators.csrf import csrf_exempt
+#import datetime
+#from django.http import HttpResponseRedirect, HttpResponse
+#from django.contrib.auth.models import User
 
 mnames = "January February March April May June July August September October November December"
 mnames = mnames.split()
@@ -43,9 +42,8 @@ def main(request, year=None):
     else:    
 		year = time.localtime()[0]
 
-    nowy, nowm = time.localtime()[:2]
+    nowy, nowm, nowd = time.localtime()[:3]
     lst = []
-
     # create a list of months for each year, indicating ones that contain entries and current
     for y in [year, year+1, year+2]:
         mlst = []
@@ -53,8 +51,9 @@ def main(request, year=None):
 			# are there entry(s) for this month; current month?
             entry = current = False   
             entries = Entry.objects.filter(
-				date_start__year=y, 
-				date_start__month=n+1
+				date__year=y, 
+				date__month=n+1,
+                creator=request.user
 			)
             if not _show_users(request):
                 entries = entries.filter(creator=request.user)
@@ -67,15 +66,30 @@ def main(request, year=None):
 				n=n+1, 
 				name=month, 
 				entry=entry, 
-				current=current
+				current=current,
+
 			))
         lst.append((y, mlst))
-
+    currnentDate = []
+    for n, month in enumerate(mnames):
+        if( n+1 == nowm):
+            currnentDate.append((nowd,nowm,month,nowy))
+    listYear = range(year-10,year+10)
+#    cal = calendar.TextCalendar()
+#    for i in range(7):
+#        listDate = cal.formatweekday(i-1,3)
+    cal = calendar.Calendar()
+    listDate = cal.itermonthdates(nowy,nowm)
     return render_to_response("main.html", dict(
 		years=lst, 
 		user=request.user, 
 		year=year,
-        reminders=reminders(request)
+        reminders=reminders(request),
+        listYear = listYear,
+        currnentDate = currnentDate,
+        listDate = listDate,
+        oneRow = range(7),
+        oneCol = range(6),
 	))
 
 @login_required(login_url='/login/')
@@ -103,7 +117,7 @@ def user_page(request, username):
 		
     variables = RequestContext(request, {
 		'user2': user,
-        'username': user.username,
+        'username': username,
 		'is_friend': is_friend,
 		'info': info,
 		'image': image,
@@ -199,8 +213,8 @@ def user_friend(request, username):
 	
     if request.user.is_authenticated():
         is_friend = FriendShip.objects.filter(
-			from_friend = request.user,
-			to_friend = user,
+                from_friend = request.user,
+                to_friend = user,
         )
     else:
         is_friend = False 
@@ -226,18 +240,6 @@ def friend_add(request):
 		friend = get_object_or_404(
 			User, username = request.GET['username']
 		)
-		try:
-			checkfriend=FriendShip.objects.get(
-				from_friend = request.user,
-				to_friend = friend,
-			)
-		except:
-			checkfriend=False
-		
-		if checkfriend:
-			return HttpResponseRedirect(
-			'/user/%s/friend' % request.user.username
-			)
 		friendship = FriendShip(	
 			from_friend = request.user,
 			to_friend = friend,
@@ -265,281 +267,84 @@ def friend_add(request):
 
 @login_required(login_url='/login/')		
 def add_photo(request):
-	if request.method == 'POST':
-		form=AddPhotoForm(request.POST, request.FILES)
-		if form.is_valid():
-			s_is_use=form.cleaned_data['is_use']
-			if s_is_use:
-				try:
-					photopro=Image.objects.get(user=request.user, is_use=True)
-					photopro.is_use=False
-					photopro.save()
-				except:
-					pass
-			image=Image.objects.create(
-				user=request.user,
-				title=form.cleaned_data['title'],
-				is_use=s_is_use,
-				photo=form.cleaned_data['photo'],
-			)
-			image.save()
-			
-		return HttpResponseRedirect('/user/%s/photo' % request.user.username)
-	else:
-		form = AddPhotoForm()
+    if request.method == 'POST':
+        form=AddPhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            image=Image.objects.create(
+                user=request.user,
+                title=form.cleaned_data['title'],
+                photo=form.cleaned_data['photo'],
+                is_use=form.cleaned_data['is_use']
+            )
+            image.save()
+            return HttpResponseRedirect('/user/%s/photo' % request.user.username)
+            
+    else:
+        form = AddPhotoForm()
 
-	variables = RequestContext(request,{
-		'form':form,
-	})
-	return render_to_response('add_photo.html',variables)
+    variables = RequestContext(request,{'form':form})
+    return render_to_response('add_photo.html',variables)
 	
-
-def caltime(timedel):
-	s_time = str(timedel)
-	s_time = s_time.split(' ')
-	sum = 0
-	if s_time[0][0] == '0':
-		sum = 0
-	else:
-		sum = int(s_time[0])
-	if s_time[0][0] == '-':
-		sum -= 1
-	else:
-		sum += 1
-	return sum
-
 @login_required(login_url='/login/')
 def month(request, year, month, change=None):
-    #Get user
-    user=get_object_or_404(User, username=request.user.username)
-    #Get calendar of friend
-    try:
-        listFriendCal=FriendShip.objects.filter(
-            from_friend=user,
-            import_friend=True,
-            accept_import=True,
-        )
-    except:
-        listFriendCal=None
-    #Get calendar of group
-    try:
-        listGroupCal=GroupMem.objects.filter(user_mem=user)
-    except:
-        listGroupCal=None
-	
-    #Listing of days in `month`.
+    """Listing of days in `month`."""
     year, month = int(year), int(month)
-	
+
     # apply next / previous change
     if change in ("next", "prev"):
         now, mdelta = date(year, month, 15), timedelta(days=31)
         if change == "next":   
-            mod = mdelta
+			mod = mdelta
         elif change == "prev": 
-            mod = -mdelta
-			
+			mod = -mdelta
+
         year, month = (now+mod).timetuple()[:2]
 
     # init variables
     cal = calendar.Calendar()
     month_day = cal.itermonthdates(year, month)
-    #tinh tong so ngay trong month dates
-    month_lst=list(month_day)
-    total_s=month_lst[-1]-month_lst[0]
-    total = caltime(total_s)
-    month_day = cal.itermonthdates(year, month)
-    #lay ngay thang nam hien tai
     nyear, nmonth, nday = time.localtime()[:3]
-	
-    lst = []#luu tru du lieu ve ngay thang va event
-    lst.append([[], []])
-    els=[]#luu tru cac event keo dai
-    linenum=[]#so event tren mot hang (mot tuan)
-    linenum.append([])
+    lst = [[]]
     week = 0
-    k = 0#dem so hang entry
-    usercal1=None
-    manyday2 = []
     # make month lists containing list of days for each week
     # each day tuple will contain list of entries and 'current' indicator
-    if 'username' in request.GET:
-        try:
-            usercal=User.objects.get(username = request.GET['username'])
-        except:
-            usercal=user
-    else:
-        usercal=user
-    if usercal != None:
-        #lay cac su kien dien ra trong khoang thoi gian dai
-        manydays=Entry.objects.filter(
-            creator=usercal,
-            is_days=True,
-        )
-        for oneday in manydays:
-            datest=date(oneday.date_start.year, oneday.date_start.month, oneday.date_start.day)
-            dateen=date(oneday.date_end.year, oneday.date_end.month, oneday.date_end.day)
-            delta_s_ss=datest-month_lst[0]
-            delta_s_se=datest-month_lst[-1]
-            delta_s_es=dateen-month_lst[0]
-            delta_s_ee=dateen-month_lst[-1]
-            # su kien bat dau sau nmonth hoac ket thuc truoc nmonth
-            if (delta_s_es < timedelta(0)) or (delta_s_se > timedelta(0)): 
-                continue
-            #su kien bat dau truoc nmonth va ket thuc sau nmonth
-            elif (delta_s_ss < timedelta(0)) and (delta_s_ee > timedelta(0)):
-                els.append([oneday, total, month_lst[0], 2])
-                continue
-            #su kien bat dau truoc nmonth va ket thuc o giua nmonth
-            elif (delta_s_ss < timedelta(0)) and (delta_s_ee <= timedelta(0)) and (delta_s_ee >= -total_s):
-                delta_es=caltime(delta_s_es)
-                els.append([oneday, delta_es, month_lst[0], delta_es])
-                continue
-            #su kien bat dau o giua nmonth va ket thuc sau nmonth
-            elif (delta_s_ss >= timedelta(0)) and (delta_s_ss <= total_s) and (delta_s_ee > timedelta(0)):
-                delta_es=caltime(delta_s_es)
-                els.append([oneday, delta_es+1, datest, 4])
-                continue
-            #su kien bat dau va ket thuc trong nmonth
-            else:
-                delta=caltime(oneday.date_end-oneday.date_start)
-                els.append([oneday, delta, datest, 5])
-                continue
-        #Nap su kien de in ra du lieu						
-        for day in month_day:
-            entries = current = False   # are there entries for this day; current day?
-            if day.day:
-                entries = Entry.objects.filter(
-                    date_start__year=day.year, 
-                    date_start__month=day.month, 
-                    date_start__day=day.day,
-                    creator=usercal,
-                    is_days=False
-                )
-                j = 0#dem so long events da duoc them vao
-                #add entry into week row
-                for i in range(len(els)):
-                    if els[i][2] == day and els[i][1] > 0:
-                        j+=1
-                        if k == 0 or k <= j:#neu so hang entry it hon so entry
-                            k+=1
-                            lst[week][1].append([])#tao hang moi rong
-                            linenum[week].append(0)#them mot bien quan li so event trong 1 tuan
-                        check = False
-                        #duyet qua tat cac cac dong event trong tuan
-                        for iter in range(k):
-                            if linenum[week][iter] > len(lst[week][0]):
-                                continue
-                            elif (linenum[week][iter]+1) == len(lst[week][0]):
-                                m = 0
-                                if (7-linenum[week][iter]) >= els[i][1]:
-                                    m = els[i][1]
-                                else:
-                                    m = 7-linenum[week][iter]
-                                lst[week][1][iter].append((els[i][0], m))
-                                #giam so ngay con lai cua event
-                                els[i][1] -= m
-                                #tang them thoi gian dien ra event
-                                els[i][2] += timedelta(m)
-                                linenum[week][iter] += (m)
-                                check=True
-                                break
-                            else:
-                                for i2 in range(len(lst[week][0]) - linenum[week][iter]):
-                                    lst[week][1][iter].append([])
-                                    linenum[week][iter] += 1
-                                m = 0
-                                if (7-linenum[week][iter]) >= els[i][1]:
-                                    m = els[i][1]
-                                else:
-                                    m = 7-linenum[week][iter]
-                                lst[week][1][iter].append((els[i][0], m))
-                                #giam so ngay con lai cua event
-                                els[i][1] -= m
-                                #tang them thoi gian dien ra event
-                                els[i][2] += timedelta(m)
-                                linenum[week][iter] += m
-                                check=True
-                                break
-                        if not check:
-                            k+= 1
-                            lst[week][1].append([])
-                            linenum[week].append(0)
-                            for i2 in range(len(lst[week][0]) - linenum[week][k-1]):
-                                lst[week][1][k-1].append([])
-                                linenum[week][k-1] += 1
-                            m = 0
-                            if (7-linenum[week][k-1]) >= els[i][1]:
-                                m = els[i][1]
-                            else:
-                                m = 7-linenum[week][k-1]
-                            lst[week][1][k-1].append((els[i][0], m))
-                            #giam so ngay con lai cua event
-                            els[i][1] -= m
-                            #tang them thoi gian dien ra event
-                            els[i][2] += timedelta(m)
-                            linenum[week][k-1] += m
-                for entry in entries:
-                    j+= 1
-                    if k <= j or k == 0:#neu so hang entry it hon so entry thi them hang entry
-                        k+=1
-                        lst[week][1].append([])#tao hang moi rong
-                        linenum[week].append([0])
-                    check=False
-                    for iter in range(k):
-                        if linenum[week][iter] > len(lst[week][0]):
-                            continue
-                        elif linenum[week][iter] == len(lst[week][0]):
-                            lst[week][1][iter].append((entry, 0))
-                            linenum[week][iter] += 1
-                            check = True
-                            break
-                        else:
-                            for i2 in range(len(lst[week][0]) - linenum[week][iter]):
-                                lst[week][1][iter].append([])
-                                linenum[week][iter] += 1
-                            lst[week][1][iter].append((entry, 0))
-                            linenum[week][iter] += 1
-                            check=True
-                            break
-                    if not check:
-                        k+=1
-                        lst[week][1].append([])
-                        linenum[week].append(0)
-                        for i2 in range(len(lst[week][0])-linenum[week][k-1]):
-                            lst[week][1][k-1].append([])
-                            linenum[week][k-1]+=1
-                        lst[week][1][k-1].append((entry, 0))
-                        linenum[week][k-1] += 1
-			
-                if not _show_users(request):
-                    entries = entries.filter(creator=request.user)
-                if day.day == nday and day.year == nyear and day.month == nmonth:
-                    current = True
-                lst[week][0].append((day.day, day.month, current))
-            if len(lst[week][0]) == 7:
-                for i in range(len(lst[week][1])):
-                    if linenum[week][i] < 7:
-                        for j in range(7-linenum[week][i]):
-                            lst[week][1][i].append([])
-                lst.append([[], []])
-                linenum.append([])
-                week += 1
-                k = 0
-					
+    for day in month_day:
+        entries = current = False   # are there entries for this day; current day?
+        if day.day:
+            entries = Entry.objects.filter(
+				date__year=day.year, 
+				date__month=day.month, 
+				date__day=day.day,
+				creator=request.user
+			)
+            if not _show_users(request):
+                entries = entries.filter(creator=request.user)
+            if day.day == nday and day.year == nyear and day.month == nmonth:
+                current = True
+        lst[week].append((day.day, day.month, entries, current))
+        if len(lst[week]) == 7:
+            lst.append([])
+            week += 1
+    currentDate = []
+    for numberM, nameM in enumerate(mnames):
+        if( (numberM + 1) == nmonth):
+            currentDate.append((nday,nmonth,nameM,nyear))
+    listYear = range(year-10,year+10)
+    listMonth=[]
+    for num, nameM in enumerate(mnames):
+        listMonth.append((num+1, nameM))
     return render_to_response("month.html", dict(
-        year=year, 
-        month=month, 
-        user=request.user,
+		year=year, 
+		month=month, 
+		user=request.user,
         month_days=lst[:week], 
-        mname=mnames[month-1], 
-        listfriend=listFriendCal,
-        els1=els,
-        listgroup=listGroupCal,
-        reminders=reminders(request)
-    ))
-
-def week(request, year, month, day):	
-	pass
+		mname=mnames[month-1], 
+		reminders=reminders(request),
+        listYear = listYear,
+        listMonth = listMonth[:12],
+        currentDate = currentDate,
+	))
+	
 @login_required(login_url = '/login/')
 def day(request, year, month, day):
 	"""Entries for day"""
@@ -627,9 +432,9 @@ def reminders(request):
 	"""Return the list of reminders for today and tomorrow."""
 	year, month, day = time.localtime()[:3]
 	reminders = Entry.objects.filter(
-		date_start__year = year,
-		date_start__month = month,
-		date_start__day = day,
+		date__year = year,
+		date__month = month,
+		date__day = day,
 		creator = request.user,
 		remind = True
 	)
@@ -637,9 +442,9 @@ def reminders(request):
 	year, month, day = tomorrow.timetuple()[:3]
 	
 	return list(reminders) + list(Entry.objects.filter(
-		date_start__year = year,
-		date_start__month = month,
-		date_start__day = day,
+		date__year = year,
+		date__month = month,
+		date__day = day,
 		creator = request.user,
 		remind = True
 	))
@@ -719,13 +524,12 @@ def join_group(request):
 		group = get_object_or_404(
 			GroupCalendar, name = request.GET['group_name']
 		)
-		
-		joinmem, newmem = GroupMem.objects.get_or_create(	
+		joinmem = GroupMem(	
 			user_mem = request.user,
 			group_name = group
 		)
 		try:
-			newmem.save()
+			joinmem.save()
 			request.user.message_set.create(
 				message = u'You was added to group %s.' % group.name 
 			)
@@ -780,7 +584,14 @@ def group_month(request, groupname, year, month, change=None):
         if len(lst[week]) == 7:
             lst.append([])
             week += 1
-			
+    currentDate = []
+    for numberM, nameM in enumerate(mnames):
+        if( (numberM + 1) == nmonth):
+            currentDate.append((nday,nmonth,nameM,nyear))
+    listYear = range(year-10,year+10)
+    listMonth=[]
+    for num, nameM in enumerate(mnames):
+        listMonth.append((num+1, nameM))
     return render_to_response("Group/group_month.html", dict(
 		year=year, 
 		month=month, 
@@ -788,7 +599,10 @@ def group_month(request, groupname, year, month, change=None):
 		group_name=groupname,
         month_days=lst[:week], 
 		mname=mnames[month-1], 
-		reminders=reminders(request)
+		reminders=reminders(request),
+        listYear = listYear,
+        listMonth = listMonth[:12],
+        currentDate = currentDate,
 	))
 	
 @login_required(login_url = '/login/')
@@ -844,95 +658,3 @@ def group_day(request, groupname, year, month, day):
 		day = day,
 		reminders=reminders(request)
 	))
-
-@login_required(login_url = '/login/')
-def g_event_edit(request, groupname, year, month, id_e):
-	group=get_object_or_404(GroupCalendar, name=groupname)
-	entry=get_object_or_404(GroupEntry, pk=id_e)
-	if request.method == 'POST':
-		form=AddEntryGroupForm(request.POST)
-		if form.is_valid():
-			dele=form.cleaned_data['dele']
-			if dele:
-				entry.delete()
-			else:
-				entry.title=form.cleaned_data['title']
-				entry.snippet=form.cleaned_data['snippet']
-				entry.body=form.cleaned_data['body']
-				entry.date_start=form.cleaned_data['date_start']
-				entry.date_end=form.cleaned_data['date_end']
-				entry.remind=form.cleaned_data['remind']
-				entry.save()
-			return HttpResponseRedirect(reverse(
-				'Calendar_Learn.Calendar.views.group_month',
-				args = (groupname, year, month)
-			))
-	else:
-		form=AddEntryGroupForm({
-			'title': entry.title,
-			'snippet': entry.snippet,
-			'body': entry.body,
-			'date_start': entry.date_start,
-			'date_end': entry.date_end,
-			'remind': entry.remind,
-			'dele': False,
-		})
-		
-	variables=RequestContext(request, {
-		'form': form,
-		'id_e': entry.pk,
-		'groupname': groupname,
-		'reminders': reminders(request),
-	})
-	
-	return render_to_response('Group/group_day_edit.html', variables)
-"""	
-@login_required(login_url='/login/')
-def month(request, year, month, change=None):
-    #Listing of days in `month`.
-    year, month = int(year), int(month)
-
-    # apply next / previous change
-    if change in ("next", "prev"):
-        now, mdelta = date(year, month, 15), timedelta(days=31)
-        if change == "next":   
-			mod = mdelta
-        elif change == "prev": 
-			mod = -mdelta
-
-        year, month = (now+mod).timetuple()[:2]
-
-    # init variables
-    cal = calendar.Calendar()
-    month_day = cal.itermonthdates(year, month)
-    nyear, nmonth, nday = time.localtime()[:3]
-    lst = [[]]
-    week = 0
-    # make month lists containing list of days for each week
-    # each day tuple will contain list of entries and 'current' indicator
-    for day in month_day:
-        entries = current = False   # are there entries for this day; current day?
-        if day.day:
-            entries = Entry.objects.filter(
-				date__year=day.year, 
-				date__month=day.month, 
-				date__day=day.day,
-				creator=request.user
-			)
-            if not _show_users(request):
-                entries = entries.filter(creator=request.user)
-            if day.day == nday and day.year == nyear and day.month == nmonth:
-                current = True
-        lst[week].append((day.day, day.month, entries, current))
-        if len(lst[week]) == 7:
-            lst.append([])
-            week += 1
-			
-    return render_to_response("month.html", dict(
-		year=year, 
-		month=month, 
-		user=request.user,
-        month_days=lst[:week], 
-		mname=mnames[month-1], 
-		reminders=reminders(request)
-	))"""
