@@ -339,7 +339,7 @@ def month(request, year, month, change=None):
             mod = -mdelta
 			
         year, month = (now+mod).timetuple()[:2]
-
+	
     # init variables
     cal = calendar.Calendar()
     month_day = cal.itermonthdates(year, month)
@@ -538,8 +538,68 @@ def month(request, year, month, change=None):
         reminders=reminders(request)
     ))
 
-def week(request, year, month, day):	
-	pass
+def calmi(hour, minute):
+	mi = hour*60 + minute
+	return mi
+	
+def week(request, year, month, day, change=None	):
+	user = get_object_or_404(User, username = request.user.username)
+	
+	year, month, day = int(year), int(month), int(day)
+	try:
+		lfc = FriendShip.objects.filter(
+            from_friend=user,
+            import_friend=True,
+            accept_import=True,
+        )
+	except:
+		lfc = None
+	
+	try:
+		lgc = GroupMem.objects.filter(user_mem=user)
+	except:
+		lgc = None
+	weeklist = [] #luu tru event trong tuan do
+	weekday = [] #luu tru ngay thang trong tuan
+	weeklist.append([])
+	count = 1 #dem so ngay trong tuan
+	nday = calendar.weekday(year, month, day)
+	now_day = date(year, month, day)
+	
+	for i in range(7):
+		this_day = now_day + timedelta(i - nday)
+		weekday.append(this_day)
+		entries = Entry.objects.filter(
+			date_start__year=this_day.year, 
+            date_start__month=this_day.month, 
+            date_start__day=this_day.day,
+            creator=user,
+            is_days=False
+        ).order_by('date_start')
+		for entry in entries:
+			top = calmi(entry.date_start.hour, entry.date_start.minute)
+			hour_h = entry.date_end.hour - entry.date_start.hour
+			minute_h = entry.date_end.minute - entry.date_start.minute
+			height = calmi(hour_h, minute_h)
+			width = 100
+			relav = 0
+			weeklist[i].append([entry, top, height, width, relav])
+		weeklist.append([])
+		count += 1
+	
+	var = RequestContext(request, {
+		"listfc": lfc,
+		"listgc": lgc,
+		"weeks": weeklist[:count],
+		"weekdays": weekday,
+		"user": request.user,
+		"year": year,
+		"month": month,
+		"day": day
+	})
+	
+	return render_to_response("week.html", var)
+		
 @login_required(login_url = '/login/')
 def day(request, year, month, day):
 	"""Entries for day"""

@@ -66,57 +66,57 @@
 	    	    	<td class="empty">Fri</td>
 	    	    	<td class="empty">Sat</td>
 		        	<td class="empty">Sun</td>
-			    </tr>
-		</table>
-	</div>
-	<div class="d1-table">
-		{% for week_days, week_events in month_days %}
-			<div class="d-table">
-			<table cellpadding="0" cellspacing="0" class="l-f-table" border="1">
-    	    	<tr>
-	        	{% for day, day_month, current in week_days %}
+			    	</tr>
+				</table>
+			</div>
+			<div class="d1-table">
+			{% for week_days, week_events in month_days %}
+				<div class="d-table">
+				<table cellpadding="0" cellspacing="0" class="l-f-table" border="1">
+    		    	<tr>
+	    	    	{% for day, day_month, current in week_days %}
 		
     		        <!-- TD style: empty | day | current; onClick handler and highlight  -->
-        		    <td class= {% if day == 0 or day_month != month %}"empty_day"{% endif %}
-            		{% if day != 0 and not current %}"day"{% endif %}
-		            {% if day != 0 and current %}"current_day"{% endif %}
-    		        {% if day != 0 %}
-        		        onClick="parent.location='{% url Calendar.views.day year month day %}';"
-            		    onMouseOver="this.bgColor='#eeeeee';"
-                		onMouseOut="this.bgColor='white';"
-		            {% endif %} >
+        			    <td class= {% if day == 0 or day_month != month %}"empty_day"{% endif %}
+            			{% if day != 0 and not current %}"day"{% endif %}
+		            	{% if day != 0 and current %}"current_day"{% endif %}
+	    		        {% if day != 0 %}
+        			        onClick="parent.location='{% url Calendar.views.day year month day %}';"
+    	        		    onMouseOver="this.bgColor='#eeeeee';"
+            	    		onMouseOut="this.bgColor='white';"
+		        	    {% endif %} >
 	
     		        <!-- Day number and entry snippets <b>{{ entry.creator }}</b>:  -->
-					{% if day != 0 %}
-					<div class="format-day">
-            		    {{ day }}
-					</div>
-					{% endif %}
-					</td>
-		        {% endfor %}
-    		    </tr>
-			</table>
-			</div>
-			<div class="d-table">
-			<table cellpadding="0" cellspacing="0" border="1" width="100%">
-				{% for week_event in week_events %}
-				<tr>
-					{% for event, cs in week_event %}
-					<td {% if cs > 1 %} colspan="{{ cs }}" {% else %} class = "day"{% endif %}>
-						{% if event %}
-							{{ event.short|safe }}
-						{% else %}
-							No thing
+						{% if day != 0 %}
+						<div class="format-day">
+    	        		    {{ day }}
+						</div>
 						{% endif %}
-					</td>					
+						</td>
+		 	       {% endfor %}
+    			    </tr>
+				</table>
+				</div>
+				<div class="d-table">
+				<table cellpadding="0" cellspacing="0" border="1" width="100%">
+				{% for week_event in week_events %}
+					<tr>
+					{% for event, cs in week_event %}
+						<td {% if cs > 1 %} colspan="{{ cs }}" {% else %} class = "day"{% endif %}>
+							{% if event %}
+								{{ event.short|safe }}
+							{% else %}
+								No thing
+							{% endif %}
+						</td>					
 					{% endfor %}
-				</tr>
+					</tr>
 				{% endfor %}
-			</table>
+				</table>
+				</div>
+			{% endfor %}
 			</div>
-		{% endfor %}
-	</div>
-	</div>
+		</div>
 	</div>
 </div>
 {% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Calendar|Week{% endblock %}
+
+{% block content %}
+<div class="column1">
+	<a href="">Every thing</a><br/>
+	Group Calendar:
+	<ul>
+	{% if not listgc %}
+		No group found!
+	{% else %}
+		{% for lg in listgc %}
+		<li>
+			<a href="/week/{{ year }}/{{ month }}/{{ day }}/?groupname = {{ lg.name }}">{{ lg.name }}</a>
+		</li>
+		{% endfor %}
+	{% endif %}
+	</ul>
+	Friend Calendar:
+	<ul>
+	{% if not listfc %}
+		No friend found
+	{% else %}
+		{% for lf in listfc %}
+		<li>
+			<a href="/week/{{ year }}/{{ month }}/{{ day }}?username = {{ lf.to_friend.username }}">
+				{{ lf.to_friend.username }}
+			</a>
+		</li>
+		{% endfor %}
+	{% endif %}
+	</ul>
+</div>
+
+<div class="smallhead">
+	<div class="head2">
+		<div class="column2_2">
+			<div class="week-day-th">
+		    <table cellpadding="0" cellspacing="0" width="100%" border="1">
+    			<tr>
+	        		<td class="empty">Mon</td>
+		       		<td class="empty">Tue</td>
+	    		    <td class="empty">Wed</td>
+    	    		<td class="empty">Thu</td>
+	    	    	<td class="empty">Fri</td>
+	    	    	<td class="empty">Sat</td>
+		        	<td class="empty">Sun</td>
+			    </tr>
+			</table>
+			</div>
+			<div class="d1-table">
+			<table cellpadding="0" cellspacing="0" width="100%" border="1">
+				<tr>
+				</tr>
+			</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
