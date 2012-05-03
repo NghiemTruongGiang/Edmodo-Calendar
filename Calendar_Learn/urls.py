@@ -18,6 +18,10 @@ admin.autodiscover()
 # admin.autodiscover()
 #Calendar_Learn.Calendar.views
 urlpatterns = patterns('',
+	(r"^test/", test),
+	(r"^testmain/", test_main),
+	(r"^testprofile/", test_profile),
+	(r"^testcalendar/", test_calendar),
     (r"^month/(\d+)/(\d+)/(prev|next)/$", month),
     (r"^month/(\d+)/(\d+)/$", month),
     (r"^month/$", month),

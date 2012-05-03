@@ -23,6 +23,17 @@ from Calendar_Learn.Calendar.models import *
 mnames = "January February March April May June July August September October November December"
 mnames = mnames.split()
 
+def test(request):
+    return render_to_response('test.html')
+def test_main(request):
+    return render_to_response('test_main.html')
+
+def test_calendar(request):
+    return render_to_response('test_calendar.html')
+
+def test_profile(request):
+    return render_to_response('test_profile.html')
+
 def _show_users(request):
     """Return show_users setting; if it does not exist, initialize it."""
     s = request.session
