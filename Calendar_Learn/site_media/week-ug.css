@@ -60,8 +60,9 @@
 .week-dayname {
 	position:relative;
 	left:10%;
+	right:0%;
 	height:5%;
-	width:90%;
+	width:90.1%;
 }
 
 .week-t-markercell {
@@ -73,7 +74,8 @@
 }
 .week-t-spanningwrapper {
 	position:relative;
-	height:0;
+	width:100%;
+	margin:0;
 }
 
 .week-t-hourmarker {
@@ -120,4 +122,7 @@
   	background-origin:initial;
   	background-position:initial initial;
   	background-repeat:initial initial;
+}
+.week-t-GMTH{
+	width:10%;
 }
