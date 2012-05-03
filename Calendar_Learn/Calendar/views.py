@@ -543,62 +543,115 @@ def calmi(hour, minute):
 	return mi
 	
 def week(request, year, month, day, change=None	):
-	user = get_object_or_404(User, username = request.user.username)
-	
-	year, month, day = int(year), int(month), int(day)
-	try:
-		lfc = FriendShip.objects.filter(
+    user = get_object_or_404(User, username = request.user.username)
+    nameday = "Mon Tue Wed Thu Fri Sat Sun"
+    nameday=nameday.split()
+
+    year, month, day = int(year), int(month), int(day)
+    try:
+        lfc = FriendShip.objects.filter(
             from_friend=user,
             import_friend=True,
             accept_import=True,
         )
-	except:
-		lfc = None
-	
-	try:
-		lgc = GroupMem.objects.filter(user_mem=user)
-	except:
-		lgc = None
-	weeklist = [] #luu tru event trong tuan do
-	weekday = [] #luu tru ngay thang trong tuan
-	weeklist.append([])
-	count = 1 #dem so ngay trong tuan
-	nday = calendar.weekday(year, month, day)
-	now_day = date(year, month, day)
-	
-	for i in range(7):
-		this_day = now_day + timedelta(i - nday)
-		weekday.append(this_day)
-		entries = Entry.objects.filter(
-			date_start__year=this_day.year, 
+    except:
+        lfc = None
+
+    try:
+        lgc = GroupMem.objects.filter(user_mem=user)
+    except:
+        lgc = None
+
+    els = [] #luu tru event keo dai hoac su kien dac biet
+    linenum = []#luu tru so hang cua moi dong event dai hoac dac biet
+    linenum.append([])
+    els.append([])
+    weeklist = [] #luu tru event trong tuan do
+    weekday = [] #luu tru ngay thang trong tuan
+    b_day = date(2012, 12, 4)
+    e_day = date(2012, 12, 3)
+    GMT_time = range(24)
+    weeklist.append([])
+    count = 1 #dem so ngay trong tuan
+    nday = calendar.weekday(year, month, day)
+    now_day = date(year, month, day)
+    #lay cac su kien keo dai
+    eventlongs = Entry.objects.filter(
+        creator = request.user,
+        is_days = True
+    ).order_by('date_start')
+    for i in range(7):
+        this_day = now_day + timedelta(i - nday)
+        weekday.append((this_day, nameday[i]))
+        if i == 0:
+            b_day = this_day
+        if i == 6:
+            e_day = this_day
+        entries = Entry.objects.filter(
+            date_start__year=this_day.year,
             date_start__month=this_day.month, 
             date_start__day=this_day.day,
             creator=user,
             is_days=False
         ).order_by('date_start')
-		for entry in entries:
-			top = calmi(entry.date_start.hour, entry.date_start.minute)
-			hour_h = entry.date_end.hour - entry.date_start.hour
-			minute_h = entry.date_end.minute - entry.date_start.minute
-			height = calmi(hour_h, minute_h)
-			width = 100
-			relav = 0
-			weeklist[i].append([entry, top, height, width, relav])
-		weeklist.append([])
-		count += 1
+        for entry in entries:
+            top = calmi(entry.date_start.hour, entry.date_start.minute)
+            hour_h = entry.date_end.hour - entry.date_start.hour
+            minute_h = entry.date_end.minute - entry.date_start.minute
+            height = calmi(hour_h, minute_h)
+            width = 100
+            relav = 0
+            weeklist[i].append([entry, top, height, width, relav])
+        weeklist.append([])
+        count += 1
+	i = 0
+    for event in eventlongs:
+        dates = date(event.date_start.year, event.date_start.month, event.date_start.day)
+        datee = date(event.date_end.year, event.date_end.month, event.date_end.day)
+        dateeb = datee - b_day# ngay ket thuc su kien tru ngay dau tuan
+        datese = dates - e_day# ngay bat dau su kien tru ngay cuoi tuan
+        datesb = dates - b_day# ngay bat dau su kien tru ngay dau tuan
+        dateee = datee - e_day# ngay ket thuc su kien tru ngay cuoi tuan
+        #khong nam trong tuan day
+        if dateeb < timedelta(0) or datese > timedelta(0):
+            continue
+        #su kien keo dai qua ca tuan
+        elif datesb < timedelta(0) and dateee > timedelta(0):
+            els[i].append([0, event, 7, 0])
+            els.append([])
+            linenum[i].append(7)
+            linenum.append([])
+            i += 1
+            continue
+        #su kien bat dau truoc tuan va ket thuc trong tuan
+        elif datesb < timedelta(0) and dateee <= timedelta(0):
+            dateeb = datee - b_day
+            dateeb_n = caltime(dateeb)
+            els[i].append([0, event, dateeb_n, 7 - dateeb_n])
+            linenum[i][0] += dateeb
+            continue
+        #su kien bat dau trong tuan va ket thuc sau tuan
+        elif datesb >= timedelta(0) and dateee > timedelta(0):
+            pass
+        #su kien bat dau trong tuan va ket thuc trong tuan
+        else:
+            pass
+
+            
+    var = RequestContext(request, {
+        "listfc": lfc,
+        "listhour": GMT_time,
+        "listgc": lgc,
+        "weeks": weeklist[:count-1],
+        "weekdays": weekday,
+        "user": request.user,
+        "year": year,
+        "month": month,
+        "day": day,
+        "reminders":reminders(request)
+    })
 	
-	var = RequestContext(request, {
-		"listfc": lfc,
-		"listgc": lgc,
-		"weeks": weeklist[:count],
-		"weekdays": weekday,
-		"user": request.user,
-		"year": year,
-		"month": month,
-		"day": day
-	})
-	
-	return render_to_response("week.html", var)
+    return render_to_response("week.html", var)
 		
 @login_required(login_url = '/login/')
 def day(request, year, month, day):
@@ -649,6 +702,16 @@ def day(request, year, month, day):
 		reminders=reminders(request)
 	))
 
+"""def create_event(request, year, month):
+	user = get_object_or_404(User, username = request.user.username)
+	
+	if request.method == "POST":
+		form = EventForm(request.POST)
+		if form.is_valid:
+			
+	
+	if "id" in request.GET:
+"""		
 def add_csrf(request, **kwargs):
 	"""Add csrf adn use to dictionary."""
 	d = dict(user = request.user, **kwargs)

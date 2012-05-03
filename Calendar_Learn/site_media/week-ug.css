@@ -1,0 +1,123 @@
+#updateholder {
+  color:#333333;
+  overflow-x:hidden;
+  overflow-y:hidden;
+  width:100%;
+}
+#updatecontainer {
+  background-color:white;
+  cursor:pointer;
+  position:relative;
+}
+#updatecontent {
+  background-attachment:initial;
+  background-clip:initial;
+  background-color:#F2F4F8;
+  background-image:initial;
+  background-origin:initial;
+  background-position:initial initial;
+  background-repeat:initial initial;
+  position:absolute;
+  width:100%;
+}
+#updatescollbar {
+  background-attachment:initial;
+  background-clip:initial;
+  background-color:initial;
+  background-image:none;
+  background-origin:initial;
+  background-position:initial initial;
+  background-repeat:initial initial;
+  bottom:0;
+  cursor:default;
+  position:absolute;
+  right:0;
+  width:10px;
+}
+#updatescollscrubber {
+  background-color:black;
+  border-bottom-left-radius:7px;
+  border-bottom-right-radius:7px;
+  border-top-left-radius:7px;
+  border-top-right-radius:7px;
+  display:none;
+  height:100px;
+  opacity:0.4;
+  position:absolute;
+  width:8px;
+  zoom:1;
+}
+#updatescollbar, #updatecontainer, #updateholder {
+  height:100%;
+}
+
+
+.week-weektitle {
+	position:relative;
+	height:5%;
+	width: 100%;
+}
+.week-dayname {
+	position:relative;
+	left:10%;
+	height:5%;
+	width:90%;
+}
+
+.week-t-markercell {
+	position:relative;
+	width:100%;
+	height:43px;
+	border-left:1px solid #0000CC;
+	border-right:1px solid #0000CC;
+}
+.week-t-spanningwrapper {
+	position:relative;
+	height:0;
+}
+
+.week-t-hourmarker {
+	position:absolute;
+	width:100%;
+}
+.week-t-dualmarker {
+	height:21px;
+	border-bottom: 1px dashed #0000CC;
+	border-top: 1px solid #0000CC;
+	margin-bottom:21px;
+}
+
+#week-hour {
+	height:42px; 
+	text-align:right; 
+	border-bottom:1px solid #0000CC;
+}
+
+.week-table {
+	position:relative;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	border-top:1px solid #ddd;
+	border-left:0 none;
+	border-bottom:1px solid #ddd;
+	line-height:normal;
+	font-size:12px;
+	padding:0;
+	margin:0;
+	width:100%;
+	height:97%;
+}
+.week-scrollbar-button {
+	height:0;
+	width:0;
+}
+
+.week-ug-scrollbar-corner {
+	background-attachment:initial;
+  	background-clip:initial;
+	background-color:transparent;
+	background-image:initial;
+  	background-origin:initial;
+  	background-position:initial initial;
+  	background-repeat:initial initial;
+}
