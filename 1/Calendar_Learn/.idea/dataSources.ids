@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><component name="dataSourceStorage">
-  <data-source source="LOCAL" name="Django default" product="" version="" jdbc-version="" driver-version="" uuid="853f8bee-5008-459f-a50c-0d9c065c2e3e">
+  <data-source source="LOCAL" name="Django default" product="" version="" jdbc-version="" driver-version="" uuid="2ec26fae-b404-4c57-8c0c-c2e46f43a862">
     <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-    <jdbc-url>jdbc:sqlite:C:\Users\AnhHungCoLau\Desktop\Test\Edmodo-Calendar\1\Calendar_Learn\Calendar.db</jdbc-url>
+    <jdbc-url>jdbc:sqlite:C:\Users\AnhHungCoLau\Desktop\Computer\git\Edmodo-Calendar\Calendar_Learn\Calendar.db</jdbc-url>
     <libraries>
       <library>
         <url>file://</url>

@@ -20,7 +20,7 @@ class RegistrationForm(forms.Form):
             if password1 == password2:
                 return password2
 
-        return forms.ValidationError('Password do not match!')
+        raise forms.ValidationError('Password do not match!')
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -48,16 +48,14 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError(
                 'Last name can only contain alphanumeric characters and underscore.'
             )
-
-
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        try:
-            User.objects.get(email = email)
-        except ObjectDoesNotExist:
-            return email
-
-        raise forms.ValidationError('Email is already taken')
+#    def clean_email(self):
+#        email = self.cleaned_data['email']
+#        try:
+#            User.objects.get(email = email)
+#        except ObjectDoesNotExist:
+#            return email
+#
+#        raise forms.ValidationError('Email is already taken')
 
 class CreateGroupForm(forms.Form):
 	name=forms.CharField(label='Group name', max_length=40)
@@ -86,3 +84,8 @@ class CreateGroupForm(forms.Form):
 			return name
 		
 		raise forms.ValidationError('This name group is already taken')
+
+class AddPhotoForm(forms.Form):
+	title=forms.CharField(label="Title", max_length=40)
+	is_use=forms.BooleanField(required=False)
+	photo=forms.ImageField(label="Add photo")

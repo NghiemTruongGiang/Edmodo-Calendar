@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Calendar|Week{% endblock %}
+
+{% block external %}
+<link rel="stylesheet" type="text/css" href="/site_media/week-ug.css">
+<script type="text/javascript" src="/site_media/week-ug.js"></script>
+<script type="text/javascript" src="/site_media/week-scrollbar-facebook.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="column1">
+	<a href="">Every thing</a><br/>
+	Group Calendar:
+	<ul>
+	{% if not listgc %}
+		No group found!
+	{% else %}
+		{% for lg in listgc %}
+		<li>
+			<a href="/week/{{ year }}/{{ month }}/{{ day }}/?groupname = {{ lg.name }}">{{ lg.name }}</a>
+		</li>
+		{% endfor %}
+	{% endif %}
+	</ul>
+	Friend Calendar:
+	<ul>
+	{% if not listfc %}
+		No friend found
+	{% else %}
+		{% for lf in listfc %}
+		<li>
+			<a href="/week/{{ year }}/{{ month }}/{{ day }}?username = {{ lf.to_friend.username }}">
+				{{ lf.to_friend.username }}
+			</a>
+		</li>
+		{% endfor %}
+	{% endif %}
+	</ul>
+</div>
+
+<div class="smallhead">
+	<div class="head2">
+		<div class="column2_2">
+			<div class="week-weektitle">
+			
+			</div>
+			
+			<div class="week-dayname">
+		    <table cellpadding="0" cellspacing="0" width="100%" border="1">
+    			<tr>
+				{% for day, name in weekdays %}
+	        		<td class="empty" style="text-align:center"><p>{{ name }} {{ day.day }}/{{ day.month }} </p></td>
+				{% endfor %}
+			    </tr>
+			</table>
+			</div>
+			<div id="updateHolder">
+			    <div id="updateContainer">
+				    <div id="updateContent">
+					<table cellpadding="0" cellspacing="0" width="100%" border="1" style="table-layout:fixed">
+						<tr height="1">
+							<td class="week-t-GMTH"></td>
+							<td colspan="7">
+								<div class="week-t-spanningwrapper">
+									<div class="week-t-hourmarker">
+									{% for lh in listhour %}
+										<div class="week-t-markercell">
+											<div class="week-t-dualmarker"></div>
+										</div>
+									{% endfor %}
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border:none">
+							{% for lh in listhour %}
+								<div id="week-hour">
+								{% if lh < 10 %} 
+									0{{lh}}:00
+								{% else %}
+									{{lh}}:00
+								{% endif %}
+								</div>
+							{% endfor %}
+							</td>
+							{% for week in weeks %}
+							<td>
+								<div style="height:100%; width:12.86%">
+							
+								</div>
+								<div class="">
+								{% if week != None %}
+									{% for entry, to, hei, wid, relav in week %}
+									<div>
+							
+									</div>
+									{% endfor %}
+								{% endif %}
+								</div>
+							</td>
+							{% endfor %}
+						</tr>
+					</table>
+					</div>
+					<div id="updateScollBar">
+						<div id="updateScollScrubber"></div>
+					</div><!-- scrollbar end //-->
+				</div><!-- end of updateContainer //-->
+			</div><!-- end of updateHolder //-->
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

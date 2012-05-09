@@ -1,0 +1,123 @@
+<html>
+<head>
+    <title>Calendar| {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/bootstrap.css">
+
+    <script type="text/javascript" src="/site_media/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/site_media/bootstrap/js/jquery-latest.js"></script>
+    <script type="text/javascript" src="/site_media/bootstrap/js/bootstrap-dropdown.js"></script>
+
+    <link rel="shortcut icon" href="/media/file/photo/SE.ICO" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/site_media/style.css">
+    <link rel="stylesheet" type="text/css" href="/site_media/button.css">
+    <script type="text/javascript" src="/site_media/jquery.js"></script>
+    <!-- <script type="text/javascript" src="/site_media/excanvas.js"></script> -->
+    <script type="text/javascript" src="/site_media/coolclock.js"></script>
+    <script type="text/javascript" src="/site_media/moreskins.js"></script>
+    <script type="text/javascript" src="/site_media/gui.js"></script>
+    <script type="text/javascript" src=/site_media/amlich-aa98.js></script>
+    
+    {% block external %}{% endblock %}
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid" style="background-color: #0088cc;">
+            <a class="brand" href="#">TEAM3 CALENDAR</a>
+            <a class="brand" href="#" style="font-size: 15px; padding-top: 13px;">Wellcome to {{ user.username }}</a>
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li><a href="/" style="color: white;">Home</a></li>
+                    <li><a href="/user/{{ user.username }}" style="color:white;">Profile</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">Account <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/settings/"><i class="icon-edit"></i>  Setting</a></li>
+                            <li><a href="#"><i class="icon-flag"></i>  Help</a></li>
+                            <li><a href="/login/"><i class="icon-off"></i>  Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div>
+    </div><!-- /navbar-inner -->
+</div>
+<div class="container-fluid" style="padding-top: 50px;">
+    <div class="row-fluid">
+        <div class="span2">
+            <div class="well" style="padding: 3px;">
+                <div class="container">
+
+                    <p>{{ user.username }}</p>
+                </div>
+            </div>
+            <div class="well" style="padding: 8px 0;">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Message board</li>
+                    <li class="active"><a href="#"><i class="icon-white icon-bookmark"></i> Notifications</a></li>
+                    <li><a href="#"><i class="icon-envelope"></i> Messages</a></li>
+                    <li><a href="#"><i class="icon-pencil"></i> Assignments</a></li>
+                    <li class="nav-header">Groups</li>
+                    {% for group in groups %}
+                    <li><a href="#"><i class="icon-user"></i> {{ group.name }}</a></li>
+                    {% endfor %}
+                    <li><a href="#"><i class="icon-flag"></i> Help</a></li>
+                    <li class="nav-header">Activities</li>
+                    <li><a href="#"><i class="icon-refresh"></i> Change avarta</a></li>
+                    <li><a href="#"><i class="icon-plus-sign"></i> Create new group</a></li>
+                    <li><a href="#"><i class="icon-heart"></i>> Invite friends</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span8">
+            <div class="well" style="padding-top: 5px;" align="center">
+                {% block content %} {% endblock %}
+            </div>
+            <div class="well" style="text-align: center;">
+                <p>Copyright by Teang3SE corporation</p>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="well">
+                <div align="center">
+                    <canvas class="CoolClock:Chrome:75::7.00" id="clock"></canvas>
+                </div>
+            </div>
+            <div class="well">
+                <div style="text-align: center;">
+                    <div>
+                        <p style="color: #0088cc; font-size: 15px;">CALENDAR AND LUNAR</p>
+                    </div>
+                    <hr>
+                    <form>
+                        <input class="span1" type="text" placeholder="Date" style="height: 25px;">
+                        <input class="span1" type="text" placeholder="Month" style="height: 25px;">
+                        <input class="span1" type="text" placeholder="Year" style="height: 25px;">
+                    </form>
+                    <hr>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="radio">
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                Calendar to Lunar
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                Lunar to Calendar
+                            </label>
+                        </div>
+                    </div>
+                    <a><i class="icon-arrow-down"></i> Transfer</a>
+                    <hr>
+                    <textarea class="input-medium" id="textarea" rows="3"></textarea>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

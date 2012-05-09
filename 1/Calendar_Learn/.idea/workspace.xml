@@ -22,28 +22,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Calendar/views.py">
+      <file leaf-file-name="image_profile.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/user/image_profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="20" selection-start="1597" selection-end="1597" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/main.html">
+      <file leaf-file-name="base_user.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/base_user.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="40" selection-start="509" selection-end="541" vertical-scroll-proportion="-5.230769">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="month.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/month.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="41" selection-start="831" selection-end="831" vertical-scroll-proportion="-13.076923">
+            <state line="10" column="103" selection-start="317" selection-end="408" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -52,34 +43,70 @@
       <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="33" selection-start="1126" selection-end="1126" vertical-scroll-proportion="-13.384615">
+            <state line="109" column="0" selection-start="5327" selection-end="5327" vertical-scroll-proportion="-45.884617">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="button.css" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/site_media/button.css">
+      <file leaf-file-name="month.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/month.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="24" selection-start="499" selection-end="499" vertical-scroll-proportion="0.3939394">
+            <state line="76" column="32" selection-start="3907" selection-end="3907" vertical-scroll-proportion="-18.5">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/urls.py">
+      <file leaf-file-name="amlich-aa98.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/site_media/amlich-aa98.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="1" selection-start="757" selection-end="757" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Calendar/models.py">
+      <file leaf-file-name="VietCalendar.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/site_media/VietCalendar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="90" selection-start="419" selection-end="419" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/site_media/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="138" column="12" selection-start="2069" selection-end="2069" vertical-scroll-proportion="0.23449612">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_calendar.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/test_calendar.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="63" column="146" selection-start="3390" selection-end="3516" vertical-scroll-proportion="-10.115385">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/test.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="69" column="0" selection-start="3910" selection-end="3910" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/main.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="10" selection-start="304" selection-end="2043" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -100,19 +127,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/templates/base.html" />
-        <option value="$PROJECT_DIR$/templates/registration/user_page.html" />
-        <option value="$PROJECT_DIR$/Calendar/models.py" />
-        <option value="$PROJECT_DIR$/site_media/registration.css" />
+        <option value="$PROJECT_DIR$/site_media/VietCalendar.js" />
+        <option value="$PROJECT_DIR$/site_media/amlich-aa98.js" />
+        <option value="$PROJECT_DIR$/site_media/gui.js" />
+        <option value="$PROJECT_DIR$/settings.py" />
+        <option value="$PROJECT_DIR$/site_media/userpage.css" />
+        <option value="$PROJECT_DIR$/templates/base_user.html" />
         <option value="$PROJECT_DIR$/templates/registration/login.html" />
-        <option value="$PROJECT_DIR$/Calendar/form.py" />
         <option value="$PROJECT_DIR$/templates/registration/register.html" />
-        <option value="$PROJECT_DIR$/urls.py" />
         <option value="$PROJECT_DIR$/templates/registration/register_success.html" />
-        <option value="$PROJECT_DIR$/templates/user_page.html" />
+        <option value="$PROJECT_DIR$/templates/test.html" />
         <option value="$PROJECT_DIR$/Calendar/views.py" />
         <option value="$PROJECT_DIR$/templates/main.html" />
+        <option value="$PROJECT_DIR$/templates/test_calendar.html" />
+        <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/month.html" />
+        <option value="$PROJECT_DIR$/site_media/style.css" />
       </list>
     </option>
   </component>
@@ -195,6 +225,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calendar_Learn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calendar_Learn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="registration" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -209,7 +257,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="site_media" />
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Group" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -224,42 +276,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="site_media" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backup" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calendar_Learn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calendar_Learn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="media" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calendar_Learn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calendar_Learn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="file" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="photo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -287,11 +303,29 @@
     <property name="DefaultHtmlFileTemplate" value="Html" />
     <property name="dynamic.classpath" value="false" />
   </component>
-  <component name="RunManager" selected="Query Language Console.Default">
+  <component name="RunManager" selected="Django server.Calendar_Learn">
     <configuration default="false" name="Default" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console" temporary="true">
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
       <option name="CONTEXT_PROVIDER" />
+      <RunnerSettings RunnerId="Basic" />
+      <ConfigurationWrapper RunnerId="Basic" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <module name="Calendar_Learn" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="MULTIPROCESS" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -352,6 +386,20 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
     <configuration default="true" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
@@ -366,22 +414,24 @@
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <module name="Calendar_Learn" />
       <option name="port" value="8000" />
-      <option name="host" value="" />
+      <option name="host" value="127.0.0.1" />
       <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
+      <option name="browserUrl" value="http://127.0.0.1:8000/" />
       <option name="runTestServer" value="false" />
       <option name="runNoReload" value="false" />
       <option name="useCustomRunCommand" value="false" />
       <option name="customRunCommand" value="" />
       <option name="launchJavascriptDebuger" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
     <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Django server.Calendar_Learn" />
-      <item index="1" class="java.lang.String" itemvalue="Query Language Console.Default" />
+      <item index="0" class="java.lang.String" itemvalue="Query Language Console.Default" />
+      <item index="1" class="java.lang.String" itemvalue="Django server.Calendar_Learn" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -394,18 +444,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22913505" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.245827" sideWeight="0.67064846" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935154" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -468,97 +518,90 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Python27/Lib/site-packages/django/core/exceptions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="6" selection-start="113" selection-end="113" vertical-scroll-proportion="0.21212122" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Calendar/tests.py">
+    <entry file="file://$PROJECT_DIR$/templates/Group/group.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/site_media/registration.css">
+    <entry file="file://$PROJECT_DIR$/templates/user/user_page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="22" selection-start="180" selection-end="180" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/registration/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="22" selection-start="0" selection-end="1672" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/registration/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="7" selection-start="829" selection-end="829" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Calendar/form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="54" selection-start="762" selection-end="762" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/registration/register_success.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="44" selection-start="1209" selection-end="1209" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="1" selection-start="757" selection-end="757" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="15.48" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Calendar/models.py">
+    <entry file="file://$PROJECT_DIR$/templates/test_main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="90" selection-start="419" selection-end="419" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/user_page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="7" selection-start="220" selection-end="220" vertical-scroll-proportion="-5.8846154">
-          <folding />
-        </state>
+        <state line="142" column="8" selection-start="5373" selection-end="5377" vertical-scroll-proportion="0.40582526" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Calendar/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="20" selection-start="1597" selection-end="1597" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="87" column="26" selection-start="2727" selection-end="2727" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user/user_group.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="36" selection-start="756" selection-end="1122" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user/image_profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base_user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="103" selection-start="317" selection-end="408" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site_media/amlich-aa98.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site_media/VietCalendar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="0" selection-start="3910" selection-end="3910" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="40" selection-start="509" selection-end="541" vertical-scroll-proportion="-5.230769">
+        <state line="40" column="10" selection-start="304" selection-end="2043" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="0" selection-start="5327" selection-end="5327" vertical-scroll-proportion="-45.884617">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/test_calendar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="146" selection-start="3390" selection-end="3516" vertical-scroll-proportion="-10.115385">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/month.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="41" selection-start="831" selection-end="831" vertical-scroll-proportion="-13.076923">
+        <state line="76" column="32" selection-start="3907" selection-end="3907" vertical-scroll-proportion="-18.5">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
+    <entry file="file://$PROJECT_DIR$/site_media/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="33" selection-start="1126" selection-end="1126" vertical-scroll-proportion="-13.384615">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site_media/button.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="24" selection-start="499" selection-end="499" vertical-scroll-proportion="0.3939394">
+        <state line="138" column="12" selection-start="2069" selection-end="2069" vertical-scroll-proportion="0.23449612">
           <folding />
         </state>
       </provider>
