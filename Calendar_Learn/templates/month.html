@@ -3,99 +3,145 @@
 {% block title %}Month{% endblock %}
 
 {% block content %}
-<div class="smallhead">
-	<div class="view">
-        <form>
-            <a href= "{% url Calendar.views.month year month "prev" %}" class="view-pn" title="Prev month">
-                &lt;&lt;</a>
-            <select onchange="changeMonth(this.form)" class="view-y" name="month">
-                {% for num, nameM in listMonth %}
-                    {% if num == month %}
-                        <option value="{{ num }}" selected="selected">{{ nameM }}</option>
-                    {% else %}
-                        <option value="{{ num }}">{{ nameM }}</option>
-                    {% endif %}
+    <div class="row-fluid">
+        <table style="border-bottom: 1px solid rgba(0,0,0,0.55);">
+            <tr>
+                <td class="span4">
+                    <form>
+                        <a href= "{% url Calendar.views.month year month "prev" %}" title="Prev month">
+                            <i class="icon-fast-backward"></i></a>
+                        <select style="width: 55px;"onchange="changeMonth(this.form)"name="month">
+                            {% for m in listMonth %}
+                                {% if m == month %}
+                                    <option value="{{ m }}"selected="selected">{{ m }}</option>
+                                {% else %}
+                                    <option value="{{ m }}">{{ m }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <select style="width: 70px;" onchange="changeMonth(this.form)"name="year">
+                            {% for y in listYear %}
+                                {% if y == year %}
+                                    <option value="{{ y }}" selected="selected">{{ y }}</option>
+                                {% else %}
+                                    <option value="{{ y }}">{{ y }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <a href= "{% url Calendar.views.month year month "next" %}" title="Prev month">
+                            <i class="icon-fast-forward"></i></a>
+                    </form>
+
+                </td>
+                <td class="span4" align="center">
+                    <h1 style="font-size: 30px;color: rgba(0,0,0,0.55);">{{ month }}/{{ year }}</h1>
+                </td>
+                <td class="span4">
+                    <div class="btn-group" style="margin: 9px 0; float: right;">
+
+                        <button class="btn"><i class="icon-print"></i> Print</button>
+                        <button class="btn"><i class="icon-file"></i> Export</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <!--
+    <div class="container-fluid">
+        <table style="border: 1px solid #4b99ff;">
+            <tr style="background-color: #4b99ff; color: white; text-align: center;">
+                <td class="span2" style="border-left: 1px solid #4b99ff; border-bottom: 1px solid #4b99ff;">Mon</td>
+                <td class="span2" style="border-left: 1px solid #4b99ff; border-bottom: 1px solid #4b99ff;">Tue</td>
+                <td class="span2" style="border-left: 1px solid #4b99ff; border-bottom: 1px solid #4b99ff;">Wed</td>
+                <td class="span2" style="border-left: 1px solid #4b99ff; border-bottom: 1px solid #4b99ff;">Thu</td>
+                <td class="span2" style="border-left: 1px solid #4b99ff; border-bottom: 1px solid #4b99ff;">Fri</td>
+                <td class="span2" style="border-left: 1px solid #4b99ff; border-bottom: 1px solid #4b99ff;">Sat</td>
+                <td class="span2" style="border-left: 1px solid #4b99ff; border-bottom: 1px solid #4b99ff;">Sun</td>
+            </tr>
+        </table>
+        {% for week_days, week_events in month_days %}
+            <table>
+                <tr style="background-color: rgba(197,234,255,0.30);">
+                {% for day, day_month, current in week_days %}
+                    <td class="span2" style="border-left: 1px solid #4b99ff; text-align: right;" onClick="parent.location='{% url Calendar.views.day year month day %}';">{{ day }}</td>
                 {% endfor %}
-            </select>
-            <select onchange="changeMonth(this.form)" class="view-y" name="year">
-                {% for y in listYear %}
-                    {% if y == year %}
-                        <option value="{{ y }}" selected="selected">{{ y }}</option>
-                    {% else %}
-                        <option value="{{ y }}">{{ y }}</option>
-                    {% endif %}
+                </tr>
+            </table>
+            <table cellpadding="0" cellspacing="0" border="1" width="100%" style="height: 42px">
+            {% if week_events %}
+                {% for week_event in week_events %}
+                    <tr>
+                        {% for event, cs in week_event %}
+                            <td {% if cs > 1 %} colspan="{{ cs }}" {% else %} class = "day"{% endif %}>
+                                {% if event %}
+                                    {{ event.short|safe }}
+                                {% else %}
+
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
-            </select>
-            <a href= "{% url Calendar.views.month year month "next" %}" class="view-pn" title="Next month">
-                &gt;&gt;</a>
-            {% for nday,numberM,nameM,nyear in currentDate %}
-                <a href="/month/{{ nyear}}/{{ numberM }}" class="TODAY">Today:
-                {{ nameM }} / {{ nday }} / {{ nyear }}{% endfor %}
-            </a>
-        </form>
-	</div>
-	<div class="head2">
-		<div class="column2_2">
-			<div class="d0-table">
-		    	<table cellpadding="0" cellspacing="0" width="100%" border="1">
-    				<tr>
-	        		<td class="empty">Mon</td>
-		        	<td class="empty">Tue</td>
-	    		    <td class="empty">Wed</td>
-    	    		<td class="empty">Thu</td>
-	    	    	<td class="empty">Fri</td>
-	    	    	<td class="empty">Sat</td>
-		        	<td class="empty">Sun</td>
-			    	</tr>
-				</table>
-			</div>
-			<div class="d1-table">
-			{% for week_days, week_events in month_days %}
-				<div class="d-table">
-				<table cellpadding="0" cellspacing="0" class="l-f-table" border="1">
-    		    	<tr>
-	    	    	{% for day, day_month, current in week_days %}
-		
-    		        <!-- TD style: empty | day | current; onClick handler and highlight  -->
-        			    <td class= {% if day == 0 or day_month != month %}"empty_day"{% endif %}
-            			{% if day != 0 and not current %}"day"{% endif %}
-		            	{% if day != 0 and current %}"current_day"{% endif %}
-	    		        {% if day != 0 %}
-        			        onClick="parent.location='{% url Calendar.views.day year month day %}';"
-    	        		    onMouseOver="this.bgColor='#eeeeee';"
-            	    		onMouseOut="this.bgColor='white';"
-		        	    {% endif %} >
-	
-    		        <!-- Day number and entry snippets <b>{{ entry.creator }}</b>:  -->
-						{% if day != 0 %}
-						<div class="format-day">
-    	        		    {{ day }}
-						</div>
-						{% endif %}
-						</td>
-		 	       {% endfor %}
-    			    </tr>
-				</table>
-				</div>
-				<div class="d-table">
-				<table cellpadding="0" cellspacing="0" border="1" width="100%">
-				{% for week_event in week_events %}
-					<tr>
-					{% for event, cs in week_event %}
-						<td {% if cs > 1 %} colspan="{{ cs }}" {% else %} class = "day"{% endif %}>
-							{% if event %}
-								{{ event.short|safe }}
-							{% else %}
-								No thing
-							{% endif %}
-						</td>					
-					{% endfor %}
-					</tr>
-				{% endfor %}
-				</table>
-				</div>
-			{% endfor %}
-			</div>
-		</div>
-	</div>
+            {% else %}
+                <tr>
+                {% for day, day_month, current in week_days %}
+                    <td></td>
+                {% endfor %}
+                </tr>
+            {% endif %}
+            </table>
+        {% endfor %}
+    </div> -->
+
+
+    <div class="container-fluid">
+        <table class="table table-striped table-bordered table-condensed">
+            <thead>
+                <tr style="background-color: rgba(0,0,0,0.55); color: white;">
+                    <th class="span2">Mon</th>
+                    <th class="span2">Tue</th>
+                    <th class="span2">Wed</th>
+                    <th class="span2">Thu</th>
+                    <th class="span2">Fri</th>
+                    <th class="span2">Sat</th>
+                    <th class="span2">Sun</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for week_days, week_events in month_days %}
+                <tr>
+                {% for day, day_month, current in week_days %}
+                    <td style="background-color: rgba(71,71,71,0.36);">{{ day }}</td>
+                {% endfor %}
+                </tr>
+                <tr>
+                    {% if week_events %}
+                        {% for week_event in week_events %}
+                            <tr>
+                                {% for event, cs in week_event %}
+                                    <td style="height: 80px; background-color: white;" {% if cs > 1 %} colspan="{{ cs }}"{% else %}class="span2" {% endif %} >
+                                        {% if event %}
+                                            {{ event.short|safe }}
+                                        {% else %}
+
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            {% for day, day_month, current in week_days %}
+                                <td style="background-color: white; height: 80px;" onClick="parent.location='{% url Calendar.views.day year month day %}';">
+
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

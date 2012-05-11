@@ -59,8 +59,9 @@
                     <li><a href="#"><i class="icon-envelope"></i> Messages</a></li>
                     <li><a href="#"><i class="icon-pencil"></i> Assignments</a></li>
                     <li class="nav-header">Groups</li>
-                    <li><a href="#"><i class="icon-user"></i> Group1</a></li>
-                    <li><a href="#"><i class="icon-cog"></i> Group2</a></li>
+                    {% for group in groups %}
+                    <li><a href="#"><i class="icon-user"></i> {{ group.name }}</a></li>
+                    {% endfor %}
                     <li><a href="#"><i class="icon-flag"></i> Help</a></li>
                     <li class="nav-header">Activities</li>
                     <li><a href="#"><i class="icon-refresh"></i> Change avarta</a></li>
