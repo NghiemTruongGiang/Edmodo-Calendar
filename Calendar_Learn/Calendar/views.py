@@ -22,6 +22,11 @@ from Calendar_Learn.Calendar.models import *
 
 mnames = "January February March April May June July August September October November December"
 mnames = mnames.split()
+listMonth_=[]
+i = 1
+for j in mnames:
+        listMonth_.append((i,j))
+        i=i+1
 
 def test(request):
 	return render_to_response('test.html')
@@ -547,7 +552,8 @@ def month(request, year, month, change=None):
 				linenum.append([])
 				week += 1
 				k = 0
-
+        currentDate=[(nyear,nmonth,nday)]
+        listYear=range(year-5,year+5)
 	return render_to_response("month.html", dict(
 		year=year,
 		month=month,
@@ -558,7 +564,10 @@ def month(request, year, month, change=None):
 		els1=els,
 		groups=groups,
                 image = image,
-		reminders=reminders(request)
+		reminders=reminders(request),
+                listMonth_=listMonth_,
+                currentDate=currentDate,
+                listYear=listYear,
 	))
 
 def calmi(hour, minute):

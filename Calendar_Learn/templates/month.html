@@ -10,12 +10,12 @@
                     <form>
                         <a href= "{% url Calendar.views.month year month "prev" %}" title="Prev month">
                             <i class="icon-fast-backward"></i></a>
-                        <select style="width: 55px;"onchange="changeMonth(this.form)"name="month">
-                            {% for m in listMonth %}
-                                {% if m == month %}
-                                    <option value="{{ m }}"selected="selected">{{ m }}</option>
+                        <select class="span2"  onchange="changeMonth(this.form)"name="month">
+                            {% for mNum, mName in listMonth_ %}
+                                {% if mNum == month %}
+                                    <option value="{{ mNum }}"selected="selected">{{ mName }}</option>
                                 {% else %}
-                                    <option value="{{ m }}">{{ m }}</option>
+                                    <option value="{{ mNum }}">{{ mName }}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -34,11 +34,14 @@
 
                 </td>
                 <td class="span4" align="center">
-                    <h1 style="font-size: 30px;color: rgba(0,0,0,0.55);">{{ month }}/{{ year }}</h1>
-                </td>
+                    {% for mNum, mName in listMonth_ %}{% if month == mNum %}
+                    <h1 style="font-size: 30px;color: rgba(0,0,0,0.55);">{{ mName }} {{ year }}</h1>
+                {% endif %}{% endfor %}</td>
                 <td class="span4">
                     <div class="btn-group" style="margin: 9px 0; float: right;">
-
+                        {% for nowy,nowm,nowd in currentDate %}
+                            <button class="btn" onclick="parent.location='/month/{{ nowy }}/{{ nowm }}'">Today</button>
+                        {% endfor %}
                         <button class="btn"><i class="icon-print"></i> Print</button>
                         <button class="btn"><i class="icon-file"></i> Export</button>
                     </div>
