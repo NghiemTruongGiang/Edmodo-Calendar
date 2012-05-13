@@ -28,16 +28,10 @@
             <a class="brand" href="#" style="font-size: 15px; padding-top: 13px;">Wellcome to {{ user.username }}</a>
             <div class="nav-collapse">
                 <ul class="nav pull-right">
-                    <li><a href="/" style="color: white;">Home</a></li>
-                    <li><a href="/user/{{ user.username }}" style="color:white;">Profile</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">Account <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/settings/"><i class="icon-edit"></i>  Setting</a></li>
-                            <li><a href="#"><i class="icon-flag"></i>  Help</a></li>
-                            <li><a href="/login/"><i class="icon-off"></i>  Logout</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="/" style="color: white;"><i class="icon-white icon-home"></i> Home</a></li>
+                    <li><a href="/user/{{ user.username }}" style="color:white;"><i class="icon-white icon-user"></i> Profile</a></li>
+                    <li><a href="#" style="color: white;"><i class="icon-white icon-flag"></i> Help</a></li>
+                    <li><a href="/login/" style="color: white;"><i class="icon-white icon-share"></i> Logout</a></li>
                 </ul>
             </div><!-- /.nav-collapse -->
         </div>
@@ -62,6 +56,14 @@
                     </div>
                 </div>
             </div>
+            <div class="well" style="padding: 8px 0;">
+                <ul class="nav nav-list">
+                    <li class="nav-header">{{ user.username }}'s</li>
+                    <li class="active"><a href="#"><i class="icon-white icon-comment"></i> Notification</a></li>
+                    <li><a href="#"><i class="icon-user"></i><i class="icon-user"></i> Group</a></li>
+                    <li><a href="#"><i class="icon-pencil"></i> Applications</a></li>
+                </ul>
+            </div>
 
         </div>
         <div class="span8">
@@ -82,7 +84,7 @@
 
                 <form name="VietnamCalendar">
                     <div>
-                        <p style="color: #0088cc; font-size: 15px;">CALENDAR AND LUNAR</p>
+                        <p style="color: #0088cc; font-size: 15px;">SOLAR AND LUNAR</p>
                     </div>
                     <hr>
                     <input type="text" name="day" class="span1" placeholder="Date" style="height: 25px;">
@@ -91,10 +93,10 @@
                     <div>
                         <br>
                         <input type="radio" name="typeConvert" value="duongAm" checked="checked" onClick="da(this.form)">
-                        Calendar to lunar
+                        Solar to lunar
                         <br>
                         <input type="radio" name="typeConvert" value="amDuong" onClick="ad(this.form)">
-                        Lunar to calendar
+                        Lunar to solar
                         <br>
                         <br>
                         <input type="button" value="Transfer" onClick="vietNamCalendar(this.form)" class="btn-info">

@@ -22,37 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="settings.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/settings.html">
+      <file leaf-file-name="month.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/month.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1335533745275" expanded="true" signature="65:332" placeholder="..." />
-                <marker date="1335533745275" expanded="true" signature="88:325" placeholder="..." />
-                <marker date="1335533745275" expanded="true" signature="139:317" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="month_backup.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/month_backup.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1335533745272" expanded="true" signature="63:424" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="84:416" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="91:406" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="119:210" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="238:329" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="355:398" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="444:1818" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="469:1811" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="494:777" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="504:767" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="832:1786" placeholder="..." />
-                <marker date="1335533745272" expanded="true" signature="845:1776" placeholder="..." />
-              </folding>
+            <state line="6" column="25" selection-start="119" selection-end="119" vertical-scroll-proportion="-3.9230769">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -60,7 +34,7 @@
       <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="33" selection-start="1492" selection-end="1782" vertical-scroll-proportion="0.0">
+            <state line="92" column="0" selection-start="4150" selection-end="4150" vertical-scroll-proportion="-11.5">
               <folding />
             </state>
           </provider>
@@ -69,45 +43,9 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Calendar/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="554" column="41" selection-start="15157" selection-end="15157" vertical-scroll-proportion="-6.4">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="month.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/month.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="28" selection-start="2233" selection-end="2233" vertical-scroll-proportion="-8.5">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bootstrap.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/site_media/bootstrap/css/bootstrap.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1038" column="4" selection-start="19881" selection-end="19885" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="day.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/day.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="34" selection-start="654" selection-end="671" vertical-scroll-proportion="-6.730769">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="form.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Calendar/form.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="918" column="5" selection-start="24876" selection-end="24877" vertical-scroll-proportion="-139.66">
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -116,10 +54,8 @@
       <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Calendar/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="29" selection-start="160" selection-end="160" vertical-scroll-proportion="0.16472869">
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
+            <state line="118" column="61" selection-start="4231" selection-end="4235" vertical-scroll-proportion="0.33197555">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -127,7 +63,52 @@
       <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="32" selection-start="2861" selection-end="2864" vertical-scroll-proportion="0.0">
+            <state line="62" column="34" selection-start="3393" selection-end="3393" vertical-scroll-proportion="-13.384615">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_group.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/user/user_group.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="36" selection-start="891" selection-end="1080" vertical-scroll-proportion="-9.846154">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base_user.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/base_user.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="51" selection-start="77" selection-end="77" vertical-scroll-proportion="-0.65384614">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/site_media/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/test.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="day.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/day.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="0" selection-start="730" selection-end="730" vertical-scroll-proportion="-8.038462">
               <folding />
             </state>
           </provider>
@@ -148,22 +129,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/site_media/gui.js" />
         <option value="$PROJECT_DIR$/settings.py" />
         <option value="$PROJECT_DIR$/site_media/userpage.css" />
-        <option value="$PROJECT_DIR$/templates/base_user.html" />
         <option value="$PROJECT_DIR$/templates/registration/login.html" />
         <option value="$PROJECT_DIR$/templates/registration/register.html" />
         <option value="$PROJECT_DIR$/templates/registration/register_success.html" />
         <option value="$PROJECT_DIR$/templates/test.html" />
         <option value="$PROJECT_DIR$/templates/test_calendar.html" />
-        <option value="$PROJECT_DIR$/templates/base.html" />
-        <option value="$PROJECT_DIR$/templates/main.html" />
-        <option value="$PROJECT_DIR$/site_media/style.css" />
-        <option value="$PROJECT_DIR$/templates/day.html" />
-        <option value="$PROJECT_DIR$/templates/month.html" />
-        <option value="$PROJECT_DIR$/Calendar/views.py" />
         <option value="$PROJECT_DIR$/Calendar/models.py" />
+        <option value="$PROJECT_DIR$/site_media/bootstrap/css/bootstrap.css" />
+        <option value="$PROJECT_DIR$/templates/day.html" />
+        <option value="$PROJECT_DIR$/site_media/style.css" />
+        <option value="$PROJECT_DIR$/Calendar/views.py" />
+        <option value="$PROJECT_DIR$/templates/main.html" />
+        <option value="$PROJECT_DIR$/templates/month.html" />
+        <option value="$PROJECT_DIR$/templates/base.html" />
+        <option value="$PROJECT_DIR$/templates/base_user.html" />
       </list>
     </option>
   </component>
@@ -199,7 +180,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -356,6 +336,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -506,13 +487,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28755692" sideWeight="0.67064846" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29817906" sideWeight="0.67064846" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -579,34 +560,16 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/user/user_group.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="36" selection-start="756" selection-end="1122" vertical-scroll-proportion="-5.923077" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/user/user_friend.html">
+    <entry file="file://$PROJECT_DIR$/templates/user/user_page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/test_calendar.html">
+    <entry file="file://$PROJECT_DIR$/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="162" column="10" selection-start="1696" selection-end="13276" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site_media/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="12" selection-start="62" selection-end="62" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/user/image_profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/registration/month_backup.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="3" column="0" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/settings.html">
@@ -614,62 +577,94 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/month_backup.html">
+    <entry file="file://$PROJECT_DIR$/templates/test_profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="33" selection-start="1492" selection-end="1782" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site_media/bootstrap/css/bootstrap.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1038" column="4" selection-start="19881" selection-end="19885" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="32" selection-start="2861" selection-end="2864" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/month.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="28" selection-start="2233" selection-end="2233" vertical-scroll-proportion="-8.5">
+        <state line="9" column="31" selection-start="318" selection-end="318" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Calendar/views.py">
+    <entry file="file://$PROJECT_DIR$/site_media/bootstrap/css/bootstrap-responsive.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="554" column="41" selection-start="15157" selection-end="15157" vertical-scroll-proportion="-6.4">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site_media/bootstrap/css/bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="164" column="5" selection-start="2623" selection-end="2628" vertical-scroll-proportion="-2.6">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/day.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="34" selection-start="654" selection-end="671" vertical-scroll-proportion="-6.730769">
+        <state line="28" column="0" selection-start="730" selection-end="730" vertical-scroll-proportion="-8.038462">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Calendar/form.py">
+    <entry file="file://$PROJECT_DIR$/templates/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site_media/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Calendar/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="918" column="5" selection-start="24876" selection-end="24877" vertical-scroll-proportion="-139.66">
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="0" selection-start="4150" selection-end="4150" vertical-scroll-proportion="-11.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/month.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="25" selection-start="119" selection-end="119" vertical-scroll-proportion="-3.9230769">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user/user_group.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="36" selection-start="891" selection-end="1080" vertical-scroll-proportion="-9.846154">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base_user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="51" selection-start="77" selection-end="77" vertical-scroll-proportion="-0.65384614">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="34" selection-start="3393" selection-end="3393" vertical-scroll-proportion="-13.384615">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Calendar/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="29" selection-start="160" selection-end="160" vertical-scroll-proportion="0.16472869">
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+        <state line="118" column="61" selection-start="4231" selection-end="4235" vertical-scroll-proportion="0.33197555">
+          <folding />
         </state>
       </provider>
     </entry>

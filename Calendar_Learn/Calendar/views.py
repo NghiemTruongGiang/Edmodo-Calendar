@@ -73,7 +73,7 @@ def main(request, year=None):
 			# are there entry(s) for this month; current month?
 			entry = current = False
 			entries = Entry.objects.filter(
-				date_start__year=y, 
+				date_start__year=y,
 				date_start__month=n+1
 			)
 			if not _show_users(request):
@@ -84,9 +84,9 @@ def main(request, year=None):
 			if y == nowy and n+1 == nowm:
 				current = True
 			mlst.append(dict(
-				n=n+1, 
-				name=month, 
-				entry=entry, 
+				n=n+1,
+				name=month,
+				entry=entry,
 				current=current
 			))
 		lst.append((y, mlst))
@@ -95,7 +95,7 @@ def main(request, year=None):
 		years=lst,
 		image = image,
 		groups = groups,
-		user=request.user, 
+		user=request.user,
 		year=year,
 		listYear = listYear,
 		reminders=reminders(request)
@@ -212,7 +212,7 @@ def user_group(request, username):
 	return render_to_response('user/user_group.html', variables)
 
 @login_required(login_url='/login/')
-def user_friend(request, username):	
+def user_friend(request, username):
 	user=get_object_or_404(User, username=username)
 	friends = [friendship.to_friend for friendship in user.friend_set.all()]
 	try:
@@ -261,12 +261,12 @@ def friend_add(request):
 			return HttpResponseRedirect(
 			'/user/%s/friend' % request.user.username
 			)
-		friendship = FriendShip(	
+		friendship = FriendShip(
 			from_friend = request.user,
 			to_friend = friend,
 			is_accept=True,
 		)
-		friendship1 = FriendShip(	
+		friendship1 = FriendShip(
 			from_friend = friend,
 			to_friend = request.user,
 		)
@@ -286,7 +286,7 @@ def friend_add(request):
 	else:
 		raise Http404
 
-@login_required(login_url='/login/')		
+@login_required(login_url='/login/')
 def add_photo(request):
 	if request.method == 'POST':
 		form=AddPhotoForm(request.POST, request.FILES)
@@ -703,7 +703,7 @@ def day(request, year, month, day):
 			for entry in entries:
 				entry.creator = request.user
 				entry.date_start = datetime(int(year), int(month), int(day), 12, 50)
-				entry.date_end = date(int(year), int(month), int(day), 15, 30)
+				entry.date_end = datetime(int(year), int(month), int(day), 15, 30)
 				entry.save()
 			return HttpResponseRedirect(reverse(
 				'Calendar_Learn.Calendar.views.month',
@@ -728,7 +728,7 @@ def day(request, year, month, day):
 		).exclude(creator = request.user)
 	return render_to_response('day.html', add_csrf(
 		request,
-		entries = formset, 
+		entries = formset,
 		year = year,
 		month = month,
 		day = day,
@@ -744,7 +744,7 @@ def day(request, year, month, day):
 
 
 	if "id" in request.GET:
-"""		
+"""
 def add_csrf(request, **kwargs):
 	"""Add csrf adn use to dictionary."""
 	d = dict(user = request.user, **kwargs)
@@ -765,7 +765,7 @@ def register_page(request):
 			#	first_name=form.cleaned_data['first_name'],
 			#	last_name=form.cleaned_data['last_name'],
 			#	birthday=form.cleaned_data['birthday']
-			#	
+			#
 			#)
 			#user_profile.save()"""
 			return HttpResponseRedirect('/register/success/')
@@ -809,8 +809,8 @@ def settings(request):
 		s['show_users'] = (True if 'show_users' in request.POST else False)
 
 	return render_to_response(
-		'settings.html', 
-		add_csrf(request, show_users = s['show_users']) 
+		'settings.html',
+		add_csrf(request, show_users = s['show_users'])
 	)
 
 @login_required(login_url='/login/')
@@ -876,18 +876,18 @@ def join_group(request):
 			GroupCalendar, name = request.GET['group_name']
 		)
 
-		joinmem, newmem = GroupMem.objects.get_or_create(	
+		joinmem, newmem = GroupMem.objects.get_or_create(
 			user_mem = request.user,
 			group_name = group
 		)
 		try:
 			newmem.save()
 			request.user.message_set.create(
-				message = u'You was added to group %s.' % group.name 
+				message = u'You was added to group %s.' % group.name
 			)
 		except:
 			request.user.message_set.create(
-				message = u'You is already a member of group: %s' % group.name 
+				message = u'You is already a member of group: %s' % group.name
 			)
 		return HttpResponseRedirect(
 			'/group/%s/' % group.name
@@ -923,8 +923,8 @@ def group_month(request, groupname, year, month, change=None):
 		entries = current = False   # are there entries for this day; current day?
 		if day.day:
 			entries = GroupEntry.objects.filter(
-				date_start__year=day.year, 
-				date_start__month=day.month, 
+				date_start__year=day.year,
+				date_start__month=day.month,
 				date_start__day=day.day,
 				group_name=group,
 			)
@@ -938,12 +938,12 @@ def group_month(request, groupname, year, month, change=None):
 			week += 1
 
 	return render_to_response("Group/group_month.html", dict(
-		year=year, 
-		month=month, 
+		year=year,
+		month=month,
 		user=request.user,
 		group_name=groupname,
 		month_days=lst[:week],
-		mname=mnames[month-1], 
+		mname=mnames[month-1],
 		reminders=reminders(request)
 	))
 
@@ -994,7 +994,7 @@ def group_day(request, groupname, year, month, day):
 	return render_to_response('Group/group_day.html', add_csrf(
 		request,
 		group_name=groupname,
-		entries = formset, 
+		entries = formset,
 		year = year,
 		month = month,
 		day = day,
@@ -1042,7 +1042,7 @@ def g_event_edit(request, groupname, year, month, id_e):
 	})
 
 	return render_to_response('Group/group_day_edit.html', variables)
-"""	
+"""
 @login_required(login_url='/login/')
 def month(request, year, month, change=None):
 	#Listing of days in `month`.
@@ -1070,8 +1070,8 @@ def month(request, year, month, change=None):
 		entries = current = False   # are there entries for this day; current day?
 		if day.day:
 			entries = Entry.objects.filter(
-				date__year=day.year, 
-				date__month=day.month, 
+				date__year=day.year,
+				date__month=day.month,
 				date__day=day.day,
 				creator=request.user
 			)
@@ -1085,10 +1085,10 @@ def month(request, year, month, change=None):
 			week += 1
 
 	return render_to_response("month.html", dict(
-		year=year, 
-		month=month, 
+		year=year,
+		month=month,
 		user=request.user,
 		month_days=lst[:week],
-		mname=mnames[month-1], 
+		mname=mnames[month-1],
 		reminders=reminders(request)
 	))"""
