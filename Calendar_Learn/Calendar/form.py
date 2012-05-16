@@ -89,3 +89,7 @@ class AddPhotoForm(forms.Form):
 	title=forms.CharField(label="Title", max_length=40)
 	is_use=forms.BooleanField(required=False)
 	photo=forms.ImageField(label="Add photo")
+
+class ChangeNameForm(forms.Form):
+    first_name = forms.CharField(label = "First Name",max_length = 30)
+    last_name = forms.CharField(label = "Last Name", max_length = 30)

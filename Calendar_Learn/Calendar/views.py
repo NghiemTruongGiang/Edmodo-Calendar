@@ -25,8 +25,8 @@ mnames = mnames.split()
 listMonth_=[]
 i = 1
 for j in mnames:
-        listMonth_.append((i,j))
-        i=i+1
+		listMonth_.append((i,j))
+		i=i+1
 
 def test(request):
 	return render_to_response('test.html')
@@ -96,6 +96,7 @@ def main(request, year=None):
 		image = image,
 		groups = groups,
 		user=request.user,
+		username = request.user.username,
 		year=year,
 		listYear = listYear,
 		reminders=reminders(request)
@@ -103,37 +104,71 @@ def main(request, year=None):
 
 @login_required(login_url='/login/')
 def user_page(request, username):
-	user = get_object_or_404(User, username=username)
+        user = get_object_or_404(User, username=username)
 	#username1=username
-	try:
-		info=UserProfile.objects.get(username=user)
-	except:
-		info=None
-
-	try:
-		image=Image.objects.get(user=user, is_use=True)
-	except:
-		image=None
-
+        try:
+        	info=UserProfile.objects.get(username=user)
+        except:
+        	info=None
+        try:
+        	image=Image.objects.get(user=user, is_use=True)
+        except:
+        	image=None
+        try:
+                userprofile = UserProfile.objects.get(username = user)
+        except :
+                userprofile = None
 	#image=get_object_or_404(Image, user=request.user, is_use=True)
-	if request.user.is_authenticated():
-		is_friend = FriendShip.objects.filter(
-			from_friend = request.user,
-			to_friend = user,
-		)
-	else:
-		is_friend = False
+        if request.user.is_authenticated():
+        	is_friend = FriendShip.objects.filter(
+        		from_friend = request.user,
+        		to_friend = user,
+        	)
+        else:
+        	is_friend = False
 
-	variables = RequestContext(request, {
-		'user2': user,
-		'username': user.username,
-		'is_friend': is_friend,
-		'info': info,
-		'image': image,
-	})
+        variables = RequestContext(request, {
+        	'user2': user,
+        	'username': user.username,
+        	'is_friend': is_friend,
+        	'info': info,
+        	'image': image,
+        })
+        if request.user.username==username:
+            if request.method=='POST':
 
-	return render_to_response('user/user_page.html', variables)
+                changename = ChangeNameForm(request.POST)
+                if changename.is_valid():
+                    firstNew=changename.cleaned_data['first_name']
+                    lastNew=changename.cleaned_data['last_name']
+    
+                    if userprofile == None:
+                        userprofile = UserProfile.objects.create(
+                            first_name = firstNew,
+                            last_name = lastNew,
+                            birthday = date(2012, 5, 1),
+                            username = request.user,
+                        )
+                    else:
+                        userprofile.first_name = firstNew
+                        userprofile.last_name = lastNew
+                        #userprofile.birthday = birthNew
+                        userprofile.save()
+            else:
 
+                if userprofile == None:
+                    changename = ChangeNameForm()
+                else:
+                    changename = ChangeNameForm({
+                        'first_name': userprofile.first_name,
+                        'last_name': userprofile.last_name,
+                        #'birthday': userprofile.birthday,
+                    })
+            return render_to_response('user/user_page.html',variables,RequestContext(request,{
+                    'changename':changename,
+                }))
+        else:
+            return HttpResponseRedirect('/user/%s' %request.user.username)
 @login_required(login_url='/login/')
 def image_profile(request, username):
 	user = get_object_or_404(User, username=username)
@@ -337,9 +372,9 @@ def month(request, year, month, change=None):
 	user=get_object_or_404(User, username=request.user.username)
 	#Get calendar of friend
 	try:
-                image=Image.objects.get(user=request.user, is_use=True)
-        except:
-                image=None
+				image=Image.objects.get(user=request.user, is_use=True)
+	except:
+				image=None
 	try:
 		listFriendCal=FriendShip.objects.filter(
 			from_friend=user,
@@ -552,10 +587,11 @@ def month(request, year, month, change=None):
 				linenum.append([])
 				week += 1
 				k = 0
-        currentDate=[(nyear,nmonth,nday)]
-        listYear=range(year-5,year+5)
+		currentDate=[(nyear,nmonth,nday)]
+		listYear=range(year-5,year+5)
 	return render_to_response("month.html", dict(
 		year=year,
+		username = user.username,
 		month=month,
 		user=request.user,
 		month_days=lst[:week],
@@ -563,11 +599,11 @@ def month(request, year, month, change=None):
 		listfriend=listFriendCal,
 		els1=els,
 		groups=groups,
-                image = image,
+				image = image,
 		reminders=reminders(request),
-                listMonth_=listMonth_,
-                currentDate=currentDate,
-                listYear=listYear,
+				listMonth_=listMonth_,
+				currentDate=currentDate,
+				listYear=listYear,
 	))
 
 def calmi(hour, minute):
@@ -728,6 +764,7 @@ def day(request, year, month, day):
 		).exclude(creator = request.user)
 	return render_to_response('day.html', add_csrf(
 		request,
+		username = request.user.username,
 		entries = formset,
 		year = year,
 		month = month,
@@ -755,6 +792,11 @@ def register_page(request):
 	if request.method=='POST':
 		form=RegistrationForm(request.POST)
 		if form.is_valid():
+                        first = form.cleaned_data['first_name']
+                        last = form.cleaned_data['last_name']
+                        first_name = first
+                        last_name = last
+
 			user=User.objects.create_user(
 				username=form.cleaned_data['username'],
 				password=form.cleaned_data['password2'],
@@ -830,7 +872,7 @@ def create_group(request):
 			return HttpResponseRedirect('/Group/group.html/')
 	else:
 		form=CreateGroupForm()
-	variables=RequestContext(request, { 'form':form})
+	variables=RequestContext(request, { 'form':form, 'username':request.user.username })
 
 	return render_to_response('Group/create_group.html', variables)
 
@@ -865,6 +907,7 @@ def group_view(request, groupname):
 		'listmem': listmem,
 		'is_mem': is_mem,
 		'down': n,
+		'username': request.user.username,
 	})
 
 	return render_to_response('Group/group.html', variables)
@@ -882,13 +925,8 @@ def join_group(request):
 		)
 		try:
 			newmem.save()
-			request.user.message_set.create(
-				message = u'You was added to group %s.' % group.name
-			)
 		except:
-			request.user.message_set.create(
-				message = u'You is already a member of group: %s' % group.name
-			)
+			pass
 		return HttpResponseRedirect(
 			'/group/%s/' % group.name
 		)
@@ -936,7 +974,9 @@ def group_month(request, groupname, year, month, change=None):
 		if len(lst[week]) == 7:
 			lst.append([])
 			week += 1
-
+	currentDate=[(nyear,nmonth,nday)]
+	listYear=range(year-5,year+5)
+#    return render_to_response("Group/group_month.html", dict(
 	return render_to_response("Group/group_month.html", dict(
 		year=year,
 		month=month,
@@ -944,9 +984,12 @@ def group_month(request, groupname, year, month, change=None):
 		group_name=groupname,
 		month_days=lst[:week],
 		mname=mnames[month-1],
-		reminders=reminders(request)
+		reminders=reminders(request),
+		username = request.user.username,
+        listMonth_=listMonth_,
+        currentDate=currentDate,
+        listYear=listYear,
 	))
-
 @login_required(login_url = '/login/')
 def group_day(request, groupname, year, month, day):
 	"""Entries for day"""
@@ -993,6 +1036,7 @@ def group_day(request, groupname, year, month, day):
 	#	).exclude(creator = request.user)
 	return render_to_response('Group/group_day.html', add_csrf(
 		request,
+		username = request.user.username,
 		group_name=groupname,
 		entries = formset,
 		year = year,

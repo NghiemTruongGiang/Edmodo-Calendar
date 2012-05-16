@@ -1,38 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Month{% endblock %}
+{% block title %}Month Group{% endblock %}
 {% block content %}
+    <!--
 <div class="smallhead">
-    <div class="view">
-        <form>
-            <a href= "{% url Calendar.views.group_month group_name year month "prev" %}" class="view-pn" title="Prev month">
-                &lt;&lt;</a>
-            <input type="hidden" name="group_name" value="{{ group_name}}">
-            <select onchange="changeMonthGroup(this.form)" class="view-y" name="month">
-                {% for num, nameM in listMonth %}
-                    {% if num == month %}
-                        <option value="{{ num }}" selected="selected">{{ nameM }}</option>
-                    {% else %}
-                        <option value="{{ num }}">{{ nameM }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-            <select onchange="changeMonthGroup(this.form)" class="view-y" name="year">
-                {% for y in listYear %}
-                    {% if y == year %}
-                        <option value="{{ y }}" selected="selected">{{ y }}</option>
-                    {% else %}
-                        <option value="{{ y }}">{{ y }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-            <a href= "{% url Calendar.views.group_month group_name year month "next" %}" class="view-pn" title="Next month">
-                &gt;&gt;</a>
-            {% for nday,numberM,nameM,nyear in currentDate %}
-                <a href="/{{ group_name }}/month/{{ nyear}}/{{ numberM }}" class="TODAY">Today:
-                {{ nameM }} / {{ nday }} / {{ nyear }}{% endfor %}
-            </a>
-        </form>
-    </div>
+
 	<div class="head2">
 	<div class="column2_2">
 	<div class="d0-table">
@@ -54,8 +25,8 @@
 		<table cellpadding="0" cellspacing="0" class="l-f-table" border="1">
     	    <tr>
         	{% for day, day_month, entries, current in week %}
-	
-    	        <!-- TD style: empty | day | current; onClick handler and highlight  -->
+
+
         	    <td class= {% if day == 0 or day_month != month %}"empty_day"{% endif %}
             	{% if day != 0 and not current %}"day"{% endif %}
 	            {% if day != 0 and current %}"current_day"{% endif %}
@@ -66,7 +37,7 @@
                  {% else %} onclick=notMonth();
 	            {% endif %} >
 
-    	        <!-- Day number and entry snippets <b>{{ entry.creator }}</b>:  -->
+
 				{% if day != 0 %}
 				<div class="format-day">
             	    {{ day }}
@@ -93,4 +64,88 @@
 	</div>
 	</div>
 </div>
+-->
+    <hr>
+    <div class="row-fluid">
+        <table style="border-bottom: 1px solid rgba(0,0,0,0.55);">
+            <tr>
+                <td class="span4">
+                    <div style="height: 28px;">
+                        <form>
+                        <input type="hidden" value="{{ group_name }}"name="group_name">
+                            <a href= "{% url Calendar.views.group_month group_name year month "prev" %}" title="Prev month">
+                                <i class="icon-fast-backward"></i></a>
+                            <select class="span2"  onchange="changeMonthGroup(this.form)"name="month">
+                                {% for mNum, mName in listMonth_ %}
+                                    {% if mNum == month %}
+                                        <option value="{{ mNum }}"selected="selected">{{ mName }}</option>
+                                    {% else %}
+                                        <option value="{{ mNum }}">{{ mName }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <select style="width: 70px;" onchange="changeMonthGroup(this.form)"name="year">
+                                {% for y in listYear %}
+                                    {% if y == year %}
+                                        <option value="{{ y }}" selected="selected">{{ y }}</option>
+                                    {% else %}
+                                        <option value="{{ y }}">{{ y }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <a href="{% url Calendar.views.group_month group_name year month "next" %}"  title="Next month">
+                                <i class="icon-fast-forward"></i></a>
+                        </form>
+                    </div>
+                </td>
+                <td class="span4" align="center">
+                    {% for mNum, mName in listMonth_ %}{% if month == mNum %}
+                        <h1 style="font-size: 30px;color: rgba(0,0,0,0.55);">{{ mName }} {{ year }}</h1>
+                    {% endif %}{% endfor %}</td>
+                <td class="span4">
+                    <div align="right">
+                        {% for nyear,nmonth,nday in currentDate %}
+                            <button class="btn btn-large btn-inverse" style="width: 30%"
+                                    onclick="parent.location='/{{ group_name }}/month/{{ nyear}}/{{ nmonth }}/'">Today</button>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div class="row-fluid">
+        <table class="table table-striped table-bordered table-condensed">
+            <thead>
+            <tr style="background-color: rgba(0,0,0,0.55); color: white; font-size: 18px;">
+                <td class="span2" style="text-align: center;">Mon</td>
+                <td class="span2" style="text-align: center;">Tue</td>
+                <td class="span2" style="text-align: center;">Wed</td>
+                <td class="span2" style="text-align: center;">Thu</td>
+                <td class="span2" style="text-align: center;">Fri</td>
+                <td class="span2" style="text-align: center;">Sat</td>
+                <td class="span2" style="text-align: center;">Sun</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for week in month_days %}
+                <tr>
+                <tr>
+                    {% for day, day_month, entries, current in week %}
+                        <td {% if day == 0 or day_month != month %}style="background-color: white;"
+                            {% elif day != 0 and not current %}style="background-color: rgba(71,71,71,0.30);"
+                            {% else %}style="background-color: rgb(37,190,204);"{% endif %}
+                                {% if day != 0 %}
+                            onClick="parent.location='{% url Calendar.views.group_day group_name year month day %}';"
+{#                               onclick="parent.location='/{{ group_name }}'"#}
+                                {% endif %} >
+                            {{ day }}
+                        </td>
+                    {% endfor %}
+                </tr>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

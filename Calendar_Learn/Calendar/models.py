@@ -149,9 +149,9 @@ class Image(models.Model):
 class UserProfile(models.Model):
 	username=models.ForeignKey(User, blank=True, null=True)
 	is_public=models.BooleanField(default=True)
-	birthday=models.DateField(blank=True)
-	first_name=models.CharField(max_length=30)
-	last_name=models.CharField(max_length=30)
+	birthday=models.DateField(blank=True, null = True)
+	first_name=models.CharField(max_length=30, blank = True, null = True)
+	last_name=models.CharField(max_length=30, blank = True, null = True)
 	image_profile=models.ManyToManyField(Image, blank=True, null=True)
 	
 	def __unicode__(self):

@@ -60,7 +60,7 @@
                 <ul class="nav nav-list">
                     <li class="nav-header">{{ user.username }}'s</li>
                     <li class="active"><a href="#"><i class="icon-white icon-comment"></i> Notification</a></li>
-                    <li><a href="#"><i class="icon-user"></i><i class="icon-user"></i> Group</a></li>
+                    <li><a href="{% url Calendar.views.user_group username %}"><i class="icon-user"></i><i class="icon-user"></i> Group</a></li>
                     <li><a href="#"><i class="icon-pencil"></i> Applications</a></li>
                 </ul>
             </div>

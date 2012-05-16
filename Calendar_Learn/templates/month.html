@@ -78,14 +78,14 @@
                     </td>
                 {% endfor %}
                 </tr>
-                <tr>
+                <tr style="height: 80px;">
                     {% for week_event in week_events %}
                         <tr>
                             {% for event, cs in week_event %}
                                 <td class="span2" style="border: 0;">
                                     {% if event %}
                                         <div class="span2">
-                                        <button type="button" class="btn btn-primary disabled" style="width: 100%">{{ event.short|safe }}</button>
+                                        <button type="button" class="btn btn-primary disabled" style="width: 100%">{{ event.title }}</button>
                                         </div>
                                     {% endif %}
                                 </td>

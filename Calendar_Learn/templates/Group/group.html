@@ -3,13 +3,12 @@
 {% block title %}Group|{{ group.name }}{% endblock %}
 
 {% block content %}
-<div class="column1">
+<div class="row-fluid">
+    <div>
 
-</div>
-
-<div class="smallhead">
-	<div class="head">
-		<div id="usp_head_right">
+    </div>
+	<div>
+		<div>
 			<b>
 			{% if is_mem %}
 				Member
@@ -19,12 +18,12 @@
 			</b>
 		</div>
 	</div>
-	<div class="head2">
+	<div>
 		<a href="{% url Calendar.views.group_month group.name 2012 4 %}" style="text-decoration:none">
 			View Group Calendar
 		</a>
 
-		<h2>Welcome to group {{ group.name }}</h2>
+		<h2>Welcome to group  {{ group.name }}</h2>
 		<b>Creator of this group: </b>{{ group.creator_group }}<br/>
 		<b>Description: </b>{{ group.describe }}<br/>
 		<b>Created time: </b>{{ group.created }}<br/>

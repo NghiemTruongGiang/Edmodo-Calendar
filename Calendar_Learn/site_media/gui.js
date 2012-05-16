@@ -17,6 +17,12 @@ function changeMonth(form){
     y = form.year.value;
     parent.location='/month/'+ y + '/' + m;
 }
+function changeMonthGroup(form){
+    m = form.month.value;
+    y = form.year.value;
+    group = form.group_name.value
+    parent.location='/'+ group + '/month/'+ y + '/' + m;
+}
 function notMonth(){
     alert("Mời bạn kick vào ô khác");
 }
