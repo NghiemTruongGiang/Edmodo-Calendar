@@ -78,14 +78,24 @@
                 </div>
             </div>
         </div> --->
-        <div>
-            <form method="post" action=".">
-                <table>
-                    {% csrf_token %}
-                    {{ changename.as_table }}
-                </table>
-                <input type="submit" value="Change" class="btn">
-            </form>
-        </div>
+    <h1>Infomation</h1>
+{#    {% for first,last,birth in information %}#}
+    <div style="text-align: left">
+        <h3>User name: {{ user.username }}</h3>
+        <h3>First name: {{ user.first_name }}</h3>
+        <h3>Last name: {{ user.last_name }}</h3>
+        <h3>Email name: {{ user.email }}</h3>
+        <h3>Birthday: {{ user.birthday }}</h3>
     </div>
+{#    {% endfor %}#}
+{#        <div>#}
+{#            <form method="post" action=".">#}
+{#                <table>#}
+{#                    {% csrf_token %}#}
+{#                    {{ changename.as_table }}#}
+{#                </table>#}
+{#                <input type="submit" value="Change" class="btn">#}
+{#            </form>#}
+{#        </div>#}
+
 {% endblock %}

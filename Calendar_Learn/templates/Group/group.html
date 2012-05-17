@@ -4,32 +4,28 @@
 
 {% block content %}
 <div class="row-fluid">
-    <div>
-
-    </div>
-	<div>
+    <div><h2>Welcome to group {{ group.name }}</h2></div><hr>
+	<div align="right">
 		<div>
 			<b>
 			{% if is_mem %}
-				Member
+				<button class="btn btn-primary disabled">Member</button>
 			{% else %}
-				<a href="/group/join/?group_name={{ group.name }}" style="text-decoration:none">Join</a>
+                <button class="btn btn-primary" onclick="parent.location='/group/join/?group_name={{ group.name }}'">Join</button>
 			{% endif %}
 			</b>
+            {% for nowy,nowm,nowd in currentDate %}
+                <button class="btn btn-primary" onclick="parent.location='{% url Calendar.views.group_month group.name nowy nowm %}'">View group calendar</button>
+            {% endfor %}
 		</div>
 	</div>
 	<div>
-		<a href="{% url Calendar.views.group_month group.name 2012 4 %}" style="text-decoration:none">
-			View Group Calendar
-		</a>
-
-		<h2>Welcome to group  {{ group.name }}</h2>
 		<b>Creator of this group: </b>{{ group.creator_group }}<br/>
 		<b>Description: </b>{{ group.describe }}<br/>
 		<b>Created time: </b>{{ group.created }}<br/>
 	
 		<h3>Group members: </h3>
-		<table width="100%" border="1px">
+		<table width="100%" border="1px solid blue;">
 		{% for n, mem, pic in listmem %}
 		{% if n|divisibleby:"3" %}
 			<tr>
@@ -40,7 +36,7 @@
 						<img src="{{ pic.photo.url }}" height="30%" width="30%" />
 					</a>
 				{% else %}
-				<img src="/media/file/photo/icon_exclaim.gif" alt="{{ username }}" height="30%" width="30%" />									 				{% endif %}
+				<img src="/media/file/photo/icon_exclaim.gif" alt="{{ username }}" height="10%" width="10%" />									 				{% endif %}
 				 </br>
 				{{ mem.user_mem.username }} </br>
 				Can create event? {{ mem.can_create }} |

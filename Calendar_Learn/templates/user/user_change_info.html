@@ -1,0 +1,13 @@
+{% extends "base_user.html" %}
+{% block user %}
+    <div>
+        <form method="post" action=".">
+            <table>
+                {% csrf_token %}
+                {{ changename.as_table }}
+            </table>
+            <input type="submit" value="Change" class="btn">
+        </form>
+    </div>
+
+{% endblock %}

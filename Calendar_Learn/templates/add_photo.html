@@ -1,11 +1,15 @@
-{% extends "base.html" %}
+{% extends "base_user.html" %}
 
 {% block content %}
 <div class="head2">
 	<div class="column2">
+        <h1 style="margin-bottom: 3%;">Add photo</h1>
 		<form enctype="multipart/form-data" action="." method="post">{% csrf_token %}
-			{{ form.as_p }}
-			<input type="submit" value="Upload" />
+            <table>
+                {{ form.as_table }}
+            </table>
+
+			<input type="submit" value="Upload" class="btn"style="margin-top: 2%;"/>
 		</form>
 	</div>
 </div>

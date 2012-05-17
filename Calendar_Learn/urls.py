@@ -57,4 +57,8 @@ urlpatterns = patterns('',
 		{'document_root': site_media}),
 	(r'^media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': ''}),
+
+    (r'^user/(\w+)/password_change/$',user_password_change),
+    (r'^user/(\w+)/user_change_info/$',user_change_info),
+    (r"^help/", help),
 )

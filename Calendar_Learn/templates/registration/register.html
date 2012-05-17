@@ -30,30 +30,34 @@
             <img src="/site_media/bootstrap/img/logo.gif" style="margin-top: -100px;" />
         </div>
         <form class="well form-actions" action="." method="post" style="text-align: right; width: 320px;"> {% csrf_token %}
-            <p>
-                Username:
-                <input class="input-large" type="text" name="username" id="id_username" />
-            </p>
-            <p>
-                Password:
-                <input class="input-large" type="password" name="password1" id="id_password1" />
-            </p>
-            <p>
-                Password again:
-                <input class="input-large" type="password" name="password2" id="id_password2" />
-            </p>
-            <p>
-                Email:
-                <input class="input-large" type="text" name="email" id="id_email" />
-            </p>
-            <p>
-                First name:
-                <input class="input-large" type="text" name="first_name" id="id_first_name" />
-            </p>
-            <p>
-                Last name:
-                <input class="input-large" type="text" name="last_name" id="id_last_name" />
-            </p>
+{#            <p>#}
+{#                Username:#}
+{#                <input class="input-large" type="text" name="username" id="id_username" />#}
+{#            </p>#}
+{#            <p>#}
+{#                Password:#}
+{#                <input class="input-large" type="password" name="password1" id="id_password1" />#}
+{#            </p>#}
+{#            <p>#}
+{#                Password again:#}
+{#                <input class="input-large" type="password" name="password2" id="id_password2" />#}
+{#            </p>#}
+{#            <p>#}
+{#                Email:#}
+{#                <input class="input-large" type="text" name="email" id="id_email" />#}
+{#            </p>#}
+{#            <p>#}
+{#                First name:#}
+{#                <input class="input-large" type="text" name="first_name" id="id_first_name" />#}
+{#            </p>#}
+{#            <p>#}
+{#                Last name:#}
+{#                <input class="input-large" type="text" name="last_name" id="id_last_name" />#}
+{#            </p>#}
+            <table>
+            {{ form.as_table }}
+            </table>
+            <input class="btn" style="width: 15%;" value="Cancel" onclick="parent.location='/login'">
             <input class="btn" type="submit" value="Sign up" />
         </form>
     </div>

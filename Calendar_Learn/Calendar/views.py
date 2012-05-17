@@ -46,6 +46,14 @@ def _show_users(request):
 		s["show_users"] = True
 	return s["show_users"]
 
+@login_required(login_url = '/login/')
+def help(request):
+    return render_to_response("help.html", dict(
+        user=request.user,
+        username = request.user.username,
+    ))
+    return render_to_response('help.html')
+
 def logout_page(request):
 	logout(request)
 	return HttpResponseRedirect('/')
@@ -133,42 +141,118 @@ def user_page(request, username):
         	'is_friend': is_friend,
         	'info': info,
         	'image': image,
+
+            
         })
-        if request.user.username==username:
-            if request.method=='POST':
+        return render_to_response('user/user_page.html',variables)
 
-                changename = ChangeNameForm(request.POST)
-                if changename.is_valid():
-                    firstNew=changename.cleaned_data['first_name']
-                    lastNew=changename.cleaned_data['last_name']
-    
-                    if userprofile == None:
-                        userprofile = UserProfile.objects.create(
-                            first_name = firstNew,
-                            last_name = lastNew,
-                            birthday = date(2012, 5, 1),
-                            username = request.user,
-                        )
-                    else:
-                        userprofile.first_name = firstNew
-                        userprofile.last_name = lastNew
-                        #userprofile.birthday = birthNew
-                        userprofile.save()
-            else:
+#        else:
+#        return HttpResponseRedirect('/user/%s' %request.user.username)
+#        if request.user.username==username:
+#            if request.method=='POST':
+#                changename = ChangeNameForm(request.POST)
+#                if changename.is_valid():
+#                    firstNew=changename.cleaned_data['first_name']
+#                    lastNew=changename.cleaned_data['last_name']
+#                    emailNew = changename.cleaned_data['email']
+#                    birthNew = changename.cleaned_data['birthday']
+#                    if userprofile == None:
+#                        userprofile = UserProfile.objects.create(
+#                            first_name = firstNew,
+#                            last_name = lastNew,
+#                            birthday = birthNew,
+#                            username = request.user,
+#                        )
+#                    else:
+#                        userprofile.first_name = firstNew
+#                        userprofile.last_name = lastNew
+#                        userprofile.birthday = birthNew
+#                        user.email = emailNew
+#                        userprofile.save()
+#                        user.save()
+#            else:
+#
+#                if userprofile == None:
+#                    changename = ChangeNameForm()
+#                else:
+#                    changename = ChangeNameForm({
+#                        'first_name': userprofile.first_name,
+#                        'last_name': userprofile.last_name,
+#                        'birthday': userprofile.birthday,
+#                        'email': user.email,
+#                    })
 
+
+@login_required(login_url='/login/')
+def user_change_info(request, username):
+    user = get_object_or_404(User, username=username)
+    #username1=username
+    try:
+        info=UserProfile.objects.get(username=user)
+    except:
+        info=None
+    try:
+        image=Image.objects.get(user=user, is_use=True)
+    except:
+        image=None
+    try:
+        userprofile = UserProfile.objects.get(username = user)
+    except :
+        userprofile = None
+    #image=get_object_or_404(Image, user=request.user, is_use=True)
+    if request.user.is_authenticated():
+        is_friend = FriendShip.objects.filter(
+            from_friend = request.user,
+            to_friend = user,
+        )
+    else:
+        is_friend = False
+
+    variables = RequestContext(request, {
+        'user2': user,
+        'username': user.username,
+        'is_friend': is_friend,
+        'info': info,
+        'image': image,
+        })
+    if request.user.username==username:
+        if request.method=='POST':
+            changename = ChangeNameForm(request.POST)
+            if changename.is_valid():
+                firstNew=changename.cleaned_data['first_name']
+                lastNew=changename.cleaned_data['last_name']
+                emailNew = changename.cleaned_data['email']
+                birthNew = changename.cleaned_data['birthday']
                 if userprofile == None:
-                    changename = ChangeNameForm()
+                    userprofile = UserProfile.objects.create(
+                        first_name = firstNew,
+                        last_name = lastNew,
+                        birthday = birthNew,
+                        username = request.user,
+                    )
                 else:
-                    changename = ChangeNameForm({
-                        'first_name': userprofile.first_name,
-                        'last_name': userprofile.last_name,
-                        #'birthday': userprofile.birthday,
-                    })
-            return render_to_response('user/user_page.html',variables,RequestContext(request,{
-                    'changename':changename,
-                }))
+                    userprofile.first_name = firstNew
+                    userprofile.last_name = lastNew
+                    userprofile.birthday = birthNew
+                    user.email = emailNew
+                    userprofile.save()
+                    user.save()
         else:
-            return HttpResponseRedirect('/user/%s' %request.user.username)
+            if userprofile == None:
+                changename = ChangeNameForm()
+            else:
+                changename = ChangeNameForm({
+                    'first_name': userprofile.first_name,
+                    'last_name': userprofile.last_name,
+                    'birthday': userprofile.birthday,
+                    'email': user.email,
+                    })
+        return render_to_response('user/user_change_info.html',variables,RequestContext(request,{
+            'changename':changename,
+            }))
+    else:
+        return HttpResponseRedirect('/user/%s' %request.user.username)
+
 @login_required(login_url='/login/')
 def image_profile(request, username):
 	user = get_object_or_404(User, username=username)
@@ -347,6 +431,7 @@ def add_photo(request):
 		form = AddPhotoForm()
 
 	variables = RequestContext(request,{
+        'username' :request.user.username,
 		'form':form,
 	})
 	return render_to_response('add_photo.html',variables)
@@ -789,37 +874,31 @@ def add_csrf(request, **kwargs):
 	return d
 
 def register_page(request):
-	if request.method=='POST':
-		form=RegistrationForm(request.POST)
-		if form.is_valid():
-                        first = form.cleaned_data['first_name']
-                        last = form.cleaned_data['last_name']
-                        first_name = first
-                        last_name = last
+    if request.method=='POST':
+        form=RegistrationForm(request.POST)
+        if form.is_valid():
+            user=User.objects.create_user(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password2'],
+                email=form.cleaned_data['email']
+            )
+            user_profile=UserProfile.objects.create(
+                username=user,
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name']
 
-			user=User.objects.create_user(
-				username=form.cleaned_data['username'],
-				password=form.cleaned_data['password2'],
-				email=form.cleaned_data['email']
-			)
-			#user_profile=UserProfile.objects.create(
-			#	username=form.cleaned_data['username'],
-			#	first_name=form.cleaned_data['first_name'],
-			#	last_name=form.cleaned_data['last_name'],
-			#	birthday=form.cleaned_data['birthday']
-			#
-			#)
-			#user_profile.save()"""
-			return HttpResponseRedirect('/register/success/')
-	else:
-		form = RegistrationForm()
-	variables = RequestContext(request, {
-		'form': form
-	})
-	return render_to_response(
-		'registration/register.html',
-		variables
-	)
+            )
+            user_profile.save()
+            return HttpResponseRedirect('/register/success/')
+    else:
+        form = RegistrationForm()
+    variables = RequestContext(request, {
+        'form': form
+    })
+    return render_to_response(
+        'registration/register.html',
+        variables
+    )
 
 def reminders(request):
 	"""Return the list of reminders for today and tomorrow."""
@@ -877,7 +956,7 @@ def create_group(request):
 	return render_to_response('Group/create_group.html', variables)
 
 def group_view(request, groupname):
-	group=get_object_or_404(GroupCalendar, name=groupname)
+        group=get_object_or_404(GroupCalendar, name=groupname)
 
 	if request.user.is_authenticated():
 		is_mem = GroupMem.objects.filter(
@@ -901,13 +980,15 @@ def group_view(request, groupname):
 			pic_profile_mem=None
 		listmem.append((n, mem, pic_profile_mem))
 		n=n+1
-
+        nyear, nmonth, nday = time.localtime()[:3]
+        currentDate=[(nyear,nmonth,nday)]
 	variables=RequestContext(request, {
 		'group': group,
 		'listmem': listmem,
 		'is_mem': is_mem,
 		'down': n,
 		'username': request.user.username,
+                'currentDate':currentDate,
 	})
 
 	return render_to_response('Group/group.html', variables)
@@ -1136,3 +1217,30 @@ def month(request, year, month, change=None):
 		mname=mnames[month-1],
 		reminders=reminders(request)
 	))"""
+
+@login_required
+def user_password_change(request,username):
+    status=''
+    if request.user.username==username:
+        if request.method=='POST':
+            password_change_form=PasswordChangeForm(request.POST,label_suffix='')
+            if password_change_form.is_valid():
+                old_password=password_change_form.cleaned_data['old_password']
+                new_password=password_change_form.cleaned_data['new_password1']
+                if request.user.check_password(old_password):
+                    request.user.set_password(new_password)
+                    request.user.save()
+                    status='Your password has been changed successfully!'
+                else:
+                    status='Your old password is not correct!'
+            else:
+                status='The form is invalid!'
+        else:
+            password_change_form=PasswordChangeForm(label_suffix='')
+        variables = RequestContext(request, {
+            'username': request.user.username
+
+        })
+        return render_to_response('user/user_password_change.html',variables,RequestContext(request,{'password_change_form':password_change_form,'status':status,}))
+    else:
+        return HttpResponseRedirect('/user/%s' %request.user.username)

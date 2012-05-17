@@ -1,3 +1,5 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title>Calendar| {% block title %}{% endblock %}</title>
@@ -10,7 +12,7 @@
 
     <link rel="shortcut icon" href="/media/file/photo/SE.ICO" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="/site_media/style.css">
-    <link rel="stylesheet" type="text/css" href="/site_media/button.css">
+   <!-- <link rel="stylesheet" type="text/css" href="/site_media/button.css">-->
     <script type="text/javascript" src="/site_media/jquery.js"></script>
     <!-- <script type="text/javascript" src="/site_media/excanvas.js"></script> -->
     <script type="text/javascript" src="/site_media/coolclock.js"></script>
@@ -30,8 +32,8 @@
                 <ul class="nav pull-right">
                     <li><a href="/" style="color: white;"><i class="icon-white icon-home"></i> Home</a></li>
                     <li><a href="/user/{{ user.username }}" style="color:white;"><i class="icon-white icon-user"></i> Profile</a></li>
-                    <li><a href="#" style="color: white;"><i class="icon-white icon-flag"></i> Help</a></li>
-                    <li><a href="/login/" style="color: white;"><i class="icon-white icon-share"></i> Logout</a></li>
+                    <li><a href="/help/" style="color: white;"><i class="icon-white icon-flag"></i> Help</a></li>
+                    <li><a href="/logout/" style="color: white;"><i class="icon-white icon-share"></i> Logout</a></li>
                 </ul>
             </div><!-- /.nav-collapse -->
         </div>
@@ -61,7 +63,8 @@
                     <li class="nav-header">{{ user.username }}'s</li>
                     <li class="active"><a href="#"><i class="icon-white icon-comment"></i> Notification</a></li>
                     <li><a href="{% url Calendar.views.user_group username %}"><i class="icon-user"></i><i class="icon-user"></i> Group</a></li>
-                    <li><a href="#"><i class="icon-pencil"></i> Applications</a></li>
+                    {% block notification %}{% endblock %}
+
                 </ul>
             </div>
 
@@ -87,9 +90,9 @@
                         <p style="color: #0088cc; font-size: 15px;">SOLAR AND LUNAR</p>
                     </div>
                     <hr>
-                    <input type="text" name="day" class="span1" placeholder="Date" style="height: 25px;">
-                    <input type="text" name="month"class="span1" placeholder="Month" style="height: 25px;">
-                    <input type="text" name="year"class="span1" placeholder="Year" style="height: 25px;">
+                    <input type="text" name="day" class="span1" placeholder="Date" style="height: 20px;">
+                    <input type="text" name="month"class="span1" placeholder="Month" style="height: 20px;">
+                    <input type="text" name="year"class="span1" placeholder="Year" style="height: 20px;">
                     <div>
                         <br>
                         <input type="radio" name="typeConvert" value="duongAm" checked="checked" onClick="da(this.form)">

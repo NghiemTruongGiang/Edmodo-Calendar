@@ -136,13 +136,20 @@
                             {% elif day != 0 and not current %}style="background-color: rgba(71,71,71,0.30);"
                             {% else %}style="background-color: rgb(37,190,204);"{% endif %}
                                 {% if day != 0 %}
-                            onClick="parent.location='{% url Calendar.views.group_day group_name year month day %}';"
-{#                               onclick="parent.location='/{{ group_name }}'"#}
+                                    onClick="parent.location='{% url Calendar.views.group_day group_name year month day %}';"
                                 {% endif %} >
                             {{ day }}
                         </td>
                     {% endfor %}
                 </tr>
+                <tr>
+                    {% for day, day_month, entries, current in week %}
+                        <td class="span2">
+                            {% for entry in entries %}
+                                <button class="btn btn-primary disabled" style="width: 100%">{{ entry.title }}</button>
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
                 </tr>
             {% endfor %}
             </tbody>

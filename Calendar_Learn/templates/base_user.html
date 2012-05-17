@@ -1,11 +1,31 @@
 {% extends "base.html" %}
 {% block title %}User: {{ username }}{% endblock %}
+{% block notification %}
+    <li>
+        <a href="/user/{{ user.username }}">Infomation</a>
+    </li>
+    <li>
+        <a href="/add_photo">Add photo</a>
+    </li>
+    <li><a href="/user/{{ username }}/photo">My photo</a></li>
+    <li><a href="{% url Calendar.views.user_password_change username %}"><i class=""></i>Change password</a></li>
+    <li>
+        <a href="/user/{{ user.username }}/user_change_info">Change Infomation</a>
+    </li>
 
-{% block content %}
+{#    <li>#}
+{#        <a href="/user/{{ user.username }}/group">Group</a>#}
+{#    </li>#}
+{#    <li>#}
+{#        <a href="/user/{{ user.username }}/friend">Friends</a>#}
+{#    </li>#}
 
-
-{% block user %}
+{#    <li>#}
+{#        <a href="">Calendar</a>#}
+{#    </li>#}
 {% endblock %}
 
-
+{% block content %}
+{% block user %}
+{% endblock %}
 {% endblock %}

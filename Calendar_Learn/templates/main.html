@@ -40,39 +40,6 @@
             </tr>
         </table>
     </div>
-    <!--
-    <div>
-        {% for year, months in years %}
-        <table style="text-align: center;">
-            <thead>
-            <tr>
-                <td style="background-color: #4b99ff; border: 1px solid #4b99ff;" colspan="4">
-                    <p style="font-size: 20px; padding-top: 10px;color: white;">{{ year }}</p>
-                </td>
-            </tr>
-            </thead>
-            <tr>
-                {% for month in months %}
-                    <td style="border: 1px solid #4b99ff;background-color: white;" class="span3">
-                    <a href="{% url Calendar.views.month year month.n %}" style="text-decoration:none">
-                        {% if month.entry %}<b style="color: #000000;">{%  endif %}
-                        {% if month.current %}<b style="color: red;">{% endif %}
-                        {% if not month.entry and not month.current %}<p style="color: #000066;">{% endif %}
-                        {{ month.name }}
-                        {% if not month.entry and not month.current %}</p>{% endif %}
-                        {% if month.entry %}</b>{%  endif %}
-                        {% if month.current %}</b>{% endif %}
-                    </a>
-                    </td>
-
-                    {% if month.n == 4 or month.n == 8 %}</tr>{% endif %}
-                {% endfor %}
-                <hr>
-            </table>
-        {% endfor %}
-    </div>
-    -->
-
     <div class="container-fluid">
         {% for year, months in years %}
         <hr>
