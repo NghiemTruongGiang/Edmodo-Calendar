@@ -68,9 +68,9 @@
             {% for week_days, week_events in month_days %}
                 <tr>
                 {% for day, day_month, current in week_days %}
-                    <td {% if day == 0 or day_month != month %}style="background-color: white;"
-                            {% elif day != 0 and not current %}style="background-color: rgba(71,71,71,0.30);"
-                            {% else %}style="background-color: rgb(37,190,204);"{% endif %}
+                    <td {% if day == 0 or day_month != month %}style="background-color: white;"{% endif %}
+                            {% if day != 0 and not current %}style="background-color: rgba(71,71,71,0.30);"{% endif %}
+                            {% if day != 0 and current %}style="background-color: rgb(37,190,204);"{% endif %}
                             {% if day != 0 %}
                                 onClick="parent.location='{% url Calendar.views.day year month day %}';"
                             {% endif %} >
