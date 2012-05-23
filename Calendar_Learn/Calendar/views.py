@@ -48,11 +48,16 @@ def _show_users(request):
 
 @login_required(login_url = '/login/')
 def help(request):
+    try:
+        image=Image.objects.get(user=request.user, is_use=True)
+    except:
+        image=None
     return render_to_response("help.html", dict(
         user=request.user,
         username = request.user.username,
+        image=image,
     ))
-    return render_to_response('help.html')
+#    return render_to_response('help.html')
 
 def logout_page(request):
 	logout(request)
@@ -948,7 +953,7 @@ def create_group(request):
 			)
 			groupcalendar.save()
 
-			return HttpResponseRedirect('/Group/group.html/')
+			return HttpResponseRedirect('/user/%s/group' %request.user.username)
 	else:
 		form=CreateGroupForm()
 	variables=RequestContext(request, { 'form':form, 'username':request.user.username })
@@ -1220,6 +1225,10 @@ def month(request, year, month, change=None):
 
 @login_required
 def user_password_change(request,username):
+    try:
+        image=Image.objects.get(user=request.user, is_use=True)
+    except:
+        image=None
     status=''
     if request.user.username==username:
         if request.method=='POST':
@@ -1238,8 +1247,8 @@ def user_password_change(request,username):
         else:
             password_change_form=PasswordChangeForm(label_suffix='')
         variables = RequestContext(request, {
-            'username': request.user.username
-
+            'username': request.user.username,
+            'image':image,
         })
         return render_to_response('user/user_password_change.html',variables,RequestContext(request,{'password_change_form':password_change_form,'status':status,}))
     else:

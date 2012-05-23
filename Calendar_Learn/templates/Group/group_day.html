@@ -16,15 +16,42 @@
 			{{ entries.management_form }}
 			{% for entry in entries.forms %}
 				{{ entry.id }}
-				<div>
-					<div>
-						<p>Title {{ entry.title }}</p>
-						<p>Snippet {{ entry.snippet }}</p>
-					</div>
-					<p>Remind {{ entry.remind }}</p>
-					{{ entry.body }}
-                    <div>Delete {{ entry.DELETE }}</div>
-				</div>
+{#				<div>#}
+{#					<div>#}
+{#						<p>Title {{ entry.title }}</p>#}
+{#						<p>Snippet {{ entry.snippet }}</p>#}
+{#					</div>#}
+{#					<p>Remind {{ entry.remind }}</p>#}
+{#					{{ entry.body }}#}
+{#                    <div>Delete {{ entry.DELETE }}</div>#}
+{#				</div>#}
+                <table style="width:100%;text-align: center; border:3px #5f9ea0 solid"border="0">
+                    <tr>
+                        <td style="padding-top: 5%">Title</td>
+                        <td style="padding-top: 5%">
+                            {{ entry.title }}
+                        </td>
+                        <td rowspan="2" style="padding-top: 3%">
+                            {{ entry.body }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Snippet
+                        </td>
+                        <td >
+                            {{ entry.snippet }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div style="text-align: left;margin-left: 20%">
+                                Remind:&nbsp;&nbsp;{{ entry.remind }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Delete:&nbsp;&nbsp;{{ entry.DELETE }}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
 			{% endfor %}
 			<input type="submit" value="Save" />
 		</form>

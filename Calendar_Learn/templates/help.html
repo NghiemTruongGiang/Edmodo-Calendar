@@ -1,104 +1,108 @@
 {% extends 'base.html' %}
 {% block external %}
-{#    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/docs.css">#}
-    <link rel="stylesheet" type="text/css" href="/site_media/bootstrap/css/prettify.css">
-    <link rel="stylesheet" type="text/css" href="/site_media/help.css">
+
 {% endblock %}
 {% block content %}
-    <div class="page-header">
-        <h1>User guide</h1>
-    </div>
+    <div align="left" style="font-size: 16px;">
+        <div class="page-header">
+            <h1>User guide</h1>
+        </div>
+        <br>
+        <h3>Introduction</h3>
+        <div style="border-top: 2px solid rgba(0,0,0,0.55);">
+            <div>
+            Edmodo Calendar - Team3 provides an effective online calendar</br>
+            <br>Main function</br>
+                <div class="body body2">
+                    . See current time, and any date
+                    <br>. Creating timetable
+                    <br>. Manage your timetable, group's works
+                    <br>. Sharing timetable
+                    <br>. Creating timetable for group
+                    <br>. Remind note, mission, assginment...
+                    <br>. Convert between Lunar and Solar date
+                </div>
+            </div>
+        </div>
+        <br>
+        <h3>login</h3>
+        <div style="border-top: 2px solid rgba(0,0,0,0.55);">
+            <div>
+                To login, type your username and password in "Username" and "Password" box at homepage
 
-    <h3 class="header1">Introduction</h3>
-    <div class="line">
-        <div class="body">
-        Edmodo Calendar - Team3 provides an effective online calendar</br>
-        <br>Main function</br>
-            <div class="body body2">
-                . See current time, and any date
-                <br>. Creating timetable
-                <br>. Manage your timetable, group's works
-                <br>. Sharing timetable
-                <br>. Creating timetable for group
-                <br>. Remind note, mission, assginment...
-                <br>. Convert between Lunar and Solar date
+                Click "Login" button to login and start using your calendar
+            </div>
+        </div>
+
+        <br>
+        <h3>logout</h3>
+        <div style="border-top: 2px solid rgba(0,0,0,0.55);">
+            <div>
+                To logout, click on the Account button at the top right on user page
+
+                Click logout
+            </div>
+        </div>
+
+        <br>
+        <h3>user</h3>
+        <div style="border-top: 2px solid rgba(0,0,0,0.55);">
+            <div>
+
+                User can create group, add photos, add friends and use group's calendar.
+
+                To use user function, click on the Profile button at the user page.
+
+                <h4>infomation</h4>
+                <div>To see your information, click Information button.</div>
+
+                <h4>Photo</h4>
+                <div>
+                    To see your photos, click on "My photo" button.
+
+                    After that, to add photo, click on "Add photo" button.
+                </div>
+
+                <h4>Group</h4>
+                <div>
+                    To create group, click "Group" button, then click "Create group"
+                </div>
+
+            </div>
+        </div>
+
+        <br>
+        <h3>Lunar Solar Convert</h3>
+        <div style="border-top: 2px solid rgba(0,0,0,0.55);">
+            <div>
+                Look at Lịch Việt Nam on the bottom right at user page.
+
+                To convert date between Lunar date and Solar date type the date, month, year on "Ngày", "Tháng", "Năm" box.
+
+                Click on circle button Duong --> Am to convert Solar date to Lunar date
+
+                Click on circle button Am --> Duong to convert Lunar date to Solar date
+
+                Click on "Chuyển đổi" button to convert
+            </div>
+        </div>
+
+        <br>
+        <h3>Note</h3>
+        <div style="border-top: 2px solid rgba(0,0,0,0.55);">
+            <div>
+                To make note
+                . Double click on any date on the calendar
+                . Write your note/ mission/ assignment or anything at that box
+
+                To modify note
+                . Double click on date which you want to modify
+                . Erase old note and write your new note
+
+                To delete note
+                . Double click on date which you want to delete
+                . Erase whole the note
             </div>
         </div>
     </div>
-    <h3 class="header1">login</h3>
-    <div class="line">
-        <div class="body">
-            To login, type your username and password in "Username" and "Password" box at homepage
-
-            Click "Login" button to login and start using your calendar
-        </div>
-    </div>
-
-
-    <h3 class="header1">logout</h3>
-    <div class="line">
-        <div class="body">
-            To logout, click on the Account button at the top right on user page
-
-            Click logout
-        </div>
-    </div>
-
-    <h3 class="header1">user</h3>
-    <div class="line">
-        <div class="body">
-
-            User can create group, add photos, add friends and use group's calendar.
-
-            To use user function, click on the Profile button at the user page.
-
-            <h4 class="header2">infomation</h4>
-            <div class="body2">To see your information, click Information button.</div>
-
-            <h4 class="header2">Photo</h4>
-            <div class="body2">
-                To see your photos, click on "My photo" button.
-
-                After that, to add photo, click on "Add photo" button.
-            </div>
-
-            <h4 class="header2">Group</h4>
-            <div class="body body2">
-                To create group, click "Group" button, then click "Create group"
-            </div>
-
-        </div>
-    </div>
-
-    <h3 class="header1">Lunar Solar Convert</h3>
-    <div class="line">
-        <div class="body">
-            Look at Lịch Việt Nam on the bottom right at user page.
-
-            To convert date between Lunar date and Solar date type the date, month, year on "Ngày", "Tháng", "Năm" box.
-
-            Click on circle button Duong --> Am to convert Solar date to Lunar date
-
-            Click on circle button Am --> Duong to convert Lunar date to Solar date
-
-            Click on "Chuyển đổi" button to convert
-        </div>
-    </div>
-    <h3 class="header1">Note</h3>
-    <div class="line">
-        <div class="body">
-            To make note
-            . Double click on any date on the calendar
-            . Write your note/ mission/ assignment or anything at that box
-
-            To modify note
-            . Double click on date which you want to modify
-            . Erase old note and write your new note
-
-            To delete note
-            . Double click on date which you want to delete
-            . Erase whole the note
-        </div>
-    </div>
-
 {% endblock %}
